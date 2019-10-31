@@ -4,10 +4,10 @@
             ورود به حساب شخصی
         </p>
         <p>
-            <input required type="text" name="username" id="username"  class="miniborderitems" placeholder="نام کاربری یا پست الکترونیک">
+            <input required v-model="username" @blur="checkUsername" type="text" name="username" id="username"  class="miniborderitems" placeholder="نام کاربری یا پست الکترونیک">
         </p>
         <p>
-            <input required type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
+            <input required v-model="password" @blur="checkPassword" type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
         </p>
         <button class="miniborderbutton">
             ورود
@@ -17,7 +17,42 @@
 </template>
 
 <script>
+    export default {
+    name: "App",
+    data: function() {
+        return {
+        username: "",
+        password: "",
+        submitEnable: checkButton
+        };
+    },
+    methods: {
 
+        checkUsername: function(){  //TODO: body should be implemented
+           if(this.username.length > 3){
+               console.log("username is fine")
+               //TODO: change style of the username field
+               return true;
+           }else{
+               console.log("username is wrong")
+               //TODO: change style of the username field
+               return false;
+           }
+        },
+
+        checkPassword: function(){  //TODO: body should be implemented
+            if(this.password.length> 10){
+                console.log("password is fine")
+                //TODO: change style of the username field
+                return true;
+            }else{
+                console.log("password is wrong")
+                //TODO: change style of the username field
+                return false;
+            }
+        }
+    }
+    };
 </script>
 
 
