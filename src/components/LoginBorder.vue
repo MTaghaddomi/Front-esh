@@ -21,8 +21,12 @@
     name: "App",
     data: function() {
         return {
+
+            
         username: "",
         password: "",
+
+
         };
     },
     computed:{
