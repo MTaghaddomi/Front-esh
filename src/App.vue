@@ -1,25 +1,23 @@
 <template>
     
     <div id="app">
-        <p>
-            <loginborder class="loginBox"> </loginborder>
-        </p>
+        <registerborder></registerborder>
         
     </div>
 
 </template>
 
 <script>
-import LoginBorder from './components/LoginBorder.vue'
+
+// import LoginBorder from './components/LoginBorder.vue'
+import RegisterBorder from './components/RegisterBorder.vue'
 export default{
     components: {
-        'loginborder': LoginBorder
+        // 'loginborder': LoginBorder,
+        'registerborder': RegisterBorder
     }
 }
-
-
-
-    
+ 
 </script>
 
 
