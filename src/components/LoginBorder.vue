@@ -9,7 +9,7 @@
         <p>
             <input required v-model="password" @blur="checkPassword" type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
         </p>
-        <button class="miniborderbutton">
+        <button class="miniborderbutton" :disabled="!checkSubmission">
             ورود
         </button>
         
@@ -23,11 +23,15 @@
         return {
         username: "",
         password: "",
-        submitEnable: checkButton
         };
     },
+    computed:{
+        checkSubmission: function(){
+            console.log("checked")
+            return this.checkUsername() && this.checkPassword();
+        }
+    },
     methods: {
-
         checkUsername: function(){  //TODO: body should be implemented
            if(this.username.length > 3){
                console.log("username is fine")
