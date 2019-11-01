@@ -8,7 +8,7 @@
  type="text" name="username" id="username"  class="miniborderitems" placeholder="نام کاربری یا پست الکترونیک">
         </p>
         <p>
-            <input required v-model="password" @blur="checkPassword" type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
+            <input required v-model="password" @blur="checkPassword" v-bind:style ="checkPassword() ? 'border: 2px solid green;' : 'border: 2px solid red;'" type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
         </p>
         <button class="miniborderbutton">
             ورود
