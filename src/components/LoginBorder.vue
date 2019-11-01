@@ -4,7 +4,8 @@
             ورود به حساب شخصی
         </p>
         <p>
-            <input required v-model="username" @blur="checkUsername" type="text" name="username" id="username"  class="miniborderitems" placeholder="نام کاربری یا پست الکترونیک">
+            <input required v-model="username" @blur="checkUsername()" v-bind:style ="checkUsername() ? 'border: 2px solid green;' : 'border: 2px solid red;' "
+ type="text" name="username" id="username"  class="miniborderitems" placeholder="نام کاربری یا پست الکترونیک">
         </p>
         <p>
             <input required v-model="password" @blur="checkPassword" type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
@@ -23,33 +24,37 @@
         return {
         username: "",
         password: "",
-        submitEnable: checkButton
+        submitEnable: false,//checkButton
+        validation:false,
         };
     },
     methods: {
 
         checkUsername: function(){  //TODO: body should be implemented
            if(this.username.length > 3){
-               console.log("username is fine")
-               //TODO: change style of the username field
+               console.log("username is fine");
                return true;
            }else{
-               console.log("username is wrong")
+               console.log("username is wrong");
                //TODO: change style of the username field
                return false;
            }
         },
 
         checkPassword: function(){  //TODO: body should be implemented
-            if(this.password.length> 10){
-                console.log("password is fine")
+            if(this.password.size> 10){
+                console.log("password is fine");
                 //TODO: change style of the username field
                 return true;
             }else{
-                console.log("password is wrong")
+                console.log("password is wrong");
+
                 //TODO: change style of the username field
                 return false;
             }
+        },
+        checkButton:function(){
+            return false;
         }
     }
     };
@@ -69,7 +74,6 @@
     border-radius: 25px;
     margin-left: 450px;
     margin-top: 55px;
-    background-image:url('../assets/img/16042851.jpg');
 }
 .miniborderitems{
     width : 70%;
