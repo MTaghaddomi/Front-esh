@@ -47,7 +47,6 @@ export default{
             registerenable: false
         }
     },
-
     methods:{
         checkfirstname: function(){
             var nametest =/^(?![\s.]+$)[a-zA-Z\s.]+$/
