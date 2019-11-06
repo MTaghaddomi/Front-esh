@@ -35,13 +35,14 @@
         <p>
             <input type="checkbox" name="subscription" v-model="subscribed"> میخواهم آخرین اخبار مربوط به سایت را از طریق ایمیل دریافت کنم
         </p>
-        <button class="miniborderbutton" :disabled="!checkSubmission">
+        <button class="miniborderbutton" :disabled="!checkSubmission" @click="postData">
             ثبت نام
         </button>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default{
     data: function(){
         return{
@@ -136,7 +137,23 @@ export default{
                 //TODO: change style of the username field
                 return false;
             }
+        },
+        postData: function(){
+            const newRegister = {
+                firstName: this.firstname,
+                lastName: this.lastname,
+                phoneNumber: this.phonenumber,
+                birthday: new String(this.dateofbirth.year+"/"+this.dateofbirth.month+"/"+this.dateofbirth.day),
+                email: this.email,
+                username: this.username,
+                password: this.password,
+                subscribed: this.subscribed,
+            }
+            axios.post('/registers.json',newRegister)
+            .then((res)=>{console.log("success on register"); alert("Welcome");})
+            .catch((error)=>{console.log("reigster failed");  alert("register failed")})
         }
+
     }
 }
 </script>
