@@ -9,7 +9,7 @@
         <p>
             <input required v-model="password" @blur="checkPassword" type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
         </p>
-        <button class="miniborderbutton"  :disabled="!checkSubmission">
+        <button class="miniborderbutton"  :disabled="!checkSubmission" @click="postData">
             ورود
         </button>
         
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-
+import axios from 'axios'
     export default {
 
     data: function() {
@@ -56,6 +56,36 @@
                 return false;
             }
         },
+
+
+
+
+         fail: function(error){
+             if(error.status == 404){
+                 console.log("Incorrect username or password!!!")
+             }else{
+                 console.log("Something went wrong!!")
+             }
+           
+             //TODO: change style of the login border
+         },
+         welcome: function(res){
+             console.log("sign in approved")
+             //TODO: Extract the token out of the response
+             //TODO: use the token to get the data
+   
+         },
+         postData: function(){
+             const loginRequest ={
+                 username: this.username,
+                 password: this.password 
+             }
+             console.log(loginRequest)
+             axios.post('/users.json',loginRequest)
+             .then((res)=>{console.log(res); this.welcome(res)})
+             .catch((error)=> {console.log(error); this.fail(error)})
+         }
+
 
     }   
     };
