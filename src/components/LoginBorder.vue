@@ -4,10 +4,10 @@
             ورود به حساب شخصی
         </p>
         <p>
-            <input required v-model="username" @blur="checkUsername()"  type="text" name="username" id="username"  class="miniborderitems" placeholder="نام کاربری یا پست الکترونیک">
+            <input required v-model="username" @blur="checkUsername()"  v-bind:class="[checkUsername() ? 'TrueInput' : 'falseInput']"  type="text" name="username" id="username"  class="miniborderitems" placeholder="نام کاربری یا پست الکترونیک">
         </p>
         <p>
-            <input required v-model="password" @blur="checkPassword()"  type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
+            <input required v-model="password" @blur="checkPassword()" v-bind:class="[checkPassword() ? 'TrueInput' : 'falseInput']"  type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
         </p>
         <button class="miniborderbutton button5">
             ورود
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { required, minLength, between } from 'vuelidate/lib/validators'
     export default {
 
     data: function() {
@@ -37,15 +38,22 @@
             return this.checkUsername() && this.checkPassword();
         }
     },
+    validation:{
+        username:{
+            required,
+            minLength: minLength(3)
+        },
+    },
     methods: {
         checkUsername: function(){  //TODO: body should be implemented
            if(this.username.length > 3){
-              // console.log("username is fine");
+               console.log("username is fine");
                return true;
-           }else{
-            //   console.log("username is wrong");
+              }else{
+               console.log("username is wrong");
                //TODO: change style of the username field
                return false;
+
            }
         },
 
@@ -56,7 +64,6 @@
                 return true;
             }else{
                // console.log("password is wrong");
-
                 //TODO: change style of the username field
                 return false;
             }
@@ -133,5 +140,11 @@
     font-size: 20;
     font-weight: bold;
     color:darkorchid;
+}
+.falseInput{
+    border: 2 px solid red;
+}
+.TrueInput{
+border: 2 px solid green;
 }
 </style>
