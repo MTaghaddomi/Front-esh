@@ -1,5 +1,5 @@
 <template>
-    <div class = "miniborders" style="text-align: center">   
+    <div class = "miniborders " style="text-align: center">   
         <p class="minibordertext">
             ورود به حساب شخصی
         </p>
@@ -13,22 +13,31 @@
             ورود
         </button>
         
+        
     </div>
+
 </template>
 
 <script>
     export default {
-    name: "App",
+
     data: function() {
         return {
+
+         
         username: "",
         password: "",
         submitEnable: false,//checkButton
         validation:false,
         };
     },
+    computed:{
+        checkSubmission: function(){
+            console.log("checked")
+            return this.checkUsername() && this.checkPassword();
+        }
+    },
     methods: {
-
         checkUsername: function(){  //TODO: body should be implemented
            if(this.username.length > 3){
               // console.log("username is fine");
@@ -90,7 +99,7 @@
 }
 .miniborderbutton{
 
-  background-color: white; /* Green */
+  background-color: white; 
   border: 2 px solid purple;
   color: black;
   padding: 16px 32px;
@@ -99,7 +108,7 @@
   font-size: 16px;
   font-weight: bold;
   margin: 4px 2px;
-  -webkit-transition-duration: 0.4s; /* Safari */
+  -webkit-transition-duration: 0.4s; 
   transition-duration: 0.4s;
   cursor: pointer;
   margin-bottom: 20%;

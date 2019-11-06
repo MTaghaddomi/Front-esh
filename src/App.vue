@@ -1,25 +1,28 @@
 <template>
-    
     <div id="app">
-        <p>
-            <loginborder class="loginBox"> </loginborder>
-        </p>
+            
         
+        <h1 v-if="checkRoute">خوش آمدید</h1> 
+        <!-- will only be displayed when we are at the home page url has only a '/'-->
+        
+       
+        <router-view></router-view>
     </div>
-
+    
 </template>
 
 <script>
-import LoginBorder from './components/LoginBorder.vue'
 export default{
-    components: {
-        'loginborder': LoginBorder
-    }
+    computed: {
+        checkRoute: function(){
+            if(this.$route.path==='/') 
+                return true;
+            return false;
+        }
+    },
+   
 }
 
-
-
-    
 </script>
 
 
