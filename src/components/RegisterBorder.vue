@@ -90,7 +90,16 @@ export default{
         },
         checknumber: function(){
             //TODO: phone number validation using regex
-            return true;
+            var numbertest = /^09[0-9]{9}$/
+            if(numbertest.test(this.phonenumber)){
+                console.log("phonenumber is ok")
+                //TODO: put a checkmark on the phonenumber
+                return true;
+            }else{
+                console.log("phonenumber is wrong")
+                //TODO: change style of the phonenumber
+                return false;
+            }
         },
         checkemail: function(){
             var emailtest = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
