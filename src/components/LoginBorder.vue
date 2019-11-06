@@ -9,7 +9,7 @@
         <p>
             <input required v-model="password" @blur="checkPassword" type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
         </p>
-        <button class="miniborderbutton" :disabled="!checkSubmission">
+        <button class="miniborderbutton"  :disabled="!checkSubmission">
             ورود
         </button>
         
@@ -17,26 +17,23 @@
 </template>
 
 <script>
+
     export default {
 
     data: function() {
         return {
-
-         
-        username: "",
-        password: "",
-
-
+            username: "",
+            password: "",
         };
     },
     computed:{
         checkSubmission: function(){
-            console.log("checked")
             return this.checkUsername() && this.checkPassword();
-        }
+        },
     },
-    methods: {
-        checkUsername: function(){  //TODO: body should be implemented
+    methods:{
+        
+        checkUsername: function(){  //TODO: Regex should be implemented
            if(this.username.length > 3){
                console.log("username is fine")
                //TODO: change style of the username field
@@ -48,8 +45,8 @@
            }
         },
 
-        checkPassword: function(){  //TODO: body should be implemented
-            if(this.password.length> 10){
+        checkPassword: function(){
+            if(this.password.length>8){
                 console.log("password is fine")
                 //TODO: change style of the username field
                 return true;
@@ -58,8 +55,9 @@
                 //TODO: change style of the username field
                 return false;
             }
-        }
-    }
+        },
+
+    }   
     };
 </script>
 

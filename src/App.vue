@@ -5,7 +5,8 @@
         <h1 v-if="checkRoute">خوش آمدید</h1> 
         <!-- will only be displayed when we are at the home page url has only a '/'-->
 
-        <router-view></router-view>
+        <router-view></router-view> 
+
     </div>
 
 </template>

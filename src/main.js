@@ -3,9 +3,10 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 
 import {routes} from './routes'
-
+import axios from 'axios'
 Vue.config.productionTip = false
 
+axios.defaults.baseURL = 'https://front-esh.firebaseio.com'
 
 Vue.use(VueRouter);
 
