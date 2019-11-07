@@ -1,7 +1,13 @@
 <template>
+
     <div class = "miniborders " style="text-align: center">   
         <p class="minibordertext">
-            ورود به حساب شخصی
+            <v-toolbar >
+                <v-toolbar-title>
+                    ورود به حساب شخصی
+                </v-toolbar-title>
+            </v-toolbar>
+        
         </p>
         <p>
             <input required v-model="username" @blur="checkUsername()"  v-bind:class="[checkUsername() ? 'TrueInput' : 'falseInput']"  type="text" name="username" id="username"  class="miniborderitems" placeholder="نام کاربری یا پست الکترونیک">
@@ -57,14 +63,12 @@ import { required, minLength, between } from 'vuelidate/lib/validators'
            }
         },
 
-        checkPassword: function(){  //TODO: body should be implemented
+        checkPassword: function(){  
             if(this.password.size> 10){
-              //  console.log("password is fine");
-                //TODO: change style of the username field
+             
                 return true;
             }else{
-               // console.log("password is wrong");
-                //TODO: change style of the username field
+              
                 return false;
             }
         },
@@ -83,7 +87,7 @@ import { required, minLength, between } from 'vuelidate/lib/validators'
     min-width: 20%;
     max-height: 10%;
     min-width: 30%;
-    border: 2px solid rebeccapurple;
+    border: 2px solid rgb(77, 75, 78);
     text-align: center;
     overflow: hidden;
     border-radius: 25px;
@@ -95,19 +99,19 @@ import { required, minLength, between } from 'vuelidate/lib/validators'
     height : 35px;
     margin-bottom: 3%;
     text-align: center;
-    border:2px solid palevioletred ;
+    border:2px solid rgb(104, 93, 97) ;
 }
 .miniborderitems2{
     width : 70%;
     height : 35px;
     margin-bottom: 30%;
     text-align: center;
-    border: 2px solid palevioletred;
+    border: 2px solid rgb(104, 93, 97);
 }
 .miniborderbutton{
 
   background-color: white; 
-  border: 2 px solid purple;
+  border: 2 px solid rgb(104, 80, 104);
   color: black;
   padding: 16px 32px;
   text-align: center;
@@ -130,7 +134,7 @@ import { required, minLength, between } from 'vuelidate/lib/validators'
 
 
 .miniborderbutton:hover {
-  background-color: #9276a8;
+  background-color: #838383;
   color: white;
 }
 .minibordertext{
@@ -139,7 +143,7 @@ import { required, minLength, between } from 'vuelidate/lib/validators'
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 20;
     font-weight: bold;
-    color:darkorchid;
+    color:rgb(0, 0, 0);
 }
 .falseInput{
     border: 2 px solid red;
