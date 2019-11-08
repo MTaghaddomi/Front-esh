@@ -93,6 +93,7 @@ import { required, minLength, between } from 'vuelidate/lib/validators'
     border-radius: 25px;
     margin-left: 450px;
     margin-top: 55px;
+    background-color: #555555
 }
 .miniborderitems{
     width : 70%;

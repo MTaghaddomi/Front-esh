@@ -4,7 +4,7 @@
     <NavBar></NavBar>
     <div id="app">
            
-        <h1 v-if="checkRoute">خوش آمدید</h1> 
+        <h1 v-if="checkRoute">Welcome</h1> 
         <!-- will only be displayed when we are at the home page url has only a '/'-->
         
        
@@ -61,9 +61,8 @@ export default{
 
 /* Position text in the middle of the page/image */
 .container{
-    width: 1330px;
-    height:650px ;
-    border: 2px solid rgb(77, 75, 78);
+    width: 100vw;
+    height:100vw ;
     overflow: hidden;
      background-image: url("../src/assets/img/1.jpg");
  /* Center and scale the image nicely */
@@ -72,7 +71,19 @@ export default{
   background-size: cover;
   
 }
-
+.bouncy{
+    animation:bouncy 5s infinite linear;
+    position: relative;
+}
+@keyframes bouncy{
+    0%{top:0em}
+ 40%{top:0em}
+ 43%{top:-0.9em}
+ 46%{top:0em}
+ 48%{top:-0.4em}
+ 50%{top:0em}
+ 100%{top:0em;}
+}
  
 
 

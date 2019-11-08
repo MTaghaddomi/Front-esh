@@ -30,7 +30,7 @@
             <input required v-model="email" @blur="checkemail" type="text" name="email" id= "email" class="Registeritems" placeholder="پست الکترونیک">
         </p>
         <p>
-            <input type="checkbox" name="subscription" v-model="subscribed"> میخواهم آخرین اخبار مربوط به سایت را از طریق ایمیل دریافت کنم
+            <input type="checkbox" name="subscription" v-model="subscribed"><span class="registertext"> میخواهم آخرین اخبار مربوط به سایت را از طریق ایمیل دریافت کنم</span>
         </p>
         <button class="Registerbutton" :disabled="!registerenable">
             ثبت نام
@@ -94,8 +94,8 @@ export default{
 
 <style>
 .Registeritems{
-    width : 30%;
-    height : 35px;
+    width : 170px;
+    height : 20px;
     text-align: center;
     border: 2px solid rgb(77, 74, 74);
 }
@@ -113,8 +113,8 @@ export default{
   -webkit-transition-duration: 0.4s; 
   transition-duration: 0.4s;
   cursor: pointer;
-  border-radius: 20%;
-  width: 30%;
+  border-radius: 28px;
+  width: 140px;
 }
 .button5 {
   background-color: white;
