@@ -9,12 +9,23 @@
             </v-toolbar>
         
         </p>
-        <p>
-            <input required v-model="username" @blur="checkUsername()"  v-bind:class="[checkUsername() ? 'TrueInput' : 'falseInput']"  type="text" name="username" id="username"  class="miniborderitems" placeholder="نام کاربری یا پست الکترونیک">
-        </p>
-        <p>
-            <input required v-model="password" @blur="checkPassword()" v-bind:class="[checkPassword() ? 'TrueInput' : 'falseInput']"  type="password" name="password" id= "password" class="miniborderitems2" placeholder="کلمه عبور">
-        </p>
+       
+  <div class="form-group" :class="{ 'form-group--error': $v.username.$error }">
+    <label class="form__label"></label>
+    <input class="form__input miniborderitems" placeholder="username" v-model.trim="$v.username.$model"/>
+  </div>
+  <span class="error" v-if="!$v.username.required">Username is required.</span>
+  <!--<div class="error" v-if="!$v.username.isUnique">This username is already registered.</div>-->
+  <tree-view :data="$v.username" :options="{rootObjectKey: '$v.username', maxDepth: 2}"></tree-view>
+       <div class="form-group" :class="{ 'form-group--error': $v.password.$error }">
+    <label class="form__label"></label>
+    <input class="form__input miniborderitems2" placeholder="password" v-model.trim="$v.password.$model" type="password"/>
+  </div>
+  <div class="error" v-if="!$v.password.required">Field is required.</div>
+  <div class="error" v-if="!$v.password.minLength">Field must have at least {{ $v.password.$params.minLength.min }} characters.</div>
+ 
+  <tree-view :data="$v.password" :options="{rootObjectKey: '$v.password', maxDepth: 2}"></tree-view>
+
         <button class="miniborderbutton button5">
             ورود
         </button>
@@ -25,58 +36,28 @@
 </template>
 
 <script>
-import { required, minLength, between } from 'vuelidate/lib/validators'
-    export default {
+import { required , minLength } from 'vuelidate/lib/validators'
 
-    data: function() {
-        return {
-
-         
-        username: "",
-        password: "",
-        submitEnable: false,//checkButton
-        validation:false,
-        };
-    },
-    computed:{
-        checkSubmission: function(){
-            console.log("checked")
-            return this.checkUsername() && this.checkPassword();
-        }
-    },
-    validation:{
-        username:{
-            required,
-            minLength: minLength(3)
-        },
-    },
-    methods: {
-        checkUsername: function(){  //TODO: body should be implemented
-           if(this.username.length > 3){
-               console.log("username is fine");
-               return true;
-              }else{
-               console.log("username is wrong");
-               //TODO: change style of the username field
-               return false;
-
-           }
-        },
-
-        checkPassword: function(){  
-            if(this.password.size> 10){
-             
-                return true;
-            }else{
-              
-                return false;
-            }
-        },
-        checkButton:function(){
-            return false;
-        }
+export default {
+  data() {
+    return {
+      username: '',
+      password:'',
     }
-    };
+  },
+  validations: {
+    username: {
+      required,
+      minLength: minLength(4),
+    },
+    password: {
+        required,
+        minLength: minLength(8),
+      },
+  }
+}
+
+
 </script>
 
 
@@ -98,16 +79,16 @@ import { required, minLength, between } from 'vuelidate/lib/validators'
 .miniborderitems{
     width : 70%;
     height : 35px;
-    margin-bottom: 3%;
     text-align: center;
     border:2px solid rgb(104, 93, 97) ;
 }
 .miniborderitems2{
     width : 70%;
     height : 35px;
-    margin-bottom: 30%;
     text-align: center;
     border: 2px solid rgb(104, 93, 97);
+    margin-top: 7%;
+    
 }
 .miniborderbutton{
 
@@ -126,6 +107,7 @@ import { required, minLength, between } from 'vuelidate/lib/validators'
   margin-bottom: 20%;
   border-radius: 20%;
   width: 30%;
+  margin-top: 20%;
 }
 .button5 {
   background-color: white;

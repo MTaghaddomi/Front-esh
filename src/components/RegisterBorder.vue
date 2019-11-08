@@ -7,24 +7,32 @@
             
    <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
     <label class="form__label"></label>
-    <input class="form__input Registeritems" v-model.trim="$v.name.$model"/>
+    <input class="form__input Registeritems" placeholder="نام" v-model.trim="$v.name.$model"/>
   </div>
-  <div class="error" v-if="!$v.name.required">Field is required</div>
-  <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
+  <div class="error text-sm mt-2 text-red" v-if="!$v.name.required">*Field is required</div>
+  <div class="error text-sm mt-2 text-red" v-if="!$v.name.minLength">*Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
   <tree-view :data="$v.name" :options="{rootObjectKey: '$v.name', maxDepth: 2}"></tree-view>
-  <div class="form-group" :class="{ 'form-group--error': $v.age.$error }">
+  <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
     <label class="form__label"></label>
-    <input class="form__input Registeritems" v-model.trim="$v.age.$model"/>
+    <input class="form__input Registeritems" placeholder="نام خانوادگی" v-model.trim="$v.lastname.$model"/>
   </div>
-  <div class="error" v-if="!$v.age.between">Must be between {{$v.age.$params.between.min}} and {{$v.age.$params.between.max}}</div>
-  <tree-view :data="$v.age" :options="{rootObjectKey: '$v.age', maxDepth: 2}"></tree-view>
+  <div class="error" v-if="!$v.lastname.required">*Field is required</div>
+  <div class="error" v-if="!$v.lastname.minLength">*LastName must have at least {{$v.lastname.$params.minLength.min}} letters.</div>
+  <tree-view :data="$v.name" :options="{rootObjectKey: '$v.lastname', maxDepth: 2}"></tree-view>
   <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
   <label class="form__label"></label>
     <input class="form__input Registeritems" placeholder="پست الکترونیک" v-model.trim="$v.email.$model"/>
   </div>
-  <div class="error" v-if="!$v.email.required">Email is required</div>
-  <div class="error" v-if="!$v.email.email">Email is not a properly formatted email address</div>
+  <div class="error " v-if="!$v.email.required">*Email is required</div>
+  <div class="error " v-if="!$v.email.email">*Email is not a properly formatted email address</div>
   <tree-view :data="$v.email" :options="{rootObjectKey: '$v.email', maxDepth: 2}"></tree-view>
+     <div class="form-group" :class="{ 'form-group--error': $v.phonenumber.$error }">
+  <label class="form__label"></label>
+    <input class="form__input Registeritems" placeholder="شماره همراه" v-model.trim="$v.phonenumber.$model"/>
+  </div>
+  <div class="error " v-if="!$v.phonenumber.required">*phonenumber is required</div>
+  <div class="error " v-if="!$v.phonenumber.numeric">*please enter a valid phonenumber </div>
+  <tree-view :data="$v.phonenumber" :options="{rootObjectKey: '$v.phonenumber', maxDepth: 2}"></tree-view>
     <p>
  <select required name="year" id="year" v-model="dateofbirth.year" >
                 <option v-for="y in 1398" v-bind:key="y" >{{ y }}</option>
@@ -36,6 +44,10 @@
                 <option v-for="d in 31" v-bind:key="d" >{{ d }}</option>
             </select>
            </p>
+           <p>
+                 <input type="checkbox" name="subscription" v-model="subscribed"><span class="registertext"> میخواهم آخرین اخبار مربوط به سایت را از طریق ایمیل دریافت کنم</span>
+        </p>
+        
            <p>
             <button class="Registerbutton" :disabled="!registerenable">
             ثبت نام
@@ -67,26 +79,21 @@
           <span>{{ errors[0] }}</span>
 </ValidationProvider>
         </p>
-        <p>
-            <input type="checkbox" name="subscription" v-model="subscribed"><span class="registertext"> میخواهم آخرین اخبار مربوط به سایت را از طریق ایمیل دریافت کنم</span>
-        </p>
-        <button class="Registerbutton" :disabled="!registerenable">
-            ثبت نام
-        </button>-->
+        <p>-->
+          
+        
      
 
 
 <script>
-import { required, minLength, between , email } from 'vuelidate/lib/validators'
+import { required, minLength, between , email , phonenumber , numeric } from 'vuelidate/lib/validators'
 
 export default{
     data: function(){
         return{
             name: '',
-            age: 0,
             email:'',
-            fullname: {firstname:"",lastname:""},
-            phonenumber: "",
+            phonenumber: '',
             dateofbirth: {year: 1398,month: 8,day:9},
             subscribed: false,
             registerenable: false
@@ -97,12 +104,20 @@ export default{
       required,
       minLength: minLength(4)
     },
+    lastname:{
+        required,
+        minLength:minLength(4)
+    },
     age: {
         required,
       between: between(20, 30)
     },
     email:{
          required, email
+    },
+    phonenumber:{
+        required,
+        numeric
     },
   },
   
@@ -155,19 +170,9 @@ export default{
     color:rgb(66, 60, 70);
 }
 
-.input {
-  border: 1px solid silver;
-  border-radius: 4px;
-  background: white;
-  padding: 5px 10px;
-}
-
-.dirty {
-  border-color: #5A5;
-  background: #EFE;
-}
-
-.dirty:focus {
-  outline-color: #8E8;
+.error{
+    font-size: xx-small;
+    color: red;
+    
 }
 </style>
