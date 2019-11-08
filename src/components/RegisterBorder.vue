@@ -1,22 +1,32 @@
 <template>
-    <div>
-        <v-container >
-            
-        
-        <p class="Registertext">
+   <div>
+        <v-container>
+             <p class="Registertext">
             ثبت نام در سایت
         </p>
-        <p>
-            <input required v-model="fullname.firstname" @blur="checkfirstname" type="text" name="name" id="name" class="Registeritems"  placeholder="نام">
-        </p>
-        <p>
-            <input required v-model="fullname.lastname" @blur="checklastname" type="text" name="lastname" id="lastname" class="Registeritems"  placeholder="نام خانوادگی">
-        </p>
-        <p>
-            <input required v-model="phonenumber" @blur="checknumber" type="number" name="phonenumber" id="phonenumber" class="Registeritems"  placeholder="شماره تلفن همراه">
-        </p>
-        <p>
-            <select required name="year" id="year" v-model="dateofbirth.year" >
+            
+   <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
+    <label class="form__label"></label>
+    <input class="form__input Registeritems" v-model.trim="$v.name.$model"/>
+  </div>
+  <div class="error" v-if="!$v.name.required">Field is required</div>
+  <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
+  <tree-view :data="$v.name" :options="{rootObjectKey: '$v.name', maxDepth: 2}"></tree-view>
+  <div class="form-group" :class="{ 'form-group--error': $v.age.$error }">
+    <label class="form__label"></label>
+    <input class="form__input Registeritems" v-model.trim="$v.age.$model"/>
+  </div>
+  <div class="error" v-if="!$v.age.between">Must be between {{$v.age.$params.between.min}} and {{$v.age.$params.between.max}}</div>
+  <tree-view :data="$v.age" :options="{rootObjectKey: '$v.age', maxDepth: 2}"></tree-view>
+  <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
+  <label class="form__label"></label>
+    <input class="form__input Registeritems" placeholder="پست الکترونیک" v-model.trim="$v.email.$model"/>
+  </div>
+  <div class="error" v-if="!$v.email.required">Email is required</div>
+  <div class="error" v-if="!$v.email.email">Email is not a properly formatted email address</div>
+  <tree-view :data="$v.email" :options="{rootObjectKey: '$v.email', maxDepth: 2}"></tree-view>
+    <p>
+ <select required name="year" id="year" v-model="dateofbirth.year" >
                 <option v-for="y in 1398" v-bind:key="y" >{{ y }}</option>
             </select>
             <select required name="month" id="month" v-model="dateofbirth.month">
@@ -25,70 +35,79 @@
             <select required name="day" id="day" v-model="dateofbirth.day">
                 <option v-for="d in 31" v-bind:key="d" >{{ d }}</option>
             </select>
+           </p>
+           <p>
+            <button class="Registerbutton" :disabled="!registerenable">
+            ثبت نام
+        </button>
+            </p>
+</v-container>
+       </div>
+    </template>    
+     <!--   <p class="Registertext">
+            ثبت نام در سایت
+        </p>
+
+        <p>
+            <input required v-model="fullname.firstname" @blur="checkfirstname" type="text" name="name" id="name" class="Registeritems"  placeholder="نام">
         </p>
         <p>
-            <input required v-model="email" @blur="checkemail" type="text" name="email" id= "email" class="Registeritems" placeholder="پست الکترونیک">
+            <input required v-model="fullname.lastname" @blur="checklastname" type="text" name="lastname" id="lastname" class="Registeritems"  placeholder="نام خانوادگی">
+        </p>
+        
+        <p>
+            <input required v-model="phonenumber" @blur="checknumber" type="number" name="phonenumber" id="phonenumber" class="Registeritems"  placeholder="شماره تلفن همراه">
+        </p>
+        <p>
+            
+        </p>
+        <p>
+            <ValidationProvider rules="secret" v-slot="{ errors }">
+            <input required v-model="email"  type="text" name="email" id= "email" class="Registeritems" placeholder="پست الکترونیک">
+          <span>{{ errors[0] }}</span>
+</ValidationProvider>
         </p>
         <p>
             <input type="checkbox" name="subscription" v-model="subscribed"><span class="registertext"> میخواهم آخرین اخبار مربوط به سایت را از طریق ایمیل دریافت کنم</span>
         </p>
         <button class="Registerbutton" :disabled="!registerenable">
             ثبت نام
-        </button>
-        </v-container>
-    </div>
-</template>
+        </button>-->
+     
+
 
 <script>
+import { required, minLength, between , email } from 'vuelidate/lib/validators'
+
 export default{
     data: function(){
         return{
+            name: '',
+            age: 0,
+            email:'',
             fullname: {firstname:"",lastname:""},
             phonenumber: "",
             dateofbirth: {year: 1398,month: 8,day:9},
-            email: "",
             subscribed: false,
             registerenable: false
         }
     },
-    methods:{
-        checkfirstname: function(){
-            var nametest =/^(?![\s.]+$)[a-zA-Z\s.]+$/
-            if(nametest.test(this.fullname.firstname)){
-                console.log("firstname is ok")
-                //TODO
-            }else{
-                console.log("firstname is wrong")
-                //TODO
-            }
-        },
-        checklastname: function(){
-            var nametest = /^(?![\s.]+$)[a-zA-Z\s.]+$/ 
-            if(nametest.test(this.fullname.lastname)){
-                console.log("lastname is ok")
-                //TODO
-            }else{
-                console.log("lastname is wrong")
-                //TODO
-            }
-        },
-        checknumber: function(){
-            //TODO: phone number validation using regex
-        },
-        checkemail: function(){
-            var emailtest = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-
-            if(emailtest.test(this.email)){
-                console.log("email is ok")
-                //TODO
-            }else{
-                console.log("email is wrong")
-                //TODO
-            }
-            
-        }
+    validations: {
+    name: {
+      required,
+      minLength: minLength(4)
+    },
+    age: {
+        required,
+      between: between(20, 30)
+    },
+    email:{
+         required, email
+    },
+  },
+  
     }
-}
+
 </script>
 
 
@@ -134,5 +153,21 @@ export default{
     font-size: 20;
     font-weight: bold;
     color:rgb(66, 60, 70);
+}
+
+.input {
+  border: 1px solid silver;
+  border-radius: 4px;
+  background: white;
+  padding: 5px 10px;
+}
+
+.dirty {
+  border-color: #5A5;
+  background: #EFE;
+}
+
+.dirty:focus {
+  outline-color: #8E8;
 }
 </style>

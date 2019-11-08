@@ -48,7 +48,7 @@ background-color:#FFFFFF;
 }
 
 .bouncy{
-animation:bouncy 5s infinite linear;
+animation:bouncy 4s infinite linear;
 position:relative;
 }
 @keyframes bouncy {
