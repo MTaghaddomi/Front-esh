@@ -86,7 +86,7 @@
 
 
 <script>
-import { required, minLength, between , email , phonenumber , numeric } from 'vuelidate/lib/validators'
+import { required, minLength, between , email ,  numeric } from 'vuelidate/lib/validators'
 
 export default{
     data: function(){

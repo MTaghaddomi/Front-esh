@@ -12,19 +12,19 @@
        
   <div class="form-group" :class="{ 'form-group--error': $v.username.$error }">
     <label class="form__label"></label>
-    <input class="form__input miniborderitems" placeholder="username" v-model.trim="$v.username.$model"/>
+    <input class="form__input miniborderitems" placeholder="username" v-model.trim="$v.username.$model" type="username"/>
   </div>
-  <span class="error" v-if="!$v.username.required">Username is required.</span>
+  <div class="error" v-if="!$v.username.required">Username is required.</div>
+  <div class="error" v-if="!$v.username.minLength">username must have at least {{ $v.username.$params.minLength.min }}characters.</div>
   <!--<div class="error" v-if="!$v.username.isUnique">This username is already registered.</div>-->
   <tree-view :data="$v.username" :options="{rootObjectKey: '$v.username', maxDepth: 2}"></tree-view>
        <div class="form-group" :class="{ 'form-group--error': $v.password.$error }">
     <label class="form__label"></label>
     <input class="form__input miniborderitems2" placeholder="password" v-model.trim="$v.password.$model" type="password"/>
   </div>
-  <div class="error" v-if="!$v.password.required">Field is required.</div>
-  <div class="error" v-if="!$v.password.minLength">Field must have at least {{ $v.password.$params.minLength.min }} characters.</div>
- 
-  <tree-view :data="$v.password" :options="{rootObjectKey: '$v.password', maxDepth: 2}"></tree-view>
+  <div class="error" v-if="!$v.password.required">password is required.</div>
+  <div class="error" v-if="!$v.password.minLength">password must have at least {{ $v.password.$params.minLength.min }}characters.</div>
+ <tree-view :data="$v.password" :options="{rootObjectKey: '$v.password', maxDepth: 2}"></tree-view>
 
         <button class="miniborderbutton button5">
             ورود
@@ -74,7 +74,7 @@ export default {
     border-radius: 25px;
     margin-left: 450px;
     margin-top: 55px;
-    background-color: #555555
+    background-color:white
 }
 .miniborderitems{
     width : 70%;
