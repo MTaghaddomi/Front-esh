@@ -56,10 +56,6 @@ import axios from 'axios'
                 return false;
             }
         },
-
-
-
-
          fail: function(error){
              if(error.status == 404){
                  console.log("Incorrect username or password!!!")

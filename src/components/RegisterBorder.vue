@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default{
     data: function(){
         return{
@@ -54,6 +53,7 @@ export default{
             username: "",
             password: "",
             subscribed: false,
+            token: ""
         }
     },
     computed:{
@@ -138,20 +138,17 @@ export default{
                 return false;
             }
         },
-        postData: function(){
+        postData(){
+            
             const newRegister = {
                 firstName: this.firstname,
                 lastName: this.lastname,
-                phoneNumber: this.phonenumber,
-                birthday: new String(this.dateofbirth.year+"/"+this.dateofbirth.month+"/"+this.dateofbirth.day),
                 email: this.email,
-                username: this.username,
                 password: this.password,
-                subscribed: this.subscribed,
+                username: this.username          
             }
-            axios.post('/registers.json',newRegister)
-            .then((res)=>{console.log("success on register"); alert("Welcome");})
-            .catch((error)=>{console.log("reigster failed");  alert("register failed")})
+            console.log(newRegister)
+            this.$store.dispatch('signup',newRegister)
         }
 
     }
