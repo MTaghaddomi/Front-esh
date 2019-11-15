@@ -170,7 +170,7 @@ input[type="password"] {
     }
   }
 
-  </script > &:invalid:not(:focus):not(:placeholder-shown) {
+   &:invalid:not(:focus):not(:placeholder-shown) {
     background: pink;
     & + label {
       opacity: 0;
