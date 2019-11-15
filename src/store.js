@@ -48,9 +48,9 @@ export default new Vuex.Store({
         login({commit,state}, newLogin){
             console.log("logging in: ",newLogin)
 
-            commit('saveLogin',{token: newLogin.password,username: newLogin.username})                 //just for testing locally
-            console.log(state)
-            console.log('000000000')
+            // commit('saveLogin',{token: newLogin.password,username: newLogin.username})                 //just for testing locally
+            // console.log(state)
+            // console.log('000000000')
             customAxios.post('/users/login',newLogin)
             .then((res)=>{
                 console.log("success on login");
