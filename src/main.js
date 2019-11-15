@@ -7,8 +7,12 @@ import store from './store.js'
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = 'http://localhost:8000'
+
 Vue.use(VueRouter);
-const router = new VueRouter({routes})
+const router = new VueRouter({
+  routes
+})
+
 
 new Vue({
   render: h => h(App),

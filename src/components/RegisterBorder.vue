@@ -141,13 +141,10 @@ export default{
         postData(){
             
             const newRegister = {
-                firstName: this.firstname,
-                lastName: this.lastname,
-                email: this.email,
-                password: this.password,
-                username: this.username          
+                username: this.username,     
+                password: this.password
             }
-            console.log(newRegister)
+
             this.$store.dispatch('signup',newRegister)
         }
 

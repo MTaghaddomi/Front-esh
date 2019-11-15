@@ -76,10 +76,7 @@ import axios from 'axios'
                  username: this.username,
                  password: this.password 
              }
-             console.log(loginRequest)
-             axios.post('/users.json',loginRequest)
-             .then((res)=>{console.log(res); this.welcome(res)})
-             .catch((error)=> {console.log(error); this.fail(error)})
+             this.$store.dispatch('login',loginRequest)
          }
 
 
