@@ -14,15 +14,13 @@
 </template>
 
 <script>
-import NavBar from "../src/components/NavBar";
-export default {
-  computed: {
-    checkRoute: function() {
-      if (this.$route.path === "/") return true;
-      return false;
-    },
-    components: {
-      NavBar
+export default{
+    computed: {
+        checkRoute: function(){
+            if(this.$route.path==='/')
+                return true;
+            return false;
+        }
     }
   }
 };
@@ -40,7 +38,7 @@ html {
   height: 100%;
 }
 
-body {
+<<<<<<< head body {
   width: 100%;
   height: 100%;
   font-family: "Open Sans", sans-serif;
@@ -129,14 +127,13 @@ body {
 </style>
 <style lang="scss">
 @import url(https://fonts.googleapis.com/css?family=Cantora+One);
-
-* {
+======= </script>>>>>>>1886f602486652012f09abba2f36f21a13046b47 * {
   box-sizing: border-box;
 }
 nav[role="full-horizontal"] {
   width: 100%;
 
-  ul {
+  <<<<<<< head ul {
     width: 100%;
     list-style: none;
 
@@ -200,8 +197,7 @@ nav[role="full-horizontal"] {
     ul {
       padding: 0 0.5em;
     }
-
-    ul > li {
+    ======= <style>>>>>>>1886f602486652012f09abba2f36f21a13046b47 ul > li {
       width: 100%;
       padding: 0.45em 0.25em;
       margin: 0 0 0.55em 0;

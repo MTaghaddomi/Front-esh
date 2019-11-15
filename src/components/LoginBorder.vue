@@ -35,6 +35,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data: function() {
     return {
@@ -44,11 +45,9 @@ export default {
   },
   computed: {
     checkSubmission: function() {
-      console.log("checked");
       return this.checkUsername() && this.checkPassword();
     }
   },
-
   methods: {
     checkUsername: function() {
       //TODO: Regex should be implemented
@@ -62,6 +61,7 @@ export default {
         return false;
       }
     },
+
     checkPassword: function() {
       if (this.password.length > 8) {
         console.log("password is fine");
@@ -72,6 +72,34 @@ export default {
         //TODO: change style of the username field
         return false;
       }
+    },
+
+    fail: function(error) {
+      if (error.status == 404) {
+        console.log("Incorrect username or password!!!");
+      } else {
+        console.log("Something went wrong!!");
+      } //TODO: change style of the login border
+    },
+    welcome: function(res) {
+      console.log("sign in approved"); //TODO: Extract the token out of the response //TODO: use the token to get the data
+    },
+    postData: function() {
+      const loginRequest = {
+        username: this.username,
+        password: this.password
+      };
+      console.log(loginRequest);
+      axios
+        .post("/users.json", loginRequest)
+        .then(res => {
+          console.log(res);
+          this.welcome(res);
+        })
+        .catch(error => {
+          console.log(error);
+          this.fail(error);
+        });
     }
   }
 };
@@ -142,7 +170,7 @@ input[type="password"] {
     }
   }
 
-  &:invalid:not(:focus):not(:placeholder-shown) {
+  </script > &:invalid:not(:focus):not(:placeholder-shown) {
     background: pink;
     & + label {
       opacity: 0;

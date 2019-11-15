@@ -1,15 +1,14 @@
 import Vue from "vue";
 import App from "./App.vue";
 import VueRouter from "vue-router";
-import Vuelidate from "vuelidate";
-import BootstrapVue from "bootstrap-vue";
 
 import { routes } from "./routes";
-
+import axios from "axios";
 Vue.config.productionTip = false;
-Vue.use(Vuelidate);
+
+axios.defaults.baseURL = "https://front-esh.firebaseio.com";
+
 Vue.use(VueRouter);
-Vue.use(BootstrapVue);
 
 const router = new VueRouter({ routes });
 
