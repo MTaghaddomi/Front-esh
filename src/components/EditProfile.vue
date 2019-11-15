@@ -1,0 +1,10 @@
+<template>
+  <div>
+    <form accept="image/gif, image/jpeg">
+      First name: <input type="text" name="fname" /><br />
+      Last name: <input type="text" name="lname" /><br />
+      Your image: <input type="file" name="pic" id="pic" /><br />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+</template>
