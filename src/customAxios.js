@@ -5,5 +5,5 @@ const customAxios = axios.create({
      //configure the customAxios instance
 
 });
-customAxios.defaults.baseURL = 'http://localhost:8000' //setting baseURL for later requests
+customAxios.defaults.baseURL = 'https://system-analysis-design.herokuapp.com' //setting baseURL for later requests
 export default customAxios

@@ -6,119 +6,134 @@ Vue.use(Vuex)
 import customAxios from './customAxios'
 export default new Vuex.Store({
     state: {
-        serverUsername: "",
-        userProfile: {username: "", firstName: "", lastName: "",email:"",birthday:"",phoneNumber:""},
-        loggedin: false
+        userProfile: {firstName: "", lastName: "",email:"",birthday:"",phoneNumber:""},
+        loggedin: false,
+        token:"",
+        username:""
+    },
+    getters:{
+        loggedin: (state)=>{return state.loggedin},
+        token: (state)=>{return state.token},
+        username:(state)=>{return state.username},
+        firstName: (state)=>{return state.userProfile.firstName},
+        lastName: (state)=>{return state.userProfile.lastName},
+        email: (state)=>{return state.userProfile.email},
+        birthday: (state)=>{return state.userProfile.birthday},
+        phoneNumber: (state)=>{return state.userProfile.phoneNumber}
     },
     mutations: {
         saveLogin(state,serverData){
-            console.log('saving the state and cookie')
-            state.serverUsername = serverData.serverUsername;         
-            localStorage.setItem('token',serverData.token)
-            state.loggedin= true
+            console.log('saving the state')
+            state.username = serverData.username;         
+            state.token = serverData.token
+            console.log("finished saveLogin")
         },
         deleteLogin(state){
-            console.log("deleting the state and cookie")
-            state.serverUsername = ""
-            userProfile = null;
-            localStorage.removeItem('token')
+            console.log("deleting current state")
+            state.userProfile.firstName = ""
+            state.userProfile.lastName = ""
+            state.userProfile.birthday = ""
+            state.userProfile.phoneNumber = ""
+            state.userProfile.email = ""
+            state.username = ""
+            state.token = ""
             state.loggedin = false
+            console.log("state was deleted")
         },
         saveProfile(state,serverData){
             console.log("saving profile on the state")
-            state.userProfile.username= serverData.username
-            state.userProfile.firstName= serverData.firstName
-            state.userProfile.lastName=serverData.erverDatalastName
+            state.username = serverData.username
+            state.userProfile.firstName = serverData.firstName
+            state.userProfile.lastName=serverData.lastName
             state.userProfile.email= serverData.email
-            state.userProfile.birthday= serverData.birthday
+            state.userProfile.birthday= "1378/26/4t" 
             state.userProfile.phoneNumber=serverData.phoneNumber
             state.loggedin = true
+            console.log("the following has been saved: ")
+            console.log(state)
         }
         
     },
     actions: {
-        signup({commit,state},newRegister){
-            console.log("Registering: ",newRegister)
-
+        signup({commit,state},args){
+            const newRegister = args.newRegister
+            state.username = newRegister.username
             customAxios.post('/users', newRegister)
             .then((res)=>{
-                console.log("success on register");
                 console.log(res);
                 commit('saveLogin', {
                      token: res.data.token,
-                     serverUsername: res.data.username
+                     username: res.data.username
                 })
-                //TODO: ROUTE TO THE USER'S PROFILE SECTION
-                console.log("routing to the /profile")
-                this.$router.push('/profile')
+                args.success()
             })
             .catch((error)=>{
-                console.log("register failed"); 
-                console.log(error);  
-                commit('deleteLogin')
+                console.log(error);
+                alert("Something went wrong in signup process") 
+                args.failure() 
             })
-
-            console.log("the following has been saved: ")
-            console.log(state)
-            console.log(localStorage.getItem('token'))
-
         },
 
-        login({commit,state}, newLogin){
-            console.log("logging in: ",newLogin)
+        login({commit,state}, args){
+            const newLogin = args.newLogin
             customAxios.post('/users/login',newLogin)
             .then((res)=>{
-                console.log("success on login");
                 console.log(res);
                 commit('saveLogin',{
                     token: res.data.token,
                     username: res.data.username
                 })
-
-                //TODO: ROUTE TO THE USER'S PROFILE SECTION
-                console.log("routing to the /profile")
-                this.$router.push('/profile')
-                // this.dispatch.getProfile()
-
+                args.success()
             })
             .catch((error)=>{
-                console.log("login failed"); 
                 console.log(error);
-                commit('deleteLogin')
+                alert("Something went wrong in login process")
+                args.failure()
             })
-
             console.log("the following has been saved: ")
             console.log(state)
-            console.log(localStorage.getItem('token'))
 
         },
 
         logout({commit}){
-            console.log("logging out")
-            commit('deteleLogin')
-            this.$router.push('/login')
+            commit('deleteLogin')
         },
 
-        getProfile({commit,state}){
-            console.log("getting user profile")
-            customAxios.post('/users/'+state.serverUsername,{
-                headers: {'Auth':localStorage.getItem('token')}
-            })
-            .then((res)=>{
-                console.log("success on getting profile")
-                commit('saveProfile',res.data)
-            }).catch((err)=>{
-                console.log("failed to get the user profile")
-                // commit('deleteLogin')
-            })
+        getProfile({commit,state},args){
+            console.log('state username ' + state.username);
+            console.log('state token ' + state.token);
             
-        }
-        // ,
-        // checkToken(){
-        //     console.log("checking authentication status")
+            customAxios.get('/users/'+state.username,{
+                headers: {'Auth':state.token}
+            })
+            .then((res)=>{ 
+                commit('saveProfile',res.data) 
+                args.success()
+            })
+            .catch((err)=>{
+                alert('Something went wrong while getting your profile!')
+                commit('deleteLogin')
+                args.failure()
+                
+            })        
+        },
+        editProfile({commit,state},args){
+            console.log('state username ' + state.username);
+            console.log('state token ' + state.token);
 
-            
-        // }
+            const updatedProfile = args.updatedProfile
+            customAxios.put('/users/'+state.username,{
+                updatedProfile
+            }).then((res)=>{
+                console.log(res)
+                commit('saveProfile',res.data)
+                args.success()
+            }).catch((error)=>{
+                console.log(error)
+                args.failure()
+            })
+        }
+
 
     },
 });

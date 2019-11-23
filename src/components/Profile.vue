@@ -1,38 +1,200 @@
 <template>
-    <div>
-        <p>
-            پروفایل شما:
-        </p>
-        <p> "{{userData}}"</p>
+    <div class="wrapper animated bounce">
+        <h1>
+            Your Profile
+        </h1>
+        <div class="glow-on-hover container">
+        <p style ="padding-left: 5px">username:<span style="padding-left:17%">{{username}}</span></p>
+        <p style ="padding-left: 5px">firstname:<span style="padding-left:18%">{{firstName}}</span></p>
+        <p style ="padding-left: 5px">lastname:<span style="padding-left:18%">{{lastName}}</span></p>
+        <p style ="padding-left: 5px">email:<span style="padding-left:26%">{{email}}</span></p>
+        <p style ="padding-left: 5px">phonenumber:<span style="padding-left:7%">{{phoneNumber}}</span></p>
+        <p style ="padding-left: 5px">birthday:<span style="padding-left:19%">{{birthday}}</span></p>
+        </div>
+
+        <div class="button" id="button-3" @click="editProfile">
+          <div id="circle"></div>
+          <a href="#">Edit profile</a>
+        </div>
+
+        <div class="button" id="button-3" @click="logout">
+          <div id="circle"></div>
+          <a href="#">logout</a>
+        </div>
+        
+
     </div>
 </template>
 
 <script>
 import store from '../store.js'
+import { mapGetters } from "vuex"
+ 
 export default {
-    
+    data: function(){
+      return{
+        //nothing
+      }
+    },
     computed:{
-        userData: function(){
-            return store.state.userProfile
-        }
+      ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthday','loggedin'])
     },
     beforeRouteEnter : (to,from,next)=>{
-
-            console.log("checking authentication for entering /profile ")
-            store.dispatch('getProfile')
-            console.log(localStorage.getItem('token'))
-            if(loggedin){
-                console.log("logged in successfuly, and got your profile")
-                next()
-            }else{
-                console.log("failed to login to get your profile")
-                next('/')
-            }
+          console.log("checking loggedin status")
+          if(store.state.loggedin){
+              console.log("you are loggedin!, loading your profile page")
+              next()
+          }else{
+              alert("you are not loggedin yet, re-directing you to Authentication page")
+              next('/account') 
+          }
             
+    },
+    methods:{
+      editProfile: function(){
+        this.$router.push({path: '/editProfile'})
+      },
+      logout: function(){
+        this.$store.dispatch('logout')
+        this.$router.push({path: '/account'})
+      }
     }
 }
 </script>
     
 <style>
+.container{
+    text-align: left;
+    width: 100%;
+    height: 90%;
+}
+.glow-on-hover {
+  display: inline-block;
+  
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #111;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  
+}
+.glow-on-hover:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+    
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+.wrapper {
+  margin: 50px auto;
+  width: 343px;
+  height: 280px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+.wrapper h1 {
+  font-family: "Galada", cursive;
+  color: #f4f4f4;
+  letter-spacing: 8px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.wrapper hr {
+  opacity: 0.2;
+}
+.crtacc {
+  margin-left: 75px;
+}
+.button {
+  display: inline-flex;
+  height: 40px;
+  width: 150px;
+  border: 2px solid #3d5a5a;
+  margin: 20px 20px 20px 20px;
+  color: #bfc0c0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.8em;
+  letter-spacing: 1.5px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+a {
+  color: #2d5f5f;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+#button-3 {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#button-3 a {
+  position: relative;
+  transition: all 0.45s ease-Out;
+}
+
+#circle {
+  width: 0%;
+  height: 0%;
+  opacity: 0;
+  line-height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  transition: all 0.5s ease-Out;
+  top: 20px;
+  left: 70px;
+}
+
+#button-3:hover #circle {
+  width: 200%;
+  height: 500%;
+  opacity: 1;
+  top: -70px;
+  left: -70px;
+}
+
+#button-3:hover a {
+  color: #2d3142;
+}
 
 </style>

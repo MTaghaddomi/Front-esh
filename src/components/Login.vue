@@ -6,6 +6,8 @@
 
 </template>
 
+
+
 <script>
 
 import LoginBorder from './LoginBorder.vue'
@@ -18,7 +20,6 @@ export default{
 }
  
 </script>
-
 
 <style >
  #app {
