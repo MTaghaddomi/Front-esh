@@ -98,7 +98,8 @@ export default{
                     success:()=>{
                       this.$store.dispatch('getProfile',
                     {
-                    success:()=>{this.$router.push({path: '/profile'})}
+                    success:()=>{this.$router.push({path: '/profile'})},
+                    failure:()=>{alert("failed to get your profile!!")}
                     })
                     },
                     failure:()=>{

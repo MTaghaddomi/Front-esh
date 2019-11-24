@@ -6,7 +6,7 @@
         type="text"
         name="u"
         v-model="username"
-        pattern=".{8,}"
+        pattern="[a-z_A-Z0-9]{3,}"
         placeholder="Username"
         required="required"
       />
@@ -67,7 +67,9 @@ import axios from 'axios'
           this.checkPassword()
         },
         checkUsername: function(){  
-           if(this.username.length > 3){
+
+           const usernameFormat = /^[a-z_A-Z0-9]{3,}$/ 
+           if(usernameFormat.test(this.username)){
                console.log("username is fine")
                this.usernameStatus = true;
            }else{
@@ -77,7 +79,7 @@ import axios from 'axios'
         },
 
         checkPassword: function(){
-            if(this.password.length>8){
+            if(this.password.length>=8){
                 console.log("password is fine")
                 this.passwordStatus = true;
             }else{

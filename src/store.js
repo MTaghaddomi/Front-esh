@@ -57,7 +57,8 @@ export default new Vuex.Store({
     actions: {
         signup({commit,state},args){
             const newRegister = args.newRegister
-            state.username = newRegister.username
+            state.username = newRegister.username  //try to comment this one! a bit risk
+            console.log("register data:",newRegister)
             customAxios.post('/users', newRegister)
             .then((res)=>{
                 console.log(res);
@@ -75,7 +76,9 @@ export default new Vuex.Store({
         },
 
         login({commit,state}, args){
-            const newLogin = args.newLogin
+
+            const newLogin = args.loginRequest
+            console.log("login data: ", newLogin)
             customAxios.post('/users/login',newLogin)
             .then((res)=>{
                 console.log(res);
@@ -100,9 +103,9 @@ export default new Vuex.Store({
         },
 
         getProfile({commit,state},args){
+            console.log("request data:")
             console.log('state username ' + state.username);
             console.log('state token ' + state.token);
-            
             customAxios.get('/users/'+state.username,{
                 headers: {'Auth':state.token}
             })
