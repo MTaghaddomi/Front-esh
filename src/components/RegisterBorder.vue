@@ -99,11 +99,12 @@ export default{
                       this.$store.dispatch('getProfile',
                     {
                     success:()=>{this.$router.push({path: '/profile'})},
-                    failure:()=>{alert("failed to get your profile!!")}
+                    failure:()=>{console.log("success on register but failed to get your profile")}
                     })
                     },
                     failure:()=>{
                       console.log("register failed")
+                      console.log("failed to register")
                     }
                   }
                 )

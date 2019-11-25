@@ -13,7 +13,8 @@
 
 
       <div class="requirements">
-        Your username must be at least 8 characters
+          Your username must be at least 3 characters,
+           only containing letters, numbers, and underscores
       </div>
 
 
@@ -87,7 +88,7 @@ import axios from 'axios'
                 this.passwordStatus = false;
             }
         },
-        postData: function(){
+        postData:function(){
              console.log("checking your input data")
              this.checkAll()
              if(this.checkSubmission){
@@ -96,17 +97,15 @@ import axios from 'axios'
                    password: this.password 
                }
               
-               this.$store.dispatch('login',
-                {loginRequest:loginRequest,
-                 success: ()=> {
-
-                  this.$store.dispatch('getProfile',
-                  {
-                    success:()=>{this.$router.push({path: '/profile'})}
-                  })
-                 },
-                 failure: ()=> { console.log('login failed') }
-                })
+             this.$store.dispatch('login',
+              {loginRequest:loginRequest,
+                success: ()=> { this.$store.dispatch('getProfile',{
+                                success:()=>{this.$router.push({path: '/profile'})},
+                                failure:()=>{console.log("success on login, failed to get profile")}
+                              })
+                },
+                failure: ()=> { console.log('failed to login') }
+              })
              }else{
                alert("Wrong submission, check the errors!")
              }

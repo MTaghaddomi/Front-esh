@@ -42,6 +42,7 @@ export default new Vuex.Store({
         },
         saveProfile(state,serverData){
             console.log("saving profile on the state")
+            console.log(serverData)
             state.username = serverData.username
             state.userProfile.firstName = serverData.firstName
             state.userProfile.lastName=serverData.lastName
@@ -113,21 +114,23 @@ export default new Vuex.Store({
                 commit('saveProfile',res.data) 
                 args.success()
             })
-            .catch((err)=>{
+            .catch((err)=>{ console.log("getProfile went to cache")
                 alert('Something went wrong while getting your profile!')
                 commit('deleteLogin')
                 args.failure()
                 
             })        
         },
-        editProfile({commit,state},args){
+        editProfile({commit,state},args){   //add header
             console.log('state username ' + state.username);
             console.log('state token ' + state.token);
 
             const updatedProfile = args.updatedProfile
+            console.log("updated profile::::",updatedProfile)
             customAxios.put('/users/'+state.username,{
+                headers:{'Auth':state.token}},
                 updatedProfile
-            }).then((res)=>{
+            ).then((res)=>{
                 console.log(res)
                 commit('saveProfile',res.data)
                 args.success()
