@@ -6,7 +6,7 @@ import axios from 'axios'
 import store from './store.js'
 Vue.config.productionTip = false
 
-axios.defaults.baseURL = 'https://system-analysis-design.herokuapp.com'
+axios.defaults.baseURL = 'https://tts-fall.herokuapp.com'
 
 Vue.use(VueRouter);
 const router = new VueRouter({

@@ -82,6 +82,7 @@ export default new Vuex.Store({
             console.log("login data: ", newLogin)
             customAxios.post('/users/login',newLogin)
             .then((res)=>{
+                console.log("response data for login::::::")
                 console.log(res);
                 commit('saveLogin',{
                     token: res.data.token,
@@ -127,9 +128,8 @@ export default new Vuex.Store({
 
             const updatedProfile = args.updatedProfile
             console.log("updated profile::::",updatedProfile)
-            customAxios.put('/users/'+state.username,{
-                headers:{'Auth':state.token}},
-                updatedProfile
+            customAxios.put('/users/' + state.username,
+                updatedProfile, { headers: { 'Auth': state.token } }
             ).then((res)=>{
                 console.log(res)
                 commit('saveProfile',res.data)
