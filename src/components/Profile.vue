@@ -29,7 +29,6 @@
 <script>
 import store from '../store.js'
 import { mapGetters } from "vuex"
- 
 export default {
     data: function(){
       return{
@@ -38,6 +37,14 @@ export default {
     },
     computed:{
       ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthday','loggedin'])
+    },
+    mounted: function(){
+      console.log("getting the f profile ::::")
+      store.dispatch('getProfile',{
+          success:()=>{console.log("success on f profile --------")},
+          failure:()=>{console.log("failed to get profile --------")}
+        })
+      
     },
     beforeRouteEnter : (to,from,next)=>{
           console.log("checking loggedin status")

@@ -40,6 +40,10 @@
         <div id="circle"></div>
         <a href="#">Let Me In</a>
       </div>
+
+      <div v-if="waiting">
+        <loading></loading>
+      </div>
       
     </form>
   </div>
@@ -47,14 +51,18 @@
 
 <script>
 import axios from 'axios'
-    export default {
-
+import loading from '../../public/loading.vue'
+export default {
+    components:{
+      'loading':loading
+    },
     data: function() {
         return {
             username: "",
             password: "",
             usernameStatus: true,
             passwordStatus: true,
+            waiting: false,
         };
     },
     computed:{
@@ -80,7 +88,7 @@ import axios from 'axios'
         },
 
         checkPassword: function(){
-            if(this.password.length>=8){
+            if(this.password.length >= 8){
                 console.log("password is fine")
                 this.passwordStatus = true;
             }else{
@@ -96,15 +104,12 @@ import axios from 'axios'
                    username: this.username,
                    password: this.password 
                }
+               this.waiting = true           
               
              this.$store.dispatch('login',
               {loginRequest:loginRequest,
-                success: ()=> { this.$store.dispatch('getProfile',{
-                                success:()=>{this.$router.push({path: '/profile'})},
-                                failure:()=>{console.log("success on login, failed to get profile")}
-                              })
-                },
-                failure: ()=> { console.log('failed to login') }
+                success: ()=> {this.waiting = false; this.$router.push({path:'/profile'})},
+                failure: ()=> {this.waiting = false; console.log('failed to login') }
               })
              }else{
                alert("Wrong submission, check the errors!")

@@ -4,6 +4,10 @@ import VueRouter from 'vue-router'
 import {routes} from './routes'
 import axios from 'axios'
 import store from './store.js'
+
+import * as VueSpinnersCss from "vue-spinners-css"
+Vue.use(VueSpinnersCss)
+
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = 'https://tts-fall.herokuapp.com'

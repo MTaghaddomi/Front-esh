@@ -26,6 +26,7 @@ export default new Vuex.Store({
             console.log('saving the state')
             state.username = serverData.username;         
             state.token = serverData.token
+            state.loggedin = true
             console.log("finished saveLogin")
         },
         deleteLogin(state){

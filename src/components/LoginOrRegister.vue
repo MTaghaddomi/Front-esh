@@ -16,6 +16,7 @@
 
 <script>
 import store from '../store.js'
+import loading from '../../public/loading.vue'
 export default {
     beforeRouteEnter : (to,from,next)=>{
           

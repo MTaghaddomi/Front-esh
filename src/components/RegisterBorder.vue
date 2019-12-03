@@ -40,18 +40,26 @@
         <div id="circle"></div>
         <a href="#">Let's Go!</a>
       </div>
+      <div v-if="waiting">
+        <loading></loading>
+      </div>
       
     </form>
   </div>
 </template>
 <script>
+import loading from '../../public/loading.vue'
 export default{
+    components:{
+      'loading': loading
+    },
     data: function(){
         return{
             username: "",
             usernameStatus: true,
             password: "",
             passwordStatus: true,
+            waiting: false
         }
     },
     computed:{
@@ -88,21 +96,24 @@ export default{
             console.log("checking your submission data")
             this.checkAll()
             if(this.checkSubmission){
+
                 const newRegister = {
                     username: this.username,     
                     password: this.password
                 }
-
+                this.waiting = true
                 this.$store.dispatch('signup',
                   { newRegister:newRegister,
                     success:()=>{
+                      this.waiting = false;
                       this.$store.dispatch('getProfile',
                     {
-                    success:()=>{this.$router.push({path: '/profile'})},
-                    failure:()=>{console.log("success on register but failed to get your profile")}
+                    success:()=>{ this.waiting = false; this.$router.push({path: '/profile'})},
+                    failure:()=>{ this.waiting = false; console.log("success on register but failed to get your profile")}
                     })
                     },
                     failure:()=>{
+                      this.waiting = false;
                       console.log("register failed")
                       console.log("failed to register")
                     }
