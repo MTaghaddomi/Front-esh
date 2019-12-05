@@ -1,44 +1,46 @@
 <template>
-  <div>
-    <h1>Welcome</h1>
+  <div class="wrapper animated bounce">
+    <h1>خوش آمدید</h1>
     <p>
-      <button class="glow-on-hover" @click="navigateToLogin">
-        Login
+      <button class="glow-on-hover css-selector" @click="navigateToLogin">
+        ورود
       </button>
     </p>
     <p>
-      <button class="glow-on-hover" @click="navigateToRegister">
-        Register
+      <button class="glow-on-hover css-selector" @click="navigateToRegister">
+        ثبت نام
       </button>
     </p>
   </div>
 </template>
 
 <script>
-import store from '../store.js'
+import store from "../store.js";
 export default {
-    beforeRouteEnter : (to,from,next)=>{
-          
-          if(store.getters.loggedin){
-              console.log("you are loggedin!, loading your profile page")
-              next('/profile')
-          }else{
-              next() 
-          }
-            
-    },
-    methods:{
-        navigateToLogin: function(){
-            this.$router.push('/Login')
-        },
-        navigateToRegister: function(){
-            this.$router.push('/Register')
-        }
+  beforeRouteEnter: (to, from, next) => {
+    if (store.getters.loggedin) {
+      console.log("you are loggedin!, loading your profile page");
+      next("/profile");
+    } else {
+      next();
     }
-}
+  },
+  methods: {
+    navigateToLogin: function() {
+      this.$router.push("/Login");
+    },
+    navigateToRegister: function() {
+      this.$router.push("/Register");
+    }
+  }
+};
 </script>
 
 <style>
+body {
+  font-family: "Baloo Bhaijaan", cursive;
+}
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
 .glow-on-hover {
   display: inline-block;
   width: 220px;
@@ -115,5 +117,8 @@ export default {
   100% {
     background-position: 0 0;
   }
+}
+.css-selector {
+  font-family: "Baloo Bhaijaan", cursive;
 }
 </style>

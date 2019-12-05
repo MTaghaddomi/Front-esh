@@ -1,27 +1,26 @@
-<template >
+<template>
   <div>
-    <navBar/>
+    <navBar />
     <div id="app">
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <div class="wrapper animated bounce">
-
-      <router-view></router-view>
+      <div>
+        <router-view></router-view>
       </div>
     </div>
   </div>
 </template>
 <script>
-import NavBar from './components/NavBar.vue'
-export default{
-  components:{
-    'navBar':NavBar
+import NavBar from "./components/NavBar.vue";
+export default {
+  components: {
+    navBar: NavBar
   }
-}
+};
 </script>
 
-<style >
+<style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Baloo Bhaijaan", cursive;
   -webkit-font-smoothing: antialiased;
   text-align: center;
   margin-top: 60px;
@@ -33,7 +32,7 @@ html {
 body {
   width: 100%;
   height: 100%;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Baloo Bhaijaan", cursive;
   background: #092756;
   background-attachment: fixed;
   background: -moz-radial-gradient(
@@ -105,7 +104,7 @@ body {
 .wrapper h1 {
   font-family: "Galada", cursive;
   color: #f4f4f4;
-  letter-spacing: 8px;
+  letter-spacing: 0px;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;

@@ -1,8 +1,7 @@
 <template>
   <div class="wrapper animated bounce">
-    <h1>Register</h1>
+    <h1>ثبت نام</h1>
     <form>
-      
       <div>
         <input
           v-model="username"
@@ -11,14 +10,13 @@
           id="user_name"
           name="user_name"
           required
-          placeholder="Username "
+          placeholder="نام کاربری"
         />
         <div class="requirements">
-          Your username must be at least 3 characters,
-           only containing letters, numbers, and underscores
+          Your username must be at least 3 characters, only containing letters,
+          numbers, and underscores
         </div>
       </div>
-
 
       <div>
         <input
@@ -27,95 +25,96 @@
           id="password"
           name="password"
           required
-          placeholder="Password "
+          placeholder="رمز عبور"
           pattern=".{8,}"
         />
         <div class="requirements">
           Your password must be at least 8 characters
         </div>
-
       </div>
 
       <div class="button" id="button-3" @click="postData">
         <div id="circle"></div>
         <a href="#">Let's Go!</a>
       </div>
-      
     </form>
   </div>
 </template>
 <script>
-export default{
-    data: function(){
-        return{
-            username: "",
-            usernameStatus: true,
-            password: "",
-            passwordStatus: true,
-        }
-    },
-    computed:{
-        checkSubmission: function(){
-            return this.passwordStatus && this.usernameStatus
-        },
-    },
-    methods:{
-        checkAll: function(){
-            this.checkUsername()
-            this.checkPassword()
-        },
-        checkUsername: function(){  
-           const usernameFormat = /^[a-z_A-Z0-9]{3,}$/ 
-           if(usernameFormat.test(this.username)){
-               console.log("username is fine")
-               this.usernameStatus = true;
-           }else{
-               console.log("username is wrong")
-               this.usernameStatus = false;
-           }
-        },
-
-        checkPassword: function(){
-            if(this.password.length>=8){
-                console.log("password is fine")
-                this.passwordStatus = true;
-            }else{
-                console.log("password is wrong")
-                this.passwordStatus = false;
-            }
-        },
-        postData(){
-            console.log("checking your submission data")
-            this.checkAll()
-            if(this.checkSubmission){
-                const newRegister = {
-                    username: this.username,     
-                    password: this.password
-                }
-
-                this.$store.dispatch('signup',
-                  { newRegister:newRegister,
-                    success:()=>{
-                      this.$store.dispatch('getProfile',
-                    {
-                    success:()=>{this.$router.push({path: '/profile'})},
-                    failure:()=>{console.log("success on register but failed to get your profile")}
-                    })
-                    },
-                    failure:()=>{
-                      console.log("register failed")
-                      console.log("failed to register")
-                    }
-                  }
-                )
-            }else{
-                alert("Wrong submission, check the errors!")
-            }
-        }
+export default {
+  data: function() {
+    return {
+      username: "",
+      usernameStatus: true,
+      password: "",
+      passwordStatus: true
+    };
+  },
+  computed: {
+    checkSubmission: function() {
+      return this.passwordStatus && this.usernameStatus;
     }
-}
-</script>
+  },
+  methods: {
+    checkAll: function() {
+      this.checkUsername();
+      this.checkPassword();
+    },
+    checkUsername: function() {
+      const usernameFormat = /^[a-z_A-Z0-9]{3,}$/;
+      if (usernameFormat.test(this.username)) {
+        console.log("username is fine");
+        this.usernameStatus = true;
+      } else {
+        console.log("username is wrong");
+        this.usernameStatus = false;
+      }
+    },
 
+    checkPassword: function() {
+      if (this.password.length >= 8) {
+        console.log("password is fine");
+        this.passwordStatus = true;
+      } else {
+        console.log("password is wrong");
+        this.passwordStatus = false;
+      }
+    },
+    postData() {
+      console.log("checking your submission data");
+      this.checkAll();
+      if (this.checkSubmission) {
+        const newRegister = {
+          username: this.username,
+          password: this.password
+        };
+
+        this.$store.dispatch("signup", {
+          newRegister: newRegister,
+          success: () => {
+            this.$store.dispatch("getProfile", {
+              success: () => {
+                this.$router.push({ path: "/profile" });
+              },
+              failure: () => {
+                console.log(
+                  "success on register but failed to get your profile"
+                );
+              }
+            });
+          },
+          failure: () => {
+            console.log("register failed");
+            console.log("failed to register");
+          }
+        });
+      } else {
+        alert("Wrong submission, check the errors!");
+      }
+    }
+  }
+};
+</script>
 
 <style>
 body {
@@ -181,9 +180,9 @@ input:focus {
   -webkit-border-radius: 5px;
 }
 .wrapper h1 {
-  font-family: "Galada", cursive;
+  font-family: "Baloo Bhaijaan", cursive;
   color: #f4f4f4;
-  letter-spacing: 8px;
+  letter-spacing: 0px;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -370,5 +369,8 @@ a {
 
 * {
   box-sizing: border-box;
+}
+.css-selector {
+  font-family: "Baloo Bhaijaan", cursive;
 }
 </style>

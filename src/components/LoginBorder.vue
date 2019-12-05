@@ -1,132 +1,126 @@
 <template>
   <div class="wrapper animated bounce">
-    <h1>Login</h1>
+    <h1>ورود</h1>
     <form>
       <input
         type="text"
         name="u"
         v-model="username"
         pattern="[a-z_A-Z0-9]{3,}"
-        placeholder="Username"
+        placeholder="نام کاربری"
         required="required"
       />
 
-
       <div class="requirements">
-          Your username must be at least 3 characters,
-           only containing letters, numbers, and underscores
+        Your username must be at least 3 characters, only containing letters,
+        numbers, and underscores
       </div>
-
-
-
 
       <input
         type="password"
         v-model="password"
         name="p"
         pattern=".{8,}"
-        placeholder="Password"
+        placeholder="رمز عبور"
         required="required"
       />
-
 
       <div class="requirements1">
         Your password must be at least 8 characters
       </div>
 
-
-
       <div class="button" id="button-3" @click="postData">
         <div id="circle"></div>
         <a href="#">Let Me In</a>
       </div>
-      
     </form>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-    export default {
-
-    data: function() {
-        return {
-            username: "",
-            password: "",
-            usernameStatus: true,
-            passwordStatus: true,
-        };
-    },
-    computed:{
-        checkSubmission: function(){
-            return this.passwordStatus && this.usernameStatus
-        },
-    },
-    methods:{
-        checkAll: function(){
-          this.checkUsername()
-          this.checkPassword()
-        },
-        checkUsername: function(){  
-
-           const usernameFormat = /^[a-z_A-Z0-9]{3,}$/ 
-           if(usernameFormat.test(this.username)){
-               console.log("username is fine")
-               this.usernameStatus = true;
-           }else{
-               console.log("username is wrong")
-               this.usernameStatus = false;
-           }
-        },
-
-        checkPassword: function(){
-            if(this.password.length>=8){
-                console.log("password is fine")
-                this.passwordStatus = true;
-            }else{
-                console.log("password is wrong")
-                this.passwordStatus = false;
-            }
-        },
-        postData:function(){
-             console.log("checking your input data")
-             this.checkAll()
-             if(this.checkSubmission){
-               const loginRequest ={
-                   username: this.username,
-                   password: this.password 
-               }
-              
-             this.$store.dispatch('login',
-              {loginRequest:loginRequest,
-                success: ()=> { this.$store.dispatch('getProfile',{
-                                success:()=>{this.$router.push({path: '/profile'})},
-                                failure:()=>{console.log("success on login, failed to get profile")}
-                              })
-                },
-                failure: ()=> { console.log('failed to login') }
-              })
-             }else{
-               alert("Wrong submission, check the errors!")
-             }
-        }
-
-
-    }   
+import axios from "axios";
+export default {
+  data: function() {
+    return {
+      username: "",
+      password: "",
+      usernameStatus: true,
+      passwordStatus: true
     };
-</script>
+  },
+  computed: {
+    checkSubmission: function() {
+      return this.passwordStatus && this.usernameStatus;
+    }
+  },
+  methods: {
+    checkAll: function() {
+      this.checkUsername();
+      this.checkPassword();
+    },
+    checkUsername: function() {
+      const usernameFormat = /^[a-z_A-Z0-9]{3,}$/;
+      if (usernameFormat.test(this.username)) {
+        console.log("username is fine");
+        this.usernameStatus = true;
+      } else {
+        console.log("username is wrong");
+        this.usernameStatus = false;
+      }
+    },
 
+    checkPassword: function() {
+      if (this.password.length >= 8) {
+        console.log("password is fine");
+        this.passwordStatus = true;
+      } else {
+        console.log("password is wrong");
+        this.passwordStatus = false;
+      }
+    },
+    postData: function() {
+      console.log("checking your input data");
+      this.checkAll();
+      if (this.checkSubmission) {
+        const loginRequest = {
+          username: this.username,
+          password: this.password
+        };
+
+        this.$store.dispatch("login", {
+          loginRequest: loginRequest,
+          success: () => {
+            this.$store.dispatch("getProfile", {
+              success: () => {
+                this.$router.push({ path: "/profile" });
+              },
+              failure: () => {
+                console.log("success on login, failed to get profile");
+              }
+            });
+          },
+          failure: () => {
+            console.log("failed to login");
+          }
+        });
+      } else {
+        alert("Wrong submission, check the errors!");
+      }
+    }
+  }
+};
+</script>
 
 <style>
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 @import "https://fonts.googleapis.com/css?family=Galada";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
 input {
   padding: 20px 20px 20px 50px;
   width: 100%;
   margin-bottom: 10px;
-
+  text-align: right;
   background: rgba(0, 0, 0, 0.3);
   border: none;
   outline: none;
@@ -156,9 +150,8 @@ input:focus {
   -webkit-border-radius: 5px;
 }
 .wrapper h1 {
-  font-family: "Galada", cursive;
+  font-family: "Baloo Bhaijaan", cursive;
   color: #f4f4f4;
-  letter-spacing: 8px;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -182,7 +175,7 @@ input[type="password"] {
     }
   }
 
-   &:invalid:not(:focus):not(:placeholder-shown) {
+  &:invalid:not(:focus):not(:placeholder-shown) {
     background: pink;
     & + label {
       opacity: 0;
