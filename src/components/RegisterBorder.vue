@@ -6,6 +6,7 @@
         <input
           v-model="username"
           type="text"
+        
           pattern="[a-z_A-Z0-9]{3,}"
           id="user_name"
           name="user_name"
@@ -36,6 +37,10 @@
       <div class="button" id="button-3" @click="postData">
         <div id="circle"></div>
         <a href="#">Let's Go!</a>
+      </div>
+      
+      <div v-if="waiting">
+        <loading></loading>
       </div>
     </form>
   </div>

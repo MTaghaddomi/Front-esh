@@ -18,7 +18,7 @@ export default new Vuex.Store({
         firstName: (state)=>{return state.userProfile.firstName},
         lastName: (state)=>{return state.userProfile.lastName},
         email: (state)=>{return state.userProfile.email},
-        birthday: (state)=>{return state.userProfile.birthday},
+        birthday: (state)=>{var date = new Date(state.userProfile.birthday * 1000); return {year:date.year, month:date.month,day:date.day}},
         phoneNumber: (state)=>{return state.userProfile.phoneNumber}
     },
     mutations: {
@@ -26,6 +26,7 @@ export default new Vuex.Store({
             console.log('saving the state')
             state.username = serverData.username;         
             state.token = serverData.token
+            state.loggedin = true
             console.log("finished saveLogin")
         },
         deleteLogin(state){
@@ -47,7 +48,7 @@ export default new Vuex.Store({
             state.userProfile.firstName = serverData.firstName
             state.userProfile.lastName=serverData.lastName
             state.userProfile.email= serverData.email
-            state.userProfile.birthday= "1378/26/4t" 
+            state.userProfile.birthday= serverData.birthday
             state.userProfile.phoneNumber=serverData.phoneNumber
             state.loggedin = true
             console.log("the following has been saved: ")
@@ -82,6 +83,7 @@ export default new Vuex.Store({
             console.log("login data: ", newLogin)
             customAxios.post('/users/login',newLogin)
             .then((res)=>{
+                console.log("response data for login::::::")
                 console.log(res);
                 commit('saveLogin',{
                     token: res.data.token,
@@ -127,9 +129,8 @@ export default new Vuex.Store({
 
             const updatedProfile = args.updatedProfile
             console.log("updated profile::::",updatedProfile)
-            customAxios.put('/users/'+state.username,{
-                headers:{'Auth':state.token}},
-                updatedProfile
+            customAxios.put('/users/' + state.username,
+                updatedProfile, { headers: { 'Auth': state.token } }
             ).then((res)=>{
                 console.log(res)
                 commit('saveProfile',res.data)
