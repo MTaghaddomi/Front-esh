@@ -10,10 +10,10 @@
   </div>
 </template>
 <script>
-import NavBar from "./components/NavBar.vue";
+import NavBar2 from "./components/NavBar2.vue";
 export default {
   components: {
-    navBar: NavBar
+    navBar: NavBar2
   }
 };
 </script>
@@ -33,62 +33,18 @@ body {
   width: 100%;
   height: 100%;
   font-family: "Baloo Bhaijaan", cursive;
-  background: #092756;
   background-attachment: fixed;
-  background: -moz-radial-gradient(
-      0% 100%,
-      ellipse cover,
-      rgba(104, 128, 138, 0.4) 10%,
-      rgba(138, 114, 76, 0) 40%
-    ),
-    -moz-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4)
-          100%),
-    -moz-linear-gradient(-45deg, #670d10 0%, #092756 100%);
-  background: -webkit-radial-gradient(
-      0% 100%,
-      ellipse cover,
-      rgba(104, 128, 138, 0.4) 10%,
-      rgba(138, 114, 76, 0) 40%
-    ),
-    -webkit-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(
-            42,
-            60,
-            87,
-            0.4
-          )
-          100%),
-    -webkit-linear-gradient(-45deg, #670d10 0%, #092756 100%);
-  background: -o-radial-gradient(
-      0% 100%,
-      ellipse cover,
-      rgba(104, 128, 138, 0.4) 10%,
-      rgba(138, 114, 76, 0) 40%
-    ),
-    -o-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4)
-          100%),
-    -o-linear-gradient(-45deg, #670d10 0%, #092756 100%);
-  background: -ms-radial-gradient(
-      0% 100%,
-      ellipse cover,
-      rgba(104, 128, 138, 0.4) 10%,
-      rgba(138, 114, 76, 0) 40%
-    ),
-    -ms-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4)
-          100%),
-    -ms-linear-gradient(-45deg, #670d10 0%, #092756 100%);
-  background: -webkit-radial-gradient(
-      0% 100%,
-      ellipse cover,
-      rgba(104, 128, 138, 0.4) 10%,
-      rgba(138, 114, 76, 0) 40%
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(57, 173, 219, 0.25) 0%,
-      rgba(42, 60, 87, 0.4) 100%
-    ),
-    linear-gradient(135deg, #670d10 0%, #092756 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+  background: #d3cce3; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #e9e4f0,
+    #d3cce3
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #e9e4f0,
+    #d3cce3
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /* Position text in the middle of the page/image */

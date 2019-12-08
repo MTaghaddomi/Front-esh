@@ -15,9 +15,9 @@
     </div>
 
     <div class="nav-links">
-      <div @click="routeToprofile()">پروفایل</div>
-      <!--  <a @click="NavigateToClassrooms()">کلاس ها</a>
-      <a @click="NavigateToNotifications()">اعلانات</a>-->
+      <a @click="routeToprofile()">پروفایل</a>
+      <a @click="NavigateToClassrooms()">کلاس ها</a>
+      <a @click="NavigateToNotifications()">اعلانات</a>
     </div>
   </div>
 </template>

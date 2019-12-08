@@ -31,7 +31,7 @@
 
       <div class="button" id="button-3" @click="postData">
         <div id="circle"></div>
-        <a href="#">Let Me In</a>
+        <a href="#">بزن بریم</a>
       </div>
     </form>
   </div>
@@ -129,8 +129,6 @@ input {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2),
-    0 1px 1px rgba(255, 255, 255, 0.2);
   -webkit-transition: box-shadow 0.5s ease;
   -moz-transition: box-shadow 0.5s ease;
   -o-transition: box-shadow 0.5s ease;
@@ -151,7 +149,7 @@ input:focus {
 }
 .wrapper h1 {
   font-family: "Baloo Bhaijaan", cursive;
-  color: #f4f4f4;
+  color: black;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;

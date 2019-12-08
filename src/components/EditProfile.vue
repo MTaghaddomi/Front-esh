@@ -225,7 +225,7 @@ input:focus {
 }
 .wrapper h1 {
   font-family: "Baloo Bhaijaan", cursive;
-  color: #f4f4f4;
+  color: black;
   letter-spacing: 0px;
   text-align: center;
   padding-top: 5px;
