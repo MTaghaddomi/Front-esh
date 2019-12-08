@@ -7,6 +7,7 @@ import EditProfile from './components/EditProfile.vue'
 import Home from './components/Home.vue'
 import Classrooms from './components/Classrooms.vue'
 import Notifications from './components/Notifications.vue'
+import NotFound from './components/NotFound.vue'
 
 export const routes = [
 
@@ -18,6 +19,8 @@ export const routes = [
     {path: '/home', component: Home},
     {path: '/classrooms', component: Classrooms},
     {path: '/notifications', component: Notifications},
-    {path:'*' , redirect:'/home'}, //for non-specified routes, redirect to the homepage
+    {path: '/notFound', component: NotFound},
+    {path: '/', component: Home},
+    {path:'*' , redirect:'/notFound'}, //for non-specified routes, redirect to the homepage
     
 ];

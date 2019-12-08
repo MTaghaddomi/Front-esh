@@ -46,6 +46,19 @@
         </div>
       </div>
       <div>
+
+          <select required name="year" id="year" v-model="dateofbirth.year">
+              <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
+          </select>
+          <select required name="month" id="month" v-model="dateofbirth.month">
+              <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
+          </select>
+          <select required name="day" id="day" v-model="dateofbirth.day">
+              <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
+          </select>
+
+      </div>
+      <div>
         <input
           type="email"
           v-model="email"
@@ -94,7 +107,8 @@ export default{
         email: store.getters.email,
         emailStatus: true,
         phonenumber: store.getters.phoneNumber,
-        phoneNumberStatus: true
+        phoneNumberStatus: true,
+        dateofbirth: new Date(store.getters.birthday * 1000)
       }
     },
     computed:{
@@ -151,6 +165,11 @@ export default{
             }
             
         },
+        toTimestamp: function(strDate){
+
+          var datum = Date.parse(strDate);
+          return datum/1000;
+        },
         updateProfile(){
           console.log("checking your submission")
           this.checkAll()
@@ -160,7 +179,7 @@ export default{
               lastName: this.lastname,
               email: this.email,
               phoneNumber: this.phonenumber,
-              birthay: null //temp for testing
+              birthday: this.toTimestamp(this.dateofbirth.month+"/"+this.dateofbirth.day+"/"+this.dateofbirth.year)
             }
             this.waiting = true
             console.log("new profile is being submitted")
@@ -179,6 +198,15 @@ export default{
           }else{
             alert("wrong input data, check the errors!")
           }
+        },
+        range: function(min,max){
+          var array = [],
+          j = 0;
+          for(var i = min; i <= max; i++){
+            array[j] = i;
+            j++;
+          }
+          return array;
         }
 
     }
