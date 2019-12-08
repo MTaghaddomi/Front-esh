@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>ویرایش حساب کاربری</h1>
+  <div class="wrapper animated bounce">
+    <h1 class="css-selector">ویرایش حساب کاربری</h1>
     <div>
       <input
         v-model="firstname"
@@ -224,7 +224,7 @@ input:focus {
   -webkit-border-radius: 5px;
 }
 .wrapper h1 {
-  font-family: "Galada", cursive;
+  font-family: "Baloo Bhaijaan", cursive;
   color: #f4f4f4;
   letter-spacing: 0px;
   text-align: center;
