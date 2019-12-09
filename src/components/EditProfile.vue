@@ -211,16 +211,17 @@ export default{
                 this.$router.push({path: '/profile'}) 
               },
               failure:()=>{
+            alert("Something went wrong while updating your profile!");
+            console.log("failed to upddate your profile");
+          },
+              failure:()=>{
                 this.waiting = false;
                 alert("Something went wrong while updating your profile!")
                 console.log("failed to upddate your profile")
               }
             });
-          },
-          failure: () => {
-            alert("Something went wrong while updating your profile!");
-            console.log("failed to upddate your profile");
           }
+          
         },
         range: function(min,max){
           var array = [],
@@ -233,8 +234,7 @@ export default{
         }
 
     }
-  }
-};
+  };
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");

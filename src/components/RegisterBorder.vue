@@ -1,12 +1,15 @@
 <template>
   <div class="wrapper animated bounce">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <h1>ثبت نام</h1>
     <form>
       <div>
         <input
           v-model="username"
           type="text"
-        
           pattern="[a-z_A-Z0-9]{3,}"
           id="user_name"
           name="user_name"
@@ -38,10 +41,12 @@
         <div id="circle"></div>
         <a href="#">Let's Go!</a>
       </div>
-      
-      <div v-if="waiting">
-        <loading></loading>
-      </div>
+
+      <i
+        v-if="waiting"
+        class="fa fa-spinner fa-spin"
+        style="font-size:24px"
+      ></i>
     </form>
   </div>
 </template>

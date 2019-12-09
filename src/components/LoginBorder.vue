@@ -1,5 +1,9 @@
 <template>
   <div class="wrapper animated bounce">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <h1>ورود</h1>
     <form>
       <input
@@ -34,9 +38,9 @@
         <a href="#">بزن بریم</a>
       </div>
 
-      <div v-if="waiting">
-        <loading></loading>
-      </div>
+      
+      <i v-if="waiting" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+    
       
     </form>
   </div>
@@ -112,7 +116,7 @@ export default {
              }else{
                alert("Wrong submission, check the errors!")
              }
-        }
+        },
 
     checkPassword: function() {
       if (this.password.length >= 8) {
