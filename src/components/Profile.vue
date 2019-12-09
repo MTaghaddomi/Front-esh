@@ -39,7 +39,6 @@ export default {
       ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthday','loggedin'])
     },
     mounted: function(){
-      console.log("getting the f profile ::::")
       store.dispatch('getProfile',{
           success:()=>{console.log("success on f profile --------")},
           failure:()=>{console.log("failed to get profile --------")}

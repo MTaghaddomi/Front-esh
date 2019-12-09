@@ -92,12 +92,11 @@ export default new Vuex.Store({
                 args.success()
             })
             .catch((error)=>{
+                console.log("our status::",error)
                 console.log(error);
                 alert("Something went wrong in login process")
                 args.failure()
             })
-            console.log("the following has been saved: ")
-            console.log(state)
 
         },
 
@@ -139,6 +138,21 @@ export default new Vuex.Store({
                 console.log(error)
                 args.failure()
             })
+        },
+        submitClass({state},args){
+            console.log("submitting the new classroom:")
+            const classData = args.classData
+            console.log("the sending data:",classData)
+            customAxios.post('/classrooms/',classData)
+            .then((res)=>{
+                console.log(res)
+                args.success()
+            })
+            .catch((err)=>{
+                console.log(err)
+                args.failure()
+            })
+            
         }
 
 
