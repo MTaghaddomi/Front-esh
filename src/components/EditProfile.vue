@@ -1,49 +1,33 @@
 <template>
-<div class="wrapper animated bounce">
-    <h1>Edit Profile</h1>
-   <div>
-        <input
-          v-model="firstname"
-          type="text"
-          id="firstname"
-          name="firstname"
-          pattern="[a-z A-Z]*"
-          required
-          placeholder="firstname "
-        />
-        <div class="requirements">
-          Your lastname cannot have anything but letters and spaces.
-        </div>
+  <div class="wrapper animated bounce">
+    <h1 class="css-selector">ویرایش حساب کاربری</h1>
+    <div>
+      <input
+        v-model="firstname"
+        type="text"
+        id="firstname"
+        name="firstname"
+        pattern="[a-z A-Z]*"
+        required
+        placeholder="نام "
+      />
+      <div class="requirements">
+        Your lastname cannot have anything but letters and spaces.
       </div>
+    </div>
 
-      <div>
-        <input
-          type="text"
-          v-model="lastname"
-          pattern="[a-z A-Z]*"
-          id="lastname"
-          name="lastname"
-          required
-          placeholder="lastname "
-        />
-        <div class="requirements">
-          Your lastname cannot have anything but letters and spaces.
-        </div>
-      </div>
-      
-      <div>
-        <input
-          type="phonenumber"
-          v-model="phonenumber"
-          id="number"
-          name="number"
-          pattern="09[0-9]{9}"
-          required
-          placeholder="Phone number "
-        />
-        <div class="requirements">
-          Must be a valid phonenumber.
-        </div>
+    <div>
+      <input
+        type="text"
+        v-model="lastname"
+        pattern="[a-z A-Z]*"
+        id="lastname"
+        name="lastname"
+        required
+        placeholder="نام خانوادگی "
+      />
+      <div class="requirements">
+        Your lastname cannot have anything but letters and spaces.
       </div>
       <div>
 
@@ -69,17 +53,40 @@
           placeholder="Email Address "
         />
 
-        <div class="requirements">
-          Must be a valid email address.
-        </div>
+    <div>
+      <input
+        type="phonenumber"
+        v-model="phonenumber"
+        id="number"
+        name="number"
+        pattern="09[0-9]{9}"
+        required
+        placeholder="شماره همراه "
+      />
+      <div class="requirements">
+        Must be a valid phonenumber.
       </div>
-        <div class="button" id="button-3" @click="updateProfile">
-        <div id="circle"></div>
-        <a href="#">Let's Go!</a>
-      </div>
-            
     </div>
+    <div>
+      <input
+        type="email"
+        v-model="email"
+        id="email"
+        name="email"
+        pattern="(([<>()\[\]\.,;:\s@\]+(\.[<>()\[\]\.,;:\s@\]+)*)|(\.+\))@(([<>()[\]\.,;:\s@\]+\.)+[<>()[\]\.,;:\s@\]{2,})"
+        required
+        placeholder="پست الکترونیک "
+      />
 
+      <div class="requirements">
+        Must be a valid email address.
+      </div>
+    </div>
+    <div class="button" id="button-3" @click="updateProfile">
+      <div id="circle"></div>
+      <a href="#">Let's Go!</a>
+    </div>
+  </div>
 </template>
 <script>
 import store from '../store.js'
@@ -111,11 +118,25 @@ export default{
         dateofbirth: new Date(store.getters.birthday * 1000)
       }
     },
-    computed:{
-        checkSubmission: function(){
-            return this.firstnameStatus && this.lastnameStatus 
-                && this.emailStatus && this.phoneNumberStatus
-        },
+    checklastname: function() {
+      var nametest = /^[a-zA-Z\s.]*$/;
+      if (nametest.test(this.lastname)) {
+        console.log("lastname is fine");
+        this.lastnameStatus = true;
+      } else {
+        console.log("lastname is wrong");
+        this.lastnameStatus = false;
+      }
+    },
+    checknumber: function() {
+      var numbertest = /^09[0-9]{9}$/;
+      if (numbertest.test(this.phonenumber) || this.phoneNumber.length == 0) {
+        console.log("phonenumber is fine");
+        this.phoneNumberStatus = true;
+      } else {
+        console.log("phonenumer is wrong");
+        this.phoneNumberStatus = false;
+      }
     },
     methods:{
        checkAll: function(){
@@ -190,14 +211,17 @@ export default{
                 this.$router.push({path: '/profile'}) 
               },
               failure:()=>{
+            alert("Something went wrong while updating your profile!");
+            console.log("failed to upddate your profile");
+          },
+              failure:()=>{
                 this.waiting = false;
                 alert("Something went wrong while updating your profile!")
                 console.log("failed to upddate your profile")
               }
-            })    
-          }else{
-            alert("wrong input data, check the errors!")
+            });
           }
+          
         },
         range: function(min,max){
           var array = [],
@@ -210,10 +234,10 @@ export default{
         }
 
     }
-}
-
+  };
 </script>
 <style>
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 @import "https://fonts.googleapis.com/css?family=Galada";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
@@ -222,7 +246,7 @@ input {
   padding: 20px 20px 20px 50px;
   width: 100%;
   margin-bottom: 10px;
-
+  font-family: "Baloo Bhaijaan", cursive;
   background: rgba(0, 0, 0, 0.3);
   border: none;
   outline: none;
@@ -252,9 +276,9 @@ input:focus {
   -webkit-border-radius: 5px;
 }
 .wrapper h1 {
-  font-family: "Galada", cursive;
-  color: #f4f4f4;
-  letter-spacing: 8px;
+  font-family: "Baloo Bhaijaan", cursive;
+  color: black;
+  letter-spacing: 0px;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;

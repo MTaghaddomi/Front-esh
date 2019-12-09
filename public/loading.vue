@@ -1,14 +1,12 @@
 <template>
-	<RippleLoader :color="'#54f1d2'" />
+  <div>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+  </div>
 </template>
- 
-<script>
-	import RippleLoader from '@bit/joshk.vue-spinners-css.ripple-loader';
-	export default (
-		{
-			components: {
-				RippleLoader,
-			}
-		}
-	)
-</script>
+
+<script></script>
