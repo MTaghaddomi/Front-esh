@@ -78,6 +78,7 @@ body {
   padding: 13px 10px 13px 10px;
   text-decoration: none;
   color: #efefef;
+  cursor: pointer;
 }
 
 .nav > .nav-links > a:hover {

@@ -38,29 +38,45 @@
         <a href="#">بزن بریم</a>
       </div>
 
-      
-      <i v-if="waiting" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
-    
-      
+      <i
+        v-if="waiting"
+        class="fa fa-spinner fa-spin"
+        style="font-size:24px"
+      ></i>
     </form>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import loading from '../../public/loading.vue'
+import axios from "axios";
+import loading from "../../public/loading.vue";
 export default {
-    components:{
-      'loading':loading
-    },
-    data: function() {
-        return {
-            username: "",
-            password: "",
-            usernameStatus: true,
-            passwordStatus: true,
-            waiting: false,
-        };
+  components: {
+    loading: loading
+  },
+  data: function() {
+    return {
+      username: "",
+      password: "",
+      usernameStatus: true,
+      passwordStatus: true,
+      waiting: false
+    };
+  },
+  checkUsername: function() {
+    const usernameFormat = /^[a-z_A-Z0-9]{3,}$/;
+    if (usernameFormat.test(this.username)) {
+      console.log("username is fine");
+      this.usernameStatus = true;
+    } else {
+      console.log("username is wrong");
+      this.usernameStatus = false;
+    }
+  },
+  methods: {
+    checkAll: function() {
+      this.checkUsername();
+      this.checkPassword();
     },
     checkUsername: function() {
       const usernameFormat = /^[a-z_A-Z0-9]{3,}$/;
@@ -72,51 +88,41 @@ export default {
         this.usernameStatus = false;
       }
     },
-    methods:{
-        checkAll: function(){
-          this.checkUsername()
-          this.checkPassword()
-        },
-        checkUsername: function(){  
 
-           const usernameFormat = /^[a-z_A-Z0-9]{3,}$/ 
-           if(usernameFormat.test(this.username)){
-               console.log("username is fine")
-               this.usernameStatus = true;
-           }else{
-               console.log("username is wrong")
-               this.usernameStatus = false;
-           }
-        },
+    checkPassword: function() {
+      if (this.password.length >= 8) {
+        console.log("password is fine");
+        this.passwordStatus = true;
+      } else {
+        console.log("password is wrong");
+        this.passwordStatus = false;
+      }
+    },
+    postData: function() {
+      console.log("checking your input data");
+      this.checkAll();
+      if (this.checkSubmission) {
+        const loginRequest = {
+          username: this.username,
+          password: this.password
+        };
+        this.waiting = true;
 
-        checkPassword: function(){
-            if(this.password.length >= 8){
-                console.log("password is fine")
-                this.passwordStatus = true;
-            }else{
-                console.log("password is wrong")
-                this.passwordStatus = false;
-            }
-        },
-        postData:function(){
-             console.log("checking your input data")
-             this.checkAll()
-             if(this.checkSubmission){
-               const loginRequest ={
-                   username: this.username,
-                   password: this.password 
-               }
-               this.waiting = true           
-              
-             this.$store.dispatch('login',
-              {loginRequest:loginRequest,
-                success: ()=> {this.waiting = false; this.$router.push({path:'/profile'})},
-                failure: ()=> {this.waiting = false; console.log('failed to login') }
-              })
-             }else{
-               alert("Wrong submission, check the errors!")
-             }
-        },
+        this.$store.dispatch("login", {
+          loginRequest: loginRequest,
+          success: () => {
+            this.waiting = false;
+            this.$router.push({ path: "/profile" });
+          },
+          failure: () => {
+            this.waiting = false;
+            console.log("failed to login");
+          }
+        });
+      } else {
+        alert("Wrong submission, check the errors!");
+      }
+    },
 
     checkPassword: function() {
       if (this.password.length >= 8) {
@@ -160,7 +166,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 @import "https://fonts.googleapis.com/css?family=Galada";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
@@ -170,11 +176,12 @@ input {
   width: 100%;
   margin-bottom: 10px;
   text-align: right;
-  background: rgba(0, 0, 0, 0.3);
+  background-color: aliceblue;
   border: none;
   outline: none;
   font-size: 13px;
-  color: #fff;
+  font-family: "Baloo Bhaijaan", cursive;
+  color: black;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 4px;
@@ -185,8 +192,6 @@ input {
   transition: box-shadow 0.5s ease;
 }
 input:focus {
-  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4),
-    0 1px 1px rgba(255, 255, 255, 0.2);
 }
 .wrapper {
   margin: 50px auto;
@@ -210,13 +215,14 @@ input:focus {
   margin-left: 75px;
 }
 </style>
-<style lang="scss">
+<style scoped lang="scss">
 input[type="password"] {
   &:valid {
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
     background-size: 20px;
     background-repeat: no-repeat;
     background-position: 20px 20px;
+    background-color: white;
     & + label {
       opacity: 0;
     }
@@ -242,6 +248,7 @@ input[type="text"] {
     background-size: 20px;
     background-repeat: no-repeat;
     background-position: 20px 20px;
+    background-color: white;
     & + label {
       opacity: 0;
     }
@@ -282,13 +289,13 @@ input[type="text"] {
   font-style: italic;
   font-size: 13px;
 }
-.button {
+button {
   display: inline-flex;
   height: 40px;
   width: 150px;
-  border: 2px solid #3d5a5a;
+  border: 2px solid #bfc0c0;
   margin: 20px 20px 20px 20px;
-  color: #bfc0c0;
+  color: black;
   text-transform: uppercase;
   text-decoration: none;
   font-size: 0.8em;
@@ -296,9 +303,10 @@ input[type="text"] {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: white;
 }
 a {
-  color: #2d5f5f;
+  color: black;
   text-decoration: none;
   letter-spacing: 1px;
 }
@@ -306,6 +314,7 @@ a {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  background-color: white;
 }
 
 #button-3 a {
@@ -319,6 +328,7 @@ a {
   opacity: 0;
   line-height: 40px;
   border-radius: 50%;
+  background: #bfc0c0;
   position: absolute;
   transition: all 0.5s ease-Out;
   top: 20px;

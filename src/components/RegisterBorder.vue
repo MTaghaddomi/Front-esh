@@ -126,7 +126,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 body {
   background-attachment: fixed;
 }
@@ -134,17 +134,16 @@ input {
   padding: 20px 20px 20px 50px;
   width: 100%;
   margin-bottom: 10px;
-
-  background: rgba(0, 0, 0, 0.3);
+  text-align: right;
+  background-color: aliceblue;
   border: none;
   outline: none;
   font-size: 13px;
-  color: #fff;
+  font-family: "Baloo Bhaijaan", cursive;
+  color: black;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2),
-    0 1px 1px rgba(255, 255, 255, 0.2);
   -webkit-transition: box-shadow 0.5s ease;
   -moz-transition: box-shadow 0.5s ease;
   -o-transition: box-shadow 0.5s ease;
@@ -152,35 +151,8 @@ input {
   transition: box-shadow 0.5s ease;
 }
 input:focus {
-  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4),
-    0 1px 1px rgba(255, 255, 255, 0.2);
 }
-.selectItems {
-  padding: 20px 0px 20px 50px;
-  width: 30%;
-  height: 50px;
-  margin-bottom: 10px;
-  margin-right: 5px;
-  background: rgba(0, 0, 0, 0.3);
-  border: none;
-  outline: none;
-  font-size: 13px;
-  color: #fff;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2),
-    0 1px 1px rgba(255, 255, 255, 0.2);
-  -webkit-transition: box-shadow 0.5s ease;
-  -moz-transition: box-shadow 0.5s ease;
-  -o-transition: box-shadow 0.5s ease;
-  -ms-transition: box-shadow 0.5s ease;
-  transition: box-shadow 0.5s ease;
-}
-.selectItems:focus {
-  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4),
-    0 1px 1px rgba(255, 255, 255, 0.2);
-}
+
 .wrapper {
   margin: 50px auto;
   width: 343px;
@@ -204,7 +176,7 @@ input:focus {
   margin-left: 75px;
 }
 </style>
-<style lang="scss">
+<style scoped lang="scss">
 @import url(https://fonts.googleapis.com/css?family=PT+Sans:400);
 
 // positioning context
@@ -215,6 +187,7 @@ input[type="text"] {
     background-size: 20px;
     background-repeat: no-repeat;
     background-position: 20px 20px;
+    background-color: white;
     & + label {
       opacity: 0;
     }
@@ -241,6 +214,7 @@ input[type="password"] {
     background-size: 20px;
     background-repeat: no-repeat;
     background-position: 20px 20px;
+    background-color: white;
     & + label {
       opacity: 0;
     }
@@ -288,46 +262,20 @@ input[type="password"] {
 
 .requirements {
   padding: 0 30px 0 50px;
-  color: #999;
   max-height: 0;
   transition: 0.28s;
   overflow: hidden;
   color: rgb(182, 87, 118);
   font-style: italic;
 }
-input[type="text"] {
-  &:valid {
-    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
-    background-size: 20px;
-    background-repeat: no-repeat;
-    background-position: 20px 20px;
-    & + label {
-      opacity: 0;
-    }
-  }
 
-  &:invalid:not(:focus):not(:placeholder-shown) {
-    background: pink;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:focus:not(:placeholder-shown) {
-    & ~ .requirements {
-      max-height: 200px;
-      padding: 0 30px 20px 50px;
-    }
-  }
-}
-
-.button {
+button {
   display: inline-flex;
   height: 40px;
   width: 150px;
   border: 2px solid #bfc0c0;
   margin: 20px 20px 20px 20px;
-  color: #bfc0c0;
+  color: black;
   text-transform: uppercase;
   text-decoration: none;
   font-size: 0.8em;
@@ -335,9 +283,10 @@ input[type="text"] {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: white;
 }
 a {
-  color: #bfc0c0;
+  color: black;
   text-decoration: none;
   letter-spacing: 1px;
 }
@@ -345,6 +294,7 @@ a {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  background-color: white;
 }
 
 #button-3 a {

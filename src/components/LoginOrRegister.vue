@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import store from '../store.js'
-import loading from '../../public/loading.vue'
+import store from "../store.js";
+import loading from "../../public/loading.vue";
 export default {
   beforeRouteEnter: (to, from, next) => {
     if (store.getters.loggedin) {
@@ -37,10 +37,33 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 body {
   font-family: "Baloo Bhaijaan", cursive;
 }
+.wrapper {
+  margin: 50px auto;
+  width: 343px;
+  height: 280px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+.wrapper h1 {
+  font-family: "Baloo Bhaijaan", cursive;
+  color: black;
+  letter-spacing: 0px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.wrapper hr {
+  opacity: 0.2;
+}
+.crtacc {
+  margin-left: 75px;
+}
+
 @import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
 .glow-on-hover {
   display: inline-block;

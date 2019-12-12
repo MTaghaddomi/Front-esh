@@ -1,82 +1,100 @@
 <template>
-    <div class="wrapper animated bounce">
-        <h1>
-            Your Profile
-        </h1>
-        <div class="glow-on-hover container">
-        <p style ="padding-left: 5px">username:<span style="padding-left:17%">{{username}}</span></p>
-        <p style ="padding-left: 5px">firstname:<span style="padding-left:18%">{{firstName}}</span></p>
-        <p style ="padding-left: 5px">lastname:<span style="padding-left:18%">{{lastName}}</span></p>
-        <p style ="padding-left: 5px">email:<span style="padding-left:26%">{{email}}</span></p>
-        <p style ="padding-left: 5px">phonenumber:<span style="padding-left:7%">{{phoneNumber}}</span></p>
-        <p style ="padding-left: 5px">birthday:<span style="padding-left:19%">{{birthday}}</span></p>
-        </div>
+  <div class="wrapper animated bounce">
+    <div class="containeraa">
+      <p>
+        نام کاربری:
+        <input type="text" v-model="username" />
+      </p>
+      <p>
+        نام:
+        <span>{{ firstName }}</span>
+      </p>
+      <p>
+        نام خانوادگی:<span>{{ lastName }}</span>
+      </p>
+      <p>
+        پست الکترونیک:<span>{{ email }}</span>
+      </p>
+      <p>
+        شماره همراه:<span>{{ phoneNumber }}</span>
+      </p>
+      <p>
+        تاریخ تولد:<span>{{ birthday }}</span>
+      </p>
 
-        <div class="button" id="button-3" @click="editProfile">
-          <div id="circle"></div>
-          <a href="#">Edit profile</a>
-        </div>
+      <div class="button" id="button-3" @click="editProfile">
+        <div id="circle"></div>
+        <a href="#">ویرایش</a>
+      </div>
 
-        <div class="button" id="button-3" @click="logout">
-          <div id="circle"></div>
-          <a href="#">logout</a>
-        </div>
-        
-
+      <div class="button" id="button-3" @click="logout">
+        <div id="circle"></div>
+        <a href="#">خروج</a>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import store from '../store.js'
-import { mapGetters } from "vuex"
+import store from "../store.js";
+import { mapGetters } from "vuex";
 export default {
-    data: function(){
-      return{
-        //nothing
-      }
-    },
-    computed:{
-      ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthday','loggedin'])
-    },
-    mounted: function(){
-      store.dispatch('getProfile',{
-          success:()=>{console.log("success on f profile --------")},
-          failure:()=>{console.log("failed to get profile --------")}
-        })
-      
-    },
-    beforeRouteEnter : (to,from,next)=>{
-          console.log("checking loggedin status")
-          if(store.state.loggedin){
-              console.log("you are loggedin!, loading your profile page")
-              next()
-          }else{
-              alert("you are not loggedin yet, re-directing you to Authentication page")
-              next('/account') 
-          }
-            
-    },
-    methods:{
-      editProfile: function(){
-        this.$router.push({path: '/editProfile'})
+  data: function() {
+    return {};
+  },
+  computed: {
+    ...mapGetters([
+      "username",
+      "lastName",
+      "firstName",
+      "email",
+      "phoneNumber",
+      "birthday",
+      "loggedin"
+    ])
+  },
+  mounted: function() {
+    store.dispatch("getProfile", {
+      success: () => {
+        console.log("success on f profile --------");
       },
-      logout: function(){
-        this.$store.dispatch('logout')
-        this.$router.push({path: '/account'})
+      failure: () => {
+        console.log("failed to get profile --------");
       }
+    });
+  },
+  beforeRouteEnter: (to, from, next) => {
+    console.log("checking loggedin status");
+    if (store.state.loggedin) {
+      console.log("you are loggedin!, loading your profile page");
+      next();
+    } else {
+      alert(
+        "you are not loggedin yet, re-directing you to Authentication page"
+      );
+      next("/account");
     }
-}
+  },
+  methods: {
+    editProfile: function() {
+      this.$router.push({ path: "/editProfile" });
+    },
+    logout: function() {
+      this.$store.dispatch("logout");
+      this.$router.push({ path: "/account" });
+    }
+  }
+};
 </script>
-    
-<style>
-.container{
-    text-align: left;
-    width: 100%;
-    height: 90%;
+
+<style scoped>
+.containeraa {
+  text-align: right;
+  border: 1px solid black;
 }
 .glow-on-hover {
   display: inline-block;
-  
+
   border: none;
   outline: none;
   color: #fff;
@@ -84,7 +102,6 @@ export default {
   position: relative;
   z-index: 0;
   border-radius: 10px;
-  
 }
 .glow-on-hover:before {
   content: "";
@@ -113,7 +130,6 @@ export default {
   transition: opacity 0.3s ease-in-out;
   border-radius: 10px;
 }
-    
 
 @keyframes glowing {
   0% {
@@ -202,5 +218,4 @@ a {
 #button-3:hover a {
   color: #2d3142;
 }
-
 </style>
