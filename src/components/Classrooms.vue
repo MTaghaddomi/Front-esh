@@ -1,30 +1,64 @@
 <template>
+    <div>
+        <div id="main" v-if="!noClass">
 
-    <div id="main">
+            <h1 >
+            :کلاس ها شما  
+            </h1>
 
-        <smallClass v-for="enrolled in enrolledList"
-            :classroom="enrolled" :key="enrolled.id"/>
+            <smallClass v-for="enrolled in enrolledList"
+                :classroom="enrolled" :key="enrolled.className"/>
+        </div>
 
+        <div v-else id="main">
+            <h1>هنوز در هیچ کلاسی ثبت نام نکرده اید</h1>
+        </div>
+
+        <button @click="newClass">
+            ساخت کلاس
+        </button>
     </div>
+    
 
 </template>
 
 <script>
 import SmallClass from './SmallClass'
+import store from '../store.js'
 export default {
     components:{
         'smallClass': SmallClass
     },
     data: function(){
         return {
-            enrolledList: // masalan az server por shode( listi az enrolled ha)
-            [{id:"111",className:"کلاس ۱۱۱",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
-             {id:"222",className:"کلاس ۲۲۲",lessonName:"درس ۲۲۲",lastName:"دلیر" },
-             {id:"333",className:"کلاس ۳۳۳",lessonName:"درس ۳۳۳",lastName:"چیترا" }] 
+            enrolledList:[],
+            noClass: false,
+            // enrolledList: // masalan az server por shode( listi az enrolled ha)
+            // [{className:"myClass1",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
+            //  {className:"myClass2",lessonName:"درس ۲۲۲",lastName:"دلیر" },
+            //  {className:"myClass3",lessonName:"درس ۳۳۳",lastName:"چیترا" }] 
         }
-
-            
-
+    },
+    mounted: function(){
+      store.dispatch('getEnrolledClassrooms',{
+          success:(data)=>{
+              this.enrolledList = data.classrooms  //TODO: check this line
+              if(this.enrolledList == null){
+                  this.noClass = true;
+              }else{
+                  this.noClass = false;
+              }
+              console.log("success on loading all your classrooms")},
+          failure:()=>{
+              this.noClass = true;
+              alert("failed to load your classrooms")
+              }
+        })
+    },
+    methods:{
+        newClass(){
+            this.$router.push({name:'createClass'})
+        }
     }
 }
 </script>

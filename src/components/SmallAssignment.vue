@@ -6,11 +6,11 @@
 
 <script>
 export default {
-    props: {classId: String,assignment : Object} //has className, lessonName, lastName, and id
+    props: {className: String,assignment : Object} //has className, lessonName, lastName, and id
     ,
     methods:{
         selected(){
-            this.$router.push({name:"assignment" , params:{classId:this.classId, assignmentId: this.assignment.id},append: true})
+            this.$router.push({name:"assignment" , params:{className:this.className, assignmentId: this.assignment.id},append: true})
         }
     }
 }

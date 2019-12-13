@@ -157,8 +157,10 @@ export default new Vuex.Store({
             console.log("submitting the new classroom:")
             const classData = args.classData
             console.log("the sending data:",classData)
-            customAxios.post('/classrooms/',classData)
-            .then((res)=>{
+
+            customAxios.post('/classrooms/',
+            classData, { headers: {"Auth" : state.token } }
+            ).then((res)=>{
                 console.log(res)
                 args.success()
             })
@@ -167,8 +169,58 @@ export default new Vuex.Store({
                 args.failure()
             })
             
-        }
+        },
+        getEnrolledClassrooms({state},args){
+            console.log("starting getEnrolledClassrooms action")
+            customAxios.get('/users/classrooms/myClasses',
+                { headers: { 'Auth': state.token } }
+            ).then(
+                (res)=>{
+                    console.log("succes on getEnrolledClassrooms Action")
+                    // args.success( ... ) TODO pass the list
+                }
+            ).catch(
+                (error)=>{
+                    console.log("failed to getEnrolledClassrooms Action")
+                    console.log(error)
+                    args.failure()
+                }
+            )
+        },
+        getClassroomDetails({state},args){
+            console.log("starting getClassroomDetails action")
+            customAxios.get('/classrooms/'+args.className,
+            {headers: {'Auth':state.token}}
+            ).then(
+                (res)=>{
+                    console.log("success on getClassroomDetails Action")
+                    // args.success( ... ) TODO pass the class data
+                }
+            ).catch(
+                (error)=>{
+                    console.log("failure on getClassroomDetails Action")
+                    console.log(error)
+                    args.failure()
+                }
+            )
+        },
+        getAssignments({state},args){
+            console.log("starting getAssignments action")
+            customAxios.get('/classrooms/'+args.className+'/exercises',{
+                headers: {'Auth': state.token}
+            }).then(
+                (res)=>{
+                    console.log("success on getAssignments Action")
+                    // args.succes ( ... ) TODO pass the assignments
+                }
+            ).catch(
+                (res)=>{
+                    console.log("failure on getAssignments Action")
+                    args.failure()
+                }
+            )
 
+        }
 
     },
 });

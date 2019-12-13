@@ -39,19 +39,19 @@
 
       <div class="button" id="button-3" @click="postData">
         <div id="circle"></div>
-        <a href="#">Let's Go!</a>
+        <a href="#">ثبت نام</a>
       </div>
 
-      <i
-        v-if="waiting"
-        class="fa fa-spinner fa-spin"
-        style="font-size:24px"
-      ></i>
+      <loading v-if="waiting"></loading>
     </form>
   </div>
 </template>
 <script>
+import loading from '../../public/loading.vue'
 export default {
+  components:{
+    'loading': loading
+  },
   data: function() {
     return {
       username: "",
@@ -90,6 +90,7 @@ export default {
       }
     },
     postData() {
+      this.waiting = true;
       console.log("checking your submission data");
       this.checkAll();
       if (this.checkSubmission) {
@@ -103,9 +104,11 @@ export default {
           success: () => {
             this.$store.dispatch("getProfile", {
               success: () => {
+                this.waiting = false;
                 this.$router.push({ path: "/profile" });
               },
               failure: () => {
+                this.waiting = false;
                 console.log(
                   "success on register but failed to get your profile"
                 );
@@ -113,11 +116,13 @@ export default {
             });
           },
           failure: () => {
+            this.waiting = false;
             console.log("register failed");
             console.log("failed to register");
           }
         });
       } else {
+        this.waiting = false;
         alert("Wrong submission, check the errors!");
       }
     }

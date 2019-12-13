@@ -46,8 +46,6 @@
       <input
         type="phonenumber"
         v-model="phonenumber"
-        id="number"
-        name="number"
         pattern="09[0-9]{9}"
         required
         placeholder="شماره همراه "
@@ -60,9 +58,7 @@
       <input
         type="email"
         v-model="email"
-        id="email"
-        name="email"
-         pattern="[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*"
+        pattern="[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*"
         required
         placeholder="پست الکترونیک "
       />
@@ -71,11 +67,12 @@
         Must be a valid email address.
       </div>
     </div>
-    <div class="button" id="button-3" @click="updateProfile">
-      <div id="circle"></div>
-      <a href="#">Let's Go!</a>
+      <div class="button" id="button-3" @click="updateProfile">
+        <div id="circle"></div>
+        <a href="#">ارسال اطلاعات</a>
+      </div>
     </div>
-    </div>
+    <loading v-if="waiting"></loading>
   </div>
 </template>
 <script>
@@ -83,7 +80,7 @@ import store from '../store.js'
 import loading from '../../public/loading.vue'
 export default{
     components:{
-      'loading':loading
+      'loading': loading
     },
     beforeRouteEnter : (to,from,next)=>{
           if(store.getters.loggedin){
@@ -98,14 +95,11 @@ export default{
     data: function(){
       return {
         firstname: store.getters.firstName,
-        firstnameStatus: true,
         lastname:store.getters.lastName,
-        lastnameStatus: true,
         email: store.getters.email,
-        emailStatus: true,
         phonenumber: store.getters.phoneNumber,
-        phoneNumberStatus: true,
-        dateofbirth: store.getters.birthdayDate
+        dateofbirth: store.getters.birthdayDate,
+        waiting: false
       }
     },
     methods:{
@@ -115,7 +109,7 @@ export default{
        },
        checkfirstname: function(){
             var nametest =/^[a-zA-Z\s.]*$/
-            if(nametest.test(this.firstname) || this.firstname == null){
+            if(nametest.test(this.firstname) || this.firstname == "" || this.firstname == null){
                 console.log("firstname is fine")
                 return true;
             }else{
@@ -125,7 +119,7 @@ export default{
         },
         checklastname: function(){
             var nametest = /^[a-zA-Z\s.]*$/ 
-            if(nametest.test(this.lastname) || this.lastname == null){
+            if(nametest.test(this.lastname) || this.lastname == "" || this.lastname== null){
                 console.log("lastname is fine")
                 return true;
             }else{
@@ -135,17 +129,17 @@ export default{
         },
         checknumber: function(){
             var numbertest = /^09[0-9]{9}$/
-            if(numbertest.test(this.phonenumber) || this.phonenumber == null){
+            if(numbertest.test(this.phonenumber) || this.phonenumber == ""|| this.phonenumber == null ){
                 console.log("phonenumber is fine")
                 return true;
             }else{
-                console.log("phonenumer is wrong")
+                console.log("phonenumber is wrong")
                 return false;
             }
         },
         checkemail: function(){
             var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/
-            if(emailtest.test(this.email) || this.email == null){
+            if(emailtest.test(this.email) || this.email == "" || this.email == null){
                 console.log("email is fine")
                 return true;
             }else{
@@ -160,6 +154,7 @@ export default{
           return datum/1000;
         },
         updateProfile(){
+          this.waiting = true;
           console.log("checking your submission")
           
           if(this.checkAll()){
@@ -170,7 +165,6 @@ export default{
               phoneNumber: this.phonenumber,
               birthday: this.toTimestamp(this.dateofbirth.month+"/"+this.dateofbirth.day+"/"+this.dateofbirth.year)
             }
-            this.waiting = true
             console.log("new profile is being submitted")
             this.$store.dispatch('editProfile',{
               updatedProfile:updatedProfile,
@@ -179,15 +173,19 @@ export default{
                 this.$router.push({path: '/profile'}) 
               },
               failure:()=>{
-            alert("Something went wrong while updating your profile!");
-            console.log("failed to upddate your profile");
-          },
+                alert("Something went wrong while updating your profile!");
+                this.waiting = false;
+                console.log("failed to upddate your profile");
+            },
               failure:()=>{
                 this.waiting = false;
                 alert("Something went wrong while updating your profile!")
                 console.log("failed to upddate your profile")
               }
             });
+          }else{
+            alert("Wrong submission, check the errors!")
+            this.waiting = false
           }
           
         },

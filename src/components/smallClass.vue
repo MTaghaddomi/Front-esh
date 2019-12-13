@@ -10,7 +10,7 @@ export default {
     ,
     methods:{
         selected(){
-            this.$router.push({name:"classroom" , params:{classId: this.classroom.id}})
+            this.$router.push({name:"classroom" , params:{className: this.classroom.className}})
         }
     }
 }

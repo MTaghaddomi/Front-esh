@@ -39,7 +39,7 @@
       </div>
 
       
-      <i v-if="waiting" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+      <loading v-if="waiting"></loading>
     
       
     </form>
@@ -47,11 +47,10 @@
 </template>
 
 <script>
-import axios from 'axios'
 import loading from '../../public/loading.vue'
 export default {
     components:{
-      'loading':loading
+      'loading': loading
     },
     data: function() {
         return {
