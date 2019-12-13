@@ -2,7 +2,7 @@
     <div>
         <div id="main" v-if="!noClass">
 
-            <h1 >
+            <h1>
             :کلاس ها شما  
             </h1>
 
@@ -26,6 +26,15 @@
 import SmallClass from './SmallClass'
 import store from '../store.js'
 export default {
+    beforeRouteEnter : (to,from,next)=>{
+          if(store.getters.loggedin){
+              next()
+          }else{
+              alert("not logged in yet!")
+              next('/account')
+          }
+          
+    },
     components:{
         'smallClass': SmallClass
     },

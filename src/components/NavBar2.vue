@@ -2,7 +2,7 @@
   <div class="nav">
     <input type="checkbox" id="nav-check" />
     <div class="nav-header">
-      <div class="nav-title" @click="home()">
+      <div class="nav-title" @click="home() ">
         EZlearn
       </div>
     </div>
@@ -65,6 +65,9 @@ body {
   color: #fff;
   padding: 10px 10px 10px 10px;
 }
+.nav > .nav-header > .nav-title:hover {
+  cursor: pointer;
+}
 
 .nav > .nav-btn {
   display: none;
@@ -85,6 +88,7 @@ body {
 
 .nav > .nav-links > a:hover {
   color: #fa923f;
+  cursor: pointer;
 }
 
 .nav > #nav-check {

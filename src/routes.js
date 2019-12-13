@@ -11,6 +11,7 @@ import Notifications from './components/Notifications.vue'
 import Assignment from './components/Assignment.vue'
 import NotFound from './components/NotFound.vue'
 import CreateClassroom from './components/CreateClassroom.vue'
+import CreateAssignment from './components/CreateAssignment.vue'
 
 export const routes = [
     {path: '/account', component: LoginOrRegister},
@@ -23,7 +24,8 @@ export const routes = [
 
     {name: 'classroom' ,path: '/classroom/:className',component: Classroom},
     {name: 'assignment', path: '/classroom/:className/assignments/:assignmentId' , component: Assignment, append: true},
-    {path: '/createClass' ,name:'createClass', component: CreateClassroom},
+    {name: 'createAssignment' , path: '/classroom/:className/createAssignment'  , component: CreateAssignment},
+    {name: 'createClass' , path: '/createClass' , component: CreateClassroom},
     {path: '/notifications', component: Notifications},
     {path: '/notFound', component: NotFound},
     {path: '/', component: Home},

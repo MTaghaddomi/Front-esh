@@ -62,7 +62,6 @@ export default new Vuex.Store({
                 {year: date.getFullYear(), month: mm, day: dd}
             }
 
-
             state.userProfile.phoneNumber=serverData.phoneNumber
             state.loggedin = true
             console.log("the following has been saved: ")
@@ -167,7 +166,6 @@ export default new Vuex.Store({
             .catch((err)=>{
                 console.log(err)
                 args.failure()
-                // args.success()
             })
             
         },
@@ -178,6 +176,7 @@ export default new Vuex.Store({
             ).then(
                 (res)=>{
                     console.log("succes on getEnrolledClassrooms Action")
+                    console.log(res)
                     // args.success( ... ) TODO pass the list
                 }
             ).catch(
@@ -191,10 +190,11 @@ export default new Vuex.Store({
         getClassroomDetails({state},args){
             console.log("starting getClassroomDetails action")
             customAxios.get('/classrooms/'+args.className,
-            {headers: {'Auth':state.token}}
+                { headers: { 'Auth':state.token}}
             ).then(
                 (res)=>{
                     console.log("success on getClassroomDetails Action")
+                    console.log(res)
                     // args.success( ... ) TODO pass the class data
                 }
             ).catch(
@@ -207,20 +207,40 @@ export default new Vuex.Store({
         },
         getAssignments({state},args){
             console.log("starting getAssignments action")
-            customAxios.get('/classrooms/'+args.className+'/exercises',{
-                headers: {'Auth': state.token}
-            }).then(
+            customAxios.get('/classrooms/'+args.className+'/exercises',
+                { headers: {'Auth': state.token}}
+            ).then(
                 (res)=>{
                     console.log("success on getAssignments Action")
-                    // args.succes ( ... ) TODO pass the assignments
+                    console.log(res)
+                    // args.success ( ... ) TODO pass the assignments
                 }
             ).catch(
-                (res)=>{
+                (error)=>{
                     console.log("failure on getAssignments Action")
+                    console.log(error)
                     args.failure()
                 }
             )
 
+        },
+        newAssignment({state},args){
+            console.log("starting newAssignment action")
+            customAxios.post('/exercise/'+args.className,
+                args.newAssignment, {headers: {'Auth': state.token}}
+            ).then(
+                (res)=>{
+                    console.log("success on newAssignment Action")
+                    console.log(res)
+                    args.sucess()
+                }
+            ).catch(
+                (error)=>{
+                    console.log("failure on newAssignment Action")
+                    console.log(error)
+                    args.failure()
+                }
+            )
         }
 
     },
