@@ -20,7 +20,7 @@
         </p>
         <div v-if="accessLevel = 2">
             <button>
-                تنظیمات تکلیف
+                ویرایش تکلیف
             </button>
             <button>
                 مشاهده ی پاسخ ها
@@ -29,6 +29,7 @@
         <div v-else>
             ارسال پاسخ
         </div>
+
         
     </div>
     
@@ -59,7 +60,9 @@ export default {
                 this.accessLevel = data.accessLevel
             },
             failure: ()=>{
-
+                console.log("failed to loadd the assignment")
+                alert("failed to load the assignment")
+                this.$router.push({name: 'notFound'})
             }
         })
 

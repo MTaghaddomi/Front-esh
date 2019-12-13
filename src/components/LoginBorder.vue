@@ -16,8 +16,7 @@
       />
 
       <div class="requirements">
-        Your username must be at least 3 characters, only containing letters,
-        numbers, and underscores
+         نام کاربری باید حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
       </div>
 
       <input
@@ -29,8 +28,8 @@
         required="required"
       />
 
-      <div class="requirements1">
-        Your password must be at least 8 characters
+      <div class="requirements">
+           .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
       </div>
 
       <div class="button" id="button-3" @click="postData">

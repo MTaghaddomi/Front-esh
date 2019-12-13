@@ -17,8 +17,7 @@
           placeholder="نام کاربری"
         />
         <div class="requirements">
-          Your username must be at least 3 characters, only containing letters,
-          numbers, and underscores
+         نام کاربری باید حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
         </div>
       </div>
 
@@ -29,11 +28,11 @@
           id="password"
           name="password"
           required
-          placeholder="رمز عبور"
+          placeholder="کلمه عبور"
           pattern=".{8,}"
         />
         <div class="requirements">
-          Your password must be at least 8 characters
+           .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
         </div>
       </div>
 

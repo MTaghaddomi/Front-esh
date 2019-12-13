@@ -12,7 +12,7 @@
         placeholder="نام "
       />
       <div class="requirements">
-        Your lastname cannot have anything but letters and spaces.
+           .نام شما باید فقط از حروف و فاصله تشکیل شده باشد
       </div>
     </div>
 
@@ -27,8 +27,8 @@
         placeholder="نام خانوادگی "
       />
       <div class="requirements">
-        Your lastname cannot have anything but letters and spaces.
-    </div>
+           .نام خانوادگی شما باید فقط از حروف و فاصله تشکیل شده باشد
+      </div>
     <div>
 
         <select required name="year" id="year" v-model="dateofbirth.year">
@@ -51,7 +51,7 @@
         placeholder="شماره همراه "
       />
       <div class="requirements">
-        Must be a valid phonenumber.
+       .شماره همراه شما باید معتبر باشد 
       </div>
     </div>
     <div>
@@ -63,8 +63,8 @@
         placeholder="پست الکترونیک "
       />
 
-      <div class="requirements">
-        Must be a valid email address.
+       <div class="requirements">
+       .پست الکترونیک شما باید معتبر باشد 
       </div>
     </div>
       <div class="button" id="button-3" @click="updateProfile">

@@ -52,6 +52,11 @@
         <p v-else>
             تکلیفی موجود نیست
         </p>
+
+        <button v-if="isTeacher" @click="editClass">
+            وییرایش کلاس
+        </button>
+
         
 
 
@@ -69,10 +74,10 @@ export default {
     },
     data: function(){
         return {
-            name: "fp98-2",
-            description: "حل تمرین",
-            lesson: {name: "برنامه سازی پیشرفته",description:"دانشگاه خواجه نصیر ترم زمستان"},
-            teacherInfo: {firstName:"مهدی",lastName:"اثنی عشری",email:"something@gmail.com"},
+            name: "",
+            description: "",
+            lesson: {name: "",description:""},
+            teacherInfo: {firstName:"",lastName:"",email:""},
             studentsInfo: [],
             isTeacher: false,
             noHomeworks: true,
@@ -114,6 +119,11 @@ export default {
               }
         }
         )
+    },
+    methods:{
+        editClass(){ 
+            this.$router.push({name: 'editClass'}) //TODO implement editClass page
+        }
     }
 
 }

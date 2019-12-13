@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper animated bounce">
         <h1>
-            Your Profile
+            حساب کاربری
         </h1>
         <div class="glow-on-hover container">
         <p style ="padding-left: 5px">username:<span style="padding-left:17%">{{username}}</span></p>
@@ -16,12 +16,12 @@
 
         <div class="button" id="button-3" @click="editProfile">
           <div id="circle"></div>
-          <a href="#">Edit profile</a>
+          <a href="#">ویرایش حساب کاربری</a>
         </div>
 
         <div class="button" id="button-3" @click="logout">
           <div id="circle"></div>
-          <a href="#">logout</a>
+          <a href="#">خروج</a>
         </div>
         
 

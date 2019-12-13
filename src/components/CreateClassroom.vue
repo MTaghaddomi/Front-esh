@@ -1,50 +1,50 @@
 <template>
     <div class="wrapper animated bounce">
-        <h1>
+        <div>
+            <h1>
                : اطلاعات کلاس 
-        </h1>
-        <div>
-            <input
-                type="text"
-                v-model="className"
-                pattern="[a-z_A-Z0-9]{3,}"
-                placeholder="نام انحصاری کلاس"
-                required="required"
-            />
+            </h1>
+            <div>
+                <input
+                    type="text"
+                    v-model="className"
+                    pattern="[a-z_A-Z0-9]{3,}"
+                    placeholder="نام انحصاری کلاس"
+                    required="required"
+                />
 
-            <div class="requirements">
-                Your class name must be at least 3 characters, only containing letters,
-                numbers, and underscores
+                <div class="requirements">
+                .نام انحصاری کلاس باید حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
+                </div>
             </div>
-        </div>
     
-        <div>
-            <input
-                v-model="lessonName"
-                type="text"
-                pattern="[a-z A-Z]*"
-                required
-                placeholder="نام درس"
-            />
-            <div class="requirements">
-                Your lesson name cannot have anything but letters and spaces.
+            <div>
+                <input
+                    v-model="lessonName"
+                    type="text"
+                    pattern="[a-z A-Z]*"
+                    required
+                    placeholder="نام درس"
+                />
+                <div class="requirements">
+                .نام درس باید فقط شامل حروف و فاصله باشد 
+                </div>
+            </div>
+            <div>
+                <input
+                    v-model="description"
+                    type="text"
+                    pattern="[a-z_ ,.A-Z0-9-!]{3,}"
+                    required
+                    placeholder="توضیحات کلاس"
+                />
+                <div class="requirements">
+                .توضیحات کلاس باید شامل حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد ، و کاراکتر های رایج باشد 
+                </div>
             </div>
         </div>
+        
         <div>
-            <input
-                v-model="description"
-                type="text"
-                pattern="[a-z_ ,.A-Z0-9-!]{3,}"
-                required
-                placeholder="توضیحات کلاس"
-            />
-            <div class="requirements">
-                Your class description must be at least 3 characters, only containing letters,
-                numbers, and common characters
-            </div>
-        </div>
-        <div>
-
             <h1>
                : اطلاعات مدرس 
             </h1>
@@ -58,7 +58,7 @@
                     placeholder="نام مدرس"
                 />
                 <div class="requirements">
-                    Your firstname cannot have anything but letters and spaces.
+                .نام شما باید فقط شامل حروف و فاصله باشد
                 </div>
             </div>
 
@@ -71,7 +71,7 @@
                     placeholder="نام خانوادگی مدرس "
                 />
                 <div class="requirements">
-                    Your lastname cannot have anything but letters and spaces.
+                   .نام خانوادگی شما باید فقط شامل حروف و فاصله باشد
                 </div>
             </div>
 
@@ -84,22 +84,28 @@
                     placeholder="پست الکترونیک مدرس"
                 />
                 <div class="requirements">
-                    Your email cannot have anything but letters and spaces.
+
+                    .پست الکترونیک شما باید معتبر باشد
                 </div>
             </div>
 
-           <div class="button" id="button-3" @click="submitClass">
-            <div id="circle"></div>
-            <a href="#">ساخت کلاس</a>
-           </div>
+            <div class="button" id="button-3" @click="submitClass">
+                <div id="circle"></div>
+                <a href="#">ساخت کلاس</a>
+            </div>
         </div>
-    
+        <loading v-if="waiting"></loading>
+
     </div>
    
 </template>
 
 <script>
+import loading from '../../public/loading.vue'
 export default {
+    components:{
+        'loading': loading
+    },
     data: function(){
         return{
             className: "",
@@ -107,7 +113,8 @@ export default {
             description: "",
             firstName: "",
             lastName: "",
-            email: ""
+            email: "",
+            waiting : false
         }
         
     },
@@ -178,8 +185,9 @@ export default {
                 && this.checkFirstName() &&this.checkLastName() && this.checkEmail()
         },
         submitClass(){
+            this.waiting = true
             if(this.checkAll()){
-                var classData = {
+                const classData = {
                     lesson: {name: this.lessonName, description: this.description},
                     name: this.className,
                     firstName: this.firstName,
@@ -187,12 +195,19 @@ export default {
                     email: this.email
                 }
                 this.$store.dispatch('submitClass',{
-                 classData,
-                 success:()=>{this.$router.push({name: 'classroom', params:{className: classData.name}})},
-                 failure:()=>{alert("Something went wrong while submitting the class")}
+                 classData: classData,
+                 success:()=>{
+                     this.waiting = false
+                     this.$router.push({name: 'classroom', params:{className: classData.name}})
+                     },
+                 failure:()=>{
+                     alert("Something went wrong while submitting the class")
+                     this.waiting = false
+                     }
                 })
             }else{
                 alert("Wrong submission. check the errors!")
+                this.waiting = false
             }
         }
     }
@@ -204,6 +219,7 @@ export default {
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 @import "https://fonts.googleapis.com/css?family=Galada";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
 
 input {
   padding: 20px 20px 20px 50px;
