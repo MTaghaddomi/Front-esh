@@ -9,7 +9,9 @@
         <p style ="padding-left: 5px">lastname:<span style="padding-left:18%">{{lastName}}</span></p>
         <p style ="padding-left: 5px">email:<span style="padding-left:26%">{{email}}</span></p>
         <p style ="padding-left: 5px">phonenumber:<span style="padding-left:7%">{{phoneNumber}}</span></p>
-        <p style ="padding-left: 5px">birthday:<span style="padding-left:19%">{{birthday}}</span></p>
+        <p style ="padding-left: 5px">birthday:
+          <span v-if="birthdayDate != null" style="padding-left:19%">
+            {{(birthdayDate.year== null ? '-': birthdayDate.year) + " / " + birthdayDate.month + " / " + birthdayDate.day}}</span></p>
         </div>
 
         <div class="button" id="button-3" @click="editProfile">
@@ -36,14 +38,13 @@ export default {
       }
     },
     computed:{
-      ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthday','loggedin'])
+      ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthdayDate','birthdayTimestamp','loggedin'])
     },
     mounted: function(){
       store.dispatch('getProfile',{
-          success:()=>{console.log("success on f profile --------")},
-          failure:()=>{console.log("failed to get profile --------")}
+          success:()=>{console.log("success on loading profile")},
+          failure:()=>{console.log("failed to get profile")}
         })
-      
     },
     beforeRouteEnter : (to,from,next)=>{
           console.log("checking loggedin status")
@@ -63,6 +64,16 @@ export default {
       logout: function(){
         this.$store.dispatch('logout')
         this.$router.push({path: '/account'})
+      },
+      getBirthdayRight: function(date){
+
+          var mm = date.getMonth() + 1; // getMonth() is zero-based
+          var dd = date.getDate();
+
+          return [date.getFullYear(),
+            (mm>9 ? '' : '0') + mm,
+            (dd>9 ? '' : '0') + dd
+          ].join(' / ');
       }
     }
 }

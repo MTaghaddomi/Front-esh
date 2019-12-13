@@ -30,6 +30,7 @@ export default {
       } else {
         x.className = "topnav";
       }
+      this.$router.push({path:'/home'})
     }
   }
 };

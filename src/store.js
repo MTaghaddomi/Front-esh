@@ -6,7 +6,8 @@ Vue.use(Vuex)
 import customAxios from './customAxios'
 export default new Vuex.Store({
     state: {
-        userProfile: {firstName: "", lastName: "",email:"",birthday:"",phoneNumber:""},
+        userProfile: {firstName: "", lastName: "",email:"",birthdayTimestamp:"",phoneNumber:"", 
+                     birthdayDate: {year: " ", month: " ", day: " "}},
         loggedin: false,
         token:"",
         username:""
@@ -18,8 +19,10 @@ export default new Vuex.Store({
         firstName: (state)=>{return state.userProfile.firstName},
         lastName: (state)=>{return state.userProfile.lastName},
         email: (state)=>{return state.userProfile.email},
-        birthday: (state)=>{var date = new Date(state.userProfile.birthday * 1000); return {year:date.year, month:date.month,day:date.day}},
-        phoneNumber: (state)=>{return state.userProfile.phoneNumber}
+        phoneNumber: (state)=>{return state.userProfile.phoneNumber},
+        birthdayDate: (state)=>{ return state.userProfile.birthdayDate},
+        birthdayTimestamp: (state)=>{return state.userProfile.birthdayTimestamp}
+        
     },
     mutations: {
         saveLogin(state,serverData){
@@ -33,7 +36,8 @@ export default new Vuex.Store({
             console.log("deleting current state")
             state.userProfile.firstName = ""
             state.userProfile.lastName = ""
-            state.userProfile.birthday = ""
+            state.userProfile.birthdayDate = {year: " ", month: " ", day: " "}
+            state.userProfile.birthdayTimestamp = 0
             state.userProfile.phoneNumber = ""
             state.userProfile.email = ""
             state.username = ""
@@ -48,7 +52,17 @@ export default new Vuex.Store({
             state.userProfile.firstName = serverData.firstName
             state.userProfile.lastName=serverData.lastName
             state.userProfile.email= serverData.email
-            state.userProfile.birthday= serverData.birthday
+            state.userProfile.birthdayTimestamp= serverData.birthday
+            var date = new Date(parseInt(serverData.birthday) * 1000); 
+            var mm = date.getMonth() + 1; // getMonth() is zero-based
+            var dd = date.getDate();
+            
+            if(serverData.birthday != null){
+                state.userProfile.birthdayDate = 
+                {year: date.getFullYear(), month: mm, day: dd}
+            }
+
+
             state.userProfile.phoneNumber=serverData.phoneNumber
             state.loggedin = true
             console.log("the following has been saved: ")
@@ -122,7 +136,7 @@ export default new Vuex.Store({
                 
             })        
         },
-        editProfile({commit,state},args){   //add header
+        editProfile({commit,state},args){   
             console.log('state username ' + state.username);
             console.log('state token ' + state.token);
 

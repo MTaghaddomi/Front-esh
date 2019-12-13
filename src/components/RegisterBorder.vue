@@ -55,9 +55,8 @@ export default {
   data: function() {
     return {
       username: "",
-      usernameStatus: true,
       password: "",
-      passwordStatus: true
+      waiting: false
     };
   },
   computed: {

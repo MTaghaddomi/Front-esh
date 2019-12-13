@@ -57,51 +57,39 @@ export default {
         return {
             username: "",
             password: "",
-            usernameStatus: true,
-            passwordStatus: true,
             waiting: false,
         };
     },
-    checkUsername: function() {
-      const usernameFormat = /^[a-z_A-Z0-9]{3,}$/;
-      if (usernameFormat.test(this.username)) {
-        console.log("username is fine");
-        this.usernameStatus = true;
-      } else {
-        console.log("username is wrong");
-        this.usernameStatus = false;
-      }
-    },
     methods:{
         checkAll: function(){
-          this.checkUsername()
-          this.checkPassword()
+          return this.checkUsername() && this.checkPassword()
+          
         },
         checkUsername: function(){  
 
            const usernameFormat = /^[a-z_A-Z0-9]{3,}$/ 
            if(usernameFormat.test(this.username)){
                console.log("username is fine")
-               this.usernameStatus = true;
+               return true;
            }else{
                console.log("username is wrong")
-               this.usernameStatus = false;
+               return false;
            }
         },
 
         checkPassword: function(){
             if(this.password.length >= 8){
                 console.log("password is fine")
-                this.passwordStatus = true;
+                return true;
             }else{
                 console.log("password is wrong")
-                this.passwordStatus = false;
+                return false;
             }
         },
         postData:function(){
              console.log("checking your input data")
-             this.checkAll()
-             if(this.checkSubmission){
+
+             if(this.checkAll()){
                const loginRequest ={
                    username: this.username,
                    password: this.password 
@@ -117,47 +105,9 @@ export default {
                alert("Wrong submission, check the errors!")
              }
         },
-
-    checkPassword: function() {
-      if (this.password.length >= 8) {
-        console.log("password is fine");
-        this.passwordStatus = true;
-      } else {
-        console.log("password is wrong");
-        this.passwordStatus = false;
-      }
-    },
-    postData: function() {
-      console.log("checking your input data");
-      this.checkAll();
-      if (this.checkSubmission) {
-        const loginRequest = {
-          username: this.username,
-          password: this.password
-        };
-
-        this.$store.dispatch("login", {
-          loginRequest: loginRequest,
-          success: () => {
-            this.$store.dispatch("getProfile", {
-              success: () => {
-                this.$router.push({ path: "/profile" });
-              },
-              failure: () => {
-                console.log("success on login, failed to get profile");
-              }
-            });
-          },
-          failure: () => {
-            console.log("failed to login");
-          }
-        });
-      } else {
-        alert("Wrong submission, check the errors!");
-      }
     }
-  }
 };
+
 </script>
 
 <style>

@@ -28,31 +28,20 @@
       />
       <div class="requirements">
         Your lastname cannot have anything but letters and spaces.
-      </div>
-      <div>
+    </div>
+    <div>
 
-          <select required name="year" id="year" v-model="dateofbirth.year">
-              <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
-          </select>
-          <select required name="month" id="month" v-model="dateofbirth.month">
-              <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
-          </select>
-          <select required name="day" id="day" v-model="dateofbirth.day">
-              <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
-          </select>
+        <select required name="year" id="year" v-model="dateofbirth.year">
+            <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
+        </select>
+        <select required name="month" id="month" v-model="dateofbirth.month">
+            <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
+        </select>
+        <select required name="day" id="day" v-model="dateofbirth.day">
+            <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
+        </select>
 
-      </div>
-      <div>
-        <input
-          type="email"
-          v-model="email"
-          id="email"
-          name="email"
-          pattern="[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*"
-          required
-          placeholder="Email Address "
-        />
-
+    </div>
     <div>
       <input
         type="phonenumber"
@@ -73,7 +62,7 @@
         v-model="email"
         id="email"
         name="email"
-        pattern="(([<>()\[\]\.,;:\s@\]+(\.[<>()\[\]\.,;:\s@\]+)*)|(\.+\))@(([<>()[\]\.,;:\s@\]+\.)+[<>()[\]\.,;:\s@\]{2,})"
+         pattern="[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*"
         required
         placeholder="پست الکترونیک "
       />
@@ -85,6 +74,7 @@
     <div class="button" id="button-3" @click="updateProfile">
       <div id="circle"></div>
       <a href="#">Let's Go!</a>
+    </div>
     </div>
   </div>
 </template>
@@ -115,74 +105,52 @@ export default{
         emailStatus: true,
         phonenumber: store.getters.phoneNumber,
         phoneNumberStatus: true,
-        dateofbirth: new Date(store.getters.birthday * 1000)
-      }
-    },
-    checklastname: function() {
-      var nametest = /^[a-zA-Z\s.]*$/;
-      if (nametest.test(this.lastname)) {
-        console.log("lastname is fine");
-        this.lastnameStatus = true;
-      } else {
-        console.log("lastname is wrong");
-        this.lastnameStatus = false;
-      }
-    },
-    checknumber: function() {
-      var numbertest = /^09[0-9]{9}$/;
-      if (numbertest.test(this.phonenumber) || this.phoneNumber.length == 0) {
-        console.log("phonenumber is fine");
-        this.phoneNumberStatus = true;
-      } else {
-        console.log("phonenumer is wrong");
-        this.phoneNumberStatus = false;
+        dateofbirth: store.getters.birthdayDate
       }
     },
     methods:{
        checkAll: function(){
-         this.checkfirstname()
-         this.checklastname()
-         this.checknumber()
-         this.checkemail()
+         return this.checkfirstname() && this.checklastname()
+                && this.checknumber() && this.checkemail()
        },
        checkfirstname: function(){
             var nametest =/^[a-zA-Z\s.]*$/
             if(nametest.test(this.firstname) || this.firstname == null){
                 console.log("firstname is fine")
-                this.firstnameStatus = true;
+                return true;
             }else{
                 console.log("firstname is wrong")
-                this.firstnameStatus = false;
+                return false;
             }
         },
         checklastname: function(){
             var nametest = /^[a-zA-Z\s.]*$/ 
             if(nametest.test(this.lastname) || this.lastname == null){
                 console.log("lastname is fine")
-                this.lastnameStatus = true;
+                return true;
             }else{
                 console.log("lastname is wrong")
-                this.lastnameStatus = false;
+                return false;
             }
         },
         checknumber: function(){
             var numbertest = /^09[0-9]{9}$/
             if(numbertest.test(this.phonenumber) || this.phonenumber == null){
                 console.log("phonenumber is fine")
-                this.phoneNumberStatus = true;
+                return true;
             }else{
                 console.log("phonenumer is wrong")
-                this.phoneNumberStatus = false;
+                return false;
             }
         },
         checkemail: function(){
             var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/
             if(emailtest.test(this.email) || this.email == null){
                 console.log("email is fine")
-                this.emailStatus = true;
+                return true;
             }else{
                 console.log("email is wrong")
-                this.emailStatus = false;
+                return false;
             }
             
         },
@@ -193,8 +161,8 @@ export default{
         },
         updateProfile(){
           console.log("checking your submission")
-          this.checkAll()
-          if(this.checkSubmission){
+          
+          if(this.checkAll()){
             const updatedProfile = {     
               firstName: this.firstname,
               lastName: this.lastname,

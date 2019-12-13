@@ -10,17 +10,17 @@
 </template>
 
 <script>
-import smallClass from './smallClass'
+import SmallClass from './SmallClass'
 export default {
     components:{
-        'smallClass': smallClass
+        'smallClass': SmallClass
     },
     data: function(){
         return {
             enrolledList: // masalan az server por shode( listi az enrolled ha)
-            [{id:111,className:"کلاس ۱۱۱",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
-             {id:222,className:"کلاس ۲۲۲",lessonName:"درس ۲۲۲",lastName:"دلیر" },
-             {id:333,className:"کلاس ۳۳۳",lessonName:"درس ۳۳۳",lastName:"چیترا" }] 
+            [{id:"111",className:"کلاس ۱۱۱",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
+             {id:"222",className:"کلاس ۲۲۲",lessonName:"درس ۲۲۲",lastName:"دلیر" },
+             {id:"333",className:"کلاس ۳۳۳",lessonName:"درس ۳۳۳",lastName:"چیترا" }] 
         }
 
             
