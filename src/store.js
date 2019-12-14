@@ -85,7 +85,6 @@ export default new Vuex.Store({
             })
             .catch((error)=>{
                 console.log(error);
-                alert("Something went wrong in signup process") 
                 args.failure() 
             })
         },
@@ -107,7 +106,6 @@ export default new Vuex.Store({
             .catch((error)=>{
                 console.log("our status::",error)
                 console.log(error);
-                alert("Something went wrong in login process")
                 args.failure()
             })
 
@@ -129,7 +127,6 @@ export default new Vuex.Store({
                 args.success()
             })
             .catch((err)=>{ console.log("getProfile went to cache")
-                alert('Something went wrong while getting your profile!')
                 commit('deleteLogin')
                 args.failure()
                 

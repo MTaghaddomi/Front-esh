@@ -5,8 +5,6 @@
       <input
         v-model="firstname"
         type="text"
-        id="firstname"
-        name="firstname"
         pattern="[a-z A-Z]*"
         required
         placeholder="نام "
@@ -21,8 +19,6 @@
         type="text"
         v-model="lastname"
         pattern="[a-z A-Z]*"
-        id="lastname"
-        name="lastname"
         required
         placeholder="نام خانوادگی "
       />
@@ -31,13 +27,13 @@
       </div>
     <div>
 
-        <select required name="year" id="year" v-model="dateofbirth.year">
+        <select placeholder ="سال" required v-model="dateofbirth.year" class="custom-select">
             <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
         </select>
-        <select required name="month" id="month" v-model="dateofbirth.month">
+        <select placeholder = "ماه" required v-model="dateofbirth.month" class="custom-select">
             <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
         </select>
-        <select required name="day" id="day" v-model="dateofbirth.day">
+        <select placeholder = "روز" required  v-model="dateofbirth.day" class="custom-select">
             <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
         </select>
 
@@ -87,7 +83,7 @@ export default{
               console.log("you are loggedin!, loading your profile edit page")
               next()
           }else{
-              alert("you are not loggedin yet, re-directing you to Authentication page")
+              alert(" .ابتدا وارد حساب کاربری خود شوید")
               console.log("you are not loggedin yet, re-directing you to Authentication page")
               next('/account')
           }
@@ -173,18 +169,13 @@ export default{
                 this.$router.push({path: '/profile'}) 
               },
               failure:()=>{
-                alert("Something went wrong while updating your profile!");
+                alert("خطا به هنگام بروزرسانی حساب کاربری");
                 this.waiting = false;
                 console.log("failed to upddate your profile");
-            },
-              failure:()=>{
-                this.waiting = false;
-                alert("Something went wrong while updating your profile!")
-                console.log("failed to upddate your profile")
-              }
+              },
             });
           }else{
-            alert("Wrong submission, check the errors!")
+            alert(".اطلاعات وارد شده صحیح نیست! موارد قرمز را برطرف کنید")
             this.waiting = false
           }
           
@@ -407,4 +398,29 @@ a {
 #button-3:hover a {
   color: #2d3142;
 }
+.custom-select {
+  position: relative;
+  padding: 20px 20px 20px 50px;
+  width: 30%;
+  margin: 5px;
+  margin-bottom: 10px;
+  font-family: "Baloo Bhaijaan", cursive;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2),
+    0 1px 1px rgba(255, 255, 255, 0.2);
+  -webkit-transition: box-shadow 0.5s ease;
+  -moz-transition: box-shadow 0.5s ease;
+  -o-transition: box-shadow 0.5s ease;
+  -ms-transition: box-shadow 0.5s ease;
+  transition: box-shadow 0.5s ease;
+}
+
+
 </style>

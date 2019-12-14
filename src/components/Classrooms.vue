@@ -30,7 +30,7 @@ export default {
           if(store.getters.loggedin){
               next()
           }else{
-              alert("not logged in yet!")
+              alert("ابتدا وارد حساب کاربری خود شوید")
               next('/account')
           }
           
@@ -60,7 +60,7 @@ export default {
               console.log("success on loading all your classrooms")},
           failure:()=>{
               this.noClass = true;
-              alert("failed to load your classrooms")
+              alert("خطا به هنگام دریافت کلاس های شما")
               }
         })
     },

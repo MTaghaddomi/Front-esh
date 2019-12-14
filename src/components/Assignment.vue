@@ -61,7 +61,7 @@ export default {
             },
             failure: ()=>{
                 console.log("failed to loadd the assignment")
-                alert("failed to load the assignment")
+                alert("خطا به هنگام دریافت اطلاعات مربوط به تکلیف")
                 this.$router.push({name: 'notFound'})
             }
         })

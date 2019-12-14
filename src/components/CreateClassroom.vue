@@ -201,12 +201,12 @@ export default {
                      this.$router.push({name: 'classroom', params:{className: classData.name}})
                      },
                  failure:()=>{
-                     alert("Something went wrong while submitting the class")
+                     alert("خطا به هنگام ایجاد کلاس جدید")
                      this.waiting = false
                      }
                 })
             }else{
-                alert("Wrong submission. check the errors!")
+                alert("اطلاعات وارد شده صحیح نیست!، لطفا موارد قرمز را برطرف کرده و هیچ قسمتی را خالی نگذارید")
                 this.waiting = false
             }
         }

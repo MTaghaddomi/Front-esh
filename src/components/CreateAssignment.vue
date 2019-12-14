@@ -154,12 +154,13 @@ export default {
                         this.$router.push({name: 'classroom', params:{className: $router.params.className}})
                     },
                     failure:()=>{
-                        alert("Something went wrong while adding new homework")
+                        alert("خطا به هنگام ایجاد تکلیف جدید")
                         this.waiting = false
                     }
                 })
             }else{
-                alert("Wrong submission. check the errors!")
+                alert("اطلاعات وارد شده صحیح نیست!، لطفا موارد قرمز را برطرف کرده و هیچ قسمتی را خالی نگذارید")
+
                 this.waiting = false
             }
         },

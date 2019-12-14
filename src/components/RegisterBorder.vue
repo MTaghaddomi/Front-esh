@@ -10,14 +10,12 @@
         <input
           v-model="username"
           type="text"
-          pattern="[a-z_A-Z0-9]{3,}"
-          id="user_name"
-          name="user_name"
+          pattern="[a-z_A-Z0-9]{4,}"
           required
           placeholder="نام کاربری"
         />
         <div class="requirements">
-         نام کاربری باید حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
+         نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
         </div>
       </div>
 
@@ -25,8 +23,6 @@
         <input
           type="password"
           v-model="password"
-          id="password"
-          name="password"
           required
           placeholder="کلمه عبور"
           pattern=".{8,}"
@@ -69,7 +65,7 @@ export default {
       this.checkPassword();
     },
     checkUsername: function() {
-      const usernameFormat = /^[a-z_A-Z0-9]{3,}$/;
+      const usernameFormat = /^[a-z_A-Z0-9]{4,}$/;
       if (usernameFormat.test(this.username)) {
         console.log("username is fine");
         this.usernameStatus = true;
@@ -108,9 +104,8 @@ export default {
               },
               failure: () => {
                 this.waiting = false;
-                console.log(
-                  "success on register but failed to get your profile"
-                );
+                console.log("success on register but failed to get your profile");
+                alert("خطا به هنگام ثبت نام") 
               }
             });
           },
@@ -122,7 +117,7 @@ export default {
         });
       } else {
         this.waiting = false;
-        alert("Wrong submission, check the errors!");
+        alert(" .اطلاعات وارد شده صحیح نیست! لطفا موارد قرمز را برطرف کنید");
       }
     }
   }
@@ -211,33 +206,6 @@ input:focus {
 @import url(https://fonts.googleapis.com/css?family=PT+Sans:400);
 
 // positioning context
-
-input[type="text"] {
-  &:valid {
-    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
-    background-size: 20px;
-    background-repeat: no-repeat;
-    background-position: 20px 20px;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:not(:focus):not(:placeholder-shown) {
-    background: pink;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:focus:not(:placeholder-shown) {
-    & ~ .requirements {
-      max-height: 200px;
-      padding: 0 30px 20px 50px;
-    }
-  }
-}
-
 input[type="password"] {
   &:valid {
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
@@ -263,32 +231,6 @@ input[type="password"] {
     }
   }
 }
-// input[type="email"] {
-//   &:valid {
-//     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
-//     background-size: 20px;
-//     background-repeat: no-repeat;
-//     background-position: 20px 20px;
-//     & + label {
-//       opacity: 0;
-//     }
-//   }
-
-//   &:invalid:not(:focus):not(:placeholder-shown) {
-//     background: pink;
-//     & + label {
-//       opacity: 0;
-//     }
-//   }
-
-//   &:invalid:focus:not(:placeholder-shown) {
-//     & ~ .requirements {
-//       max-height: 200px;
-//       padding: 0 30px 20px 50px;
-//     }
-//   }
-// }
-
 .requirements {
   padding: 0 30px 0 50px;
   color: #999;

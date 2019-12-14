@@ -10,7 +10,7 @@
         <p style ="padding-left: 5px">email:<span style="padding-left:26%">{{email}}</span></p>
         <p style ="padding-left: 5px">phonenumber:<span style="padding-left:7%">{{phoneNumber}}</span></p>
         <p style ="padding-left: 5px">birthday:
-          <span v-if="birthdayDate != null" style="padding-left:19%">
+          <span v-if="checkDate()" style="padding-left:19%">
             {{(birthdayDate.year== null ? '-': birthdayDate.year) + " / " + birthdayDate.month + " / " + birthdayDate.day}}</span></p>
         </div>
 
@@ -43,7 +43,7 @@ export default {
     mounted: function(){
       store.dispatch('getProfile',{
           success:()=>{console.log("success on loading profile")},
-          failure:()=>{console.log("failed to get profile")}
+          failure:()=>{console.log("failed to get profile"); alert('خطا به هنگام دریافت اطلاعات مربوط به حساب کاربری')}
         })
     },
     beforeRouteEnter : (to,from,next)=>{
@@ -52,7 +52,7 @@ export default {
               console.log("you are loggedin!, loading your profile page")
               next()
           }else{
-              alert("you are not loggedin yet, re-directing you to Authentication page")
+              alert("ابتدا وارد حساب کاربری خود شوید")
               next('/account') 
           }
             
@@ -74,7 +74,8 @@ export default {
             (mm>9 ? '' : '0') + mm,
             (dd>9 ? '' : '0') + dd
           ].join(' / ');
-      }
+      },
+      checkDate(){ return !(this.birthdayDate.year == " ") }
     }
 }
 </script>

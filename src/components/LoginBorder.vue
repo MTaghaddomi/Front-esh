@@ -6,31 +6,34 @@
     />
     <h1>ورود</h1>
     <form>
-      <input
-        type="text"
-        name="u"
-        v-model="username"
-        pattern="[a-z_A-Z0-9]{3,}"
-        placeholder="نام کاربری"
-        required="required"
-      />
+        <div>
+          <input
+          type="text"
+          v-model="username"
+          pattern="[a-z_A-Z0-9]{4,}"
+          placeholder="نام کاربری"
+          required="required"
+        />
 
-      <div class="requirements">
-         نام کاربری باید حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
+        <div class="requirements">
+          نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
+        </div>
       </div>
+      
+      <div>
+          <input
+          type="password"
+          v-model="password"
+          pattern=".{8,}"
+          placeholder="رمز عبور"
+          required="required"
+        />
 
-      <input
-        type="password"
-        v-model="password"
-        name="p"
-        pattern=".{8,}"
-        placeholder="رمز عبور"
-        required="required"
-      />
-
-      <div class="requirements">
-           .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
+        <div class="requirements">
+             .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
+        </div>
       </div>
+      
 
       <div class="button" id="button-3" @click="postData">
         <div id="circle"></div>
@@ -65,7 +68,7 @@ export default {
         },
         checkUsername: function(){  
 
-           const usernameFormat = /^[a-z_A-Z0-9]{3,}$/ 
+           const usernameFormat = /^[a-z_A-Z0-9]{4,}$/ 
            if(usernameFormat.test(this.username)){
                console.log("username is fine")
                return true;
@@ -97,10 +100,10 @@ export default {
              this.$store.dispatch('login',
               {loginRequest:loginRequest,
                 success: ()=> {this.waiting = false; this.$router.push({path:'/profile'})},
-                failure: ()=> {this.waiting = false; console.log('failed to login') }
+                failure: ()=> {this.waiting = false; console.log('failed to login'); alert("خطا به هنگام ورود") }
               })
              }else{
-               alert("Wrong submission, check the errors!")
+               alert("اطلاعات وارد شده صحیح نیست، لطفا موارد قرمز را برطرف کنید")
              }
         },
     }
