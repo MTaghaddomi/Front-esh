@@ -27,7 +27,7 @@ export const routes = [
     {name: 'createAssignment' , path: '/classroom/:className/createAssignment'  , component: CreateAssignment},
     {name: 'createClass' , path: '/createClass' , component: CreateClassroom},
     {path: '/notifications', component: Notifications},
-    {path: '/notFound', component: NotFound},
+    {name: 'notFound', path: '/notFound', component: NotFound},
     {path: '/', component: Home},
     {path: '*' , redirect:'/notFound'}, //for non-specified routes, redirect to the homepage
     

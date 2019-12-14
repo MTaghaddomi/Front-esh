@@ -1,15 +1,16 @@
 <template>
-    <div class="wrapper animated bounce">
+    <div class="wrapper" style="width: 85%">
         <div>
+          <div style="width:45% ; float: right;">
             <h1>
-               : اطلاعات کلاس 
+               اطلاعات کلاس 
             </h1>
             <div>
                 <input
                     type="text"
                     v-model="className"
                     pattern="[a-z_A-Z0-9]{3,}"
-                    placeholder="نام انحصاری کلاس"
+                    placeholder="نام انحصاری "
                     required="required"
                 />
 
@@ -18,7 +19,7 @@
                 </div>
             </div>
     
-            <div>
+            <div >
                 <input
                     v-model="lessonName"
                     type="text"
@@ -30,23 +31,13 @@
                 .نام درس باید فقط شامل حروف و فاصله باشد 
                 </div>
             </div>
-            <div>
-                <input
-                    v-model="description"
-                    type="text"
-                    pattern="[a-z_ ,.A-Z0-9-!]{3,}"
-                    required
-                    placeholder="توضیحات کلاس"
-                />
-                <div class="requirements">
-                .توضیحات کلاس باید شامل حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد ، و کاراکتر های رایج باشد 
-                </div>
-            </div>
-        </div>
-        
-        <div>
             <h1>
-               : اطلاعات مدرس 
+               توضیحات کلاس
+            </h1>
+          </div>
+          <div style="width:45% ; float: left;">
+            <h1>
+               اطلاعات مدرس 
             </h1>
 
             <div>
@@ -55,7 +46,7 @@
                     type="text"
                     pattern="[a-z A-Z]*"
                     required
-                    placeholder="نام مدرس"
+                    placeholder="نام"
                 />
                 <div class="requirements">
                 .نام شما باید فقط شامل حروف و فاصله باشد
@@ -68,7 +59,7 @@
                     type="text"
                     pattern="[a-z A-Z]*"
                     required
-                    placeholder="نام خانوادگی مدرس "
+                    placeholder="نام خانوادگی"
                 />
                 <div class="requirements">
                    .نام خانوادگی شما باید فقط شامل حروف و فاصله باشد
@@ -81,18 +72,34 @@
                     type="text"
                     pattern="[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*"
                     required
-                    placeholder="پست الکترونیک مدرس"
+                    placeholder="پست الکترونیک"
                 />
                 <div class="requirements">
-
                     .پست الکترونیک شما باید معتبر باشد
                 </div>
             </div>
 
-            <div class="button" id="button-3" @click="submitClass">
-                <div id="circle"></div>
-                <a href="#">ساخت کلاس</a>
+            
+          </div>
+        </div>
+        <div >
+          <div style="width: 100%; float: right">
+            <input style="height: 120px"
+              v-model="description"
+              type="text"
+              pattern="[a-z_ ,.A-Z0-9-!]{3,}"
+              required
+              placeholder="توضیحات کلاس"
+            />
+            <div class="requirements">
+            .توضیحات کلاس باید شامل حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد ، و کاراکتر های رایج باشد 
             </div>
+          </div>
+          
+        </div>
+        <div style="width: 20%; margin-top = 10px;" class="button" id="button-3" @click="submitClass">
+          <div id="circle"></div>
+          <a href="#">ساخت کلاس</a>
         </div>
         <loading v-if="waiting"></loading>
 
@@ -119,7 +126,7 @@ export default {
         
     },
     methods:{
-        checkClassName(){   //TODO
+        checkClassName(){
             const classNameFormat = /^[a-z_A-Z0-9]{3,}$/;
             if (classNameFormat.test(this.className)) {
                 console.log("className is fine");
@@ -129,7 +136,7 @@ export default {
                 return false;
             }
         },
-        checkLessonName(){  //TODO
+        checkLessonName(){  
             var nametest =/^[a-zA-Z\s.]*$/
             if(nametest.test(this.lessonName)){
                 console.log("lessonName is fine")
@@ -139,7 +146,7 @@ export default {
                 return false;
             }
         },
-        checkDescription(){ //TODO
+        checkDescription(){ 
             var nametest =/^[a-z_ ,.A-Z0-9-!]{3,}$/
             if(nametest.test(this.description)){
                 console.log("description is fine")
@@ -253,8 +260,9 @@ input:focus {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+  text-align: center;
 }
-.wrapper h1 {
+.wrapper h1{
   font-family: "Baloo Bhaijaan", cursive;
   color: black;
   letter-spacing: 0px;
@@ -262,10 +270,10 @@ input:focus {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.wrapper hr {
+.wrapper hr{
   opacity: 0.2;
 }
-.crtacc {
+.crtacc{
   margin-left: 75px;
 }
 </style>

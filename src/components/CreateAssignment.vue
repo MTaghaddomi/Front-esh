@@ -1,93 +1,101 @@
 <template>
-    <div class="wrapper animated bounce">
+    <div class="wrapper" style="width:85%">
+
+      <div style="width: 45%; float:right;">
+        <h1>
+              اطلاعات تمرین
+        </h1> 
         <div>
-            <h1>
-                 :اطلاعات تمرین
-            </h1> 
-            <div>
-                <input
-                    type="text"
-                    v-model="subject"
-                    pattern="[a-z A-Z]*"
-                    placeholder="موضوع تمرین"
-                    required="required"
-                />
-                <div class="requirements">
-                  .موضوع تمرین باید فقط شامل حروف و فاصله باشد 
-                </div>
+            <input
+                type="text"
+                v-model="subject"
+                pattern="[a-z A-Z]*"
+                placeholder="موضوع تمرین"
+                required="required"
+            />
+            <div class="requirements">
+              .موضوع تمرین باید فقط شامل حروف و فاصله باشد 
             </div>
-            <div>
-                <input
-                    v-model="description"
-                    type="text"
-                    pattern="[a-z_ ,.A-Z0-9-!]{3,}"
-                    required
-                    placeholder="توضیحات تمرین"
-                />
-                <div class="requirements">
-                   .توضیحات تمرین باید شامل حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد ، و کاراکتر های رایج باشد 
-                </div>
-            </div>
-
-
         </div>
-        
         <div>
-            <h1>
-               :زمانبندی ها
-            </h1>
-            <p>
-                :مهلت بارگذاری
-            </p>
-            <div>
-                <select required name="year" id="year" v-model="deadline.year">
-                    <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
-                </select>
-                <select required name="month" id="month" v-model="deadline.month">
-                    <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
-                </select>
-                <select required name="day" id="day" v-model="deadline.day">
-                    <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
-                </select>
-                <select required name="day" id="hour" v-model="deadline.hour">
-                    <option v-for="h in range(0,23)" v-bind:key="h" >{{ h }}</option>
-                </select>
-                <select required name="day" id="minute" v-model="deadline.minute">
-                    <option v-for="m in range(0,59)" v-bind:key="m" >{{ m }}</option>
-                </select>
+            <input
+                v-model="description"
+                type="text"
+                pattern="[a-z_ ,.A-Z0-9-!]{3,}"
+                required
+                placeholder="توضیحات تمرین"
+            />
+            <div class="requirements">
+                .توضیحات تمرین باید شامل حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد ، و کاراکتر های رایج باشد 
             </div>
-            <p>
-               :آخرین مهلت پذیرش 
-            </p>
-            <div>
-                <select required name="year" id="year" v-model="lateDeadline.year">
-                    <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
-                </select>
-                <select required name="month" id="month" v-model="lateDeadline.month">
-                    <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
-                </select>
-                <select required name="day" id="day" v-model="lateDeadline.day">
-                    <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
-                </select>
-                <select required name="day" id="hour" v-model="lateDeadline.hour">
-                    <option v-for="h in range(0,23)" v-bind:key="h" >{{ h }}</option>
-                </select>
-                <select required name="day" id="minute" v-model="lateDeadline.minute">
-                    <option v-for="m in range(0,59)" v-bind:key="m" >{{ m }}</option>
-                </select>
-            </div>
-
-
         </div>
 
+      </div>
 
-        <div class="button" id="button-3" @click="newAssignment">
-            <div id="circle"></div>
-                <a href="#">اضافه کردن تمرین</a>
+      <div style="width: 45%; float:left;">
+          <h1>
+            زمانبندی ها
+          </h1>
+          <p>
+            <strong>مهلت بارگذاری</strong>
+          </p>
+          <div>
+              <select required v-model="deadline.year" class="custom-select">
+                  <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
+              </select>
+              <strong>/</strong>
+              <select required v-model="deadline.month" class="custom-select">
+                  <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
+              </select>
+              <strong>/</strong>
+              <select required v-model="deadline.day" class="custom-select">
+                  <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
+              </select>
+              <strong>-</strong>
+              <select required v-model="deadline.hour" class="custom-select">
+                  <option v-for="h in range(0,23)" v-bind:key="h" >{{ h }}</option>
+              </select>
+              <strong>:</strong>
+              <select required v-model="deadline.minute" class="custom-select">
+                  <option v-for="m in range(0,59)" v-bind:key="m" >{{ m }}</option>
+              </select>
+          </div>
+          <p>
+            <strong>آخرین مهلت پذیرش </strong>
+          </p>
+          <div>
+              <select required v-model="lateDeadline.year" class="custom-select">
+                  <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
+              </select>
+              <strong>/</strong>
+              <select required v-model="lateDeadline.month" class="custom-select">
+                  <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
+              </select>
+              <strong>/</strong>
+              <select required v-model="lateDeadline.day" class="custom-select">
+                  <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
+              </select>
+              <strong>-</strong>
+              <select required v-model="lateDeadline.hour" class="custom-select">
+                  <option v-for="h in range(0,23)" v-bind:key="h" >{{ h }}</option>
+              </select>
+              <strong>:</strong>
+              <select required v-model="lateDeadline.minute" class="custom-select">
+                  <option v-for="m in range(0,59)" v-bind:key="m" >{{ m }}</option>
+              </select>
+          </div>
+
+
+      </div>  
+
+      <div style="float: left; margin-top = 10px; width: 100%;">
+        <div class="button" id="button-3" style="width: 40%" @click="addAssignment">
+          <div id="circle"></div>
+          <a>اضافه کردن تمرین</a>
         </div>
-
-
-        <loading v-if="waiting"></loading>
+      </div>  
+      
+      <loading v-if="waiting"></loading>
 
     </div>
    
@@ -133,7 +141,7 @@ export default {
         checkAll(){
             return this.checkSubject() && this.checkDescription()
         },
-        submitClass(){
+        addAssignment(){
             this.waiting = true
             if(this.checkAll()){
                 const newAssignment = {
@@ -382,5 +390,28 @@ a {
 
 #button-3:hover a {
   color: #2d3142;
+}
+.custom-select {
+  position: relative;
+  padding: 20px 20px 20px 50px;
+  width: 15%;
+  margin: 5px;
+  margin-bottom: 10px;
+  font-family: "Baloo Bhaijaan", cursive;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2),
+    0 1px 1px rgba(255, 255, 255, 0.2);
+  -webkit-transition: box-shadow 0.5s ease;
+  -moz-transition: box-shadow 0.5s ease;
+  -o-transition: box-shadow 0.5s ease;
+  -ms-transition: box-shadow 0.5s ease;
+  transition: box-shadow 0.5s ease;
 }
 </style>

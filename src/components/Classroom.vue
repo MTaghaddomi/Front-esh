@@ -122,7 +122,7 @@ export default {
                 console.log("success on loading all your classrooms")
             },
             failure:()=>{ 
-                alert("failed to load your classroom") 
+                alert("خطا به هنگام گرفتن اطلاعات مربوط به کلاس") 
                 this.$router.push('/notFound')
             }
         }
@@ -130,7 +130,7 @@ export default {
     },
     methods:{
         addHomework(){
-            this.$router.push({name: 'newHomework'}) //TODO implemet newHomework page
+            this.$router.push({name: 'createAssignment',params:{className: $router.params.className}} ) //TODO implemet newHomework page
         }
     }
 

@@ -1,11 +1,16 @@
 <template>
-    <div>
-        <h1>
-            تکلیف:
+    <div class="wrapper animated bounce">
+        <!--h1>
+            <p>
+                تکلیف:
             {{$route.params.assignmentId}}
-            از کلاس:
+            </p>
+            <p>
+               درس 
             {{$route.params.className}}
-        </h1>
+            </p>
+            
+        </h1-->
         <p>
             {{subject}}
         </p>
@@ -18,7 +23,7 @@
         <p>
             {{lateDeadline}}
         </p>
-        <div v-if="accessLevel = 2">
+        <div v-if="accessLevel == 2">
             <button>
                 ویرایش تکلیف
             </button>
@@ -27,7 +32,9 @@
             </button>
         </div>
         <div v-else>
-            ارسال پاسخ
+            <button>
+                ارسال پاسخ
+            </button>
         </div>
 
         
@@ -42,10 +49,10 @@ export default {
     //request get assignment data
     data: function(){
         return{
-            subject: "",
-            description: "",
-            deadline: "",
-            lateDeadline: "",
+            subject: "Recursive functions",
+            description: "In this assignment you will learn how to use recursive functions to solve your problems",
+            deadline: "1398 / 7 / 9",
+            lateDeadline:"1398 / 7 / 14",
             accessLevel: 0 //TODO: change this later!
         }
     },
@@ -62,7 +69,7 @@ export default {
             failure: ()=>{
                 console.log("failed to loadd the assignment")
                 alert("خطا به هنگام دریافت اطلاعات مربوط به تکلیف")
-                this.$router.push({name: 'notFound'})
+                // this.$router.push({name: 'notFound'})
             }
         })
 

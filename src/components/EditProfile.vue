@@ -401,7 +401,7 @@ a {
 .custom-select {
   position: relative;
   padding: 20px 20px 20px 50px;
-  width: 30%;
+  width: 33%;
   margin: 5px;
   margin-bottom: 10px;
   font-family: "Baloo Bhaijaan", cursive;

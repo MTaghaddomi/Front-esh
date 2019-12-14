@@ -15,7 +15,7 @@
           placeholder="نام کاربری"
         />
         <div class="requirements">
-         نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
+         نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و _  باشد
         </div>
       </div>
 
@@ -86,7 +86,6 @@ export default {
     },
     postData() {
       this.waiting = true;
-      console.log("checking your submission data");
       this.checkAll();
       if (this.checkSubmission) {
         const newRegister = {
@@ -104,15 +103,13 @@ export default {
               },
               failure: () => {
                 this.waiting = false;
-                console.log("success on register but failed to get your profile");
-                alert("خطا به هنگام ثبت نام") 
+                alert("خطا به هنگام دریافت اطلاعات حساب") 
               }
             });
           },
           failure: () => {
             this.waiting = false;
-            console.log("register failed");
-            console.log("failed to register");
+            alert("خطا به هنگام دریافت ثبت نام") 
           }
         });
       } else {
