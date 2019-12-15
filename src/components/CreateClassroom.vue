@@ -1,10 +1,24 @@
 <template>
-    <div class="wrapper" style="width: 85%">
+    <div class="wrapper">
         <div>
-          <div style="width:45% ; float: right;">
+          <div >
             <h1>
                اطلاعات کلاس 
             </h1>
+
+            <div >
+              <input
+                  v-model="lessonName"
+                  type="text"
+                  pattern="[a-z A-Z]*"
+                  required
+                  placeholder="نام درس"
+              />
+              <div class="requirements">
+              .نام درس باید فقط شامل حروف و فاصله باشد 
+              </div>
+            </div>
+
             <div>
                 <input
                     type="text"
@@ -19,23 +33,9 @@
                 </div>
             </div>
     
-            <div >
-                <input
-                    v-model="lessonName"
-                    type="text"
-                    pattern="[a-z A-Z]*"
-                    required
-                    placeholder="نام درس"
-                />
-                <div class="requirements">
-                .نام درس باید فقط شامل حروف و فاصله باشد 
-                </div>
-            </div>
-            <h1>
-               توضیحات کلاس
-            </h1>
+
           </div>
-          <div style="width:45% ; float: left;">
+          <!-- <div style="width:45% ; float: left;">
             <h1>
                اطلاعات مدرس 
             </h1>
@@ -80,10 +80,13 @@
             </div>
 
             
-          </div>
+          </div> -->
         </div>
-        <div >
-          <div style="width: 100%; float: right">
+        <div>
+          <div>
+            <h1>
+               توضیحات کلاس
+            </h1>
             <input style="height: 120px"
               v-model="description"
               type="text"
@@ -97,7 +100,7 @@
           </div>
           
         </div>
-        <div style="width: 20%; margin-top = 10px;" class="button" id="button-3" @click="submitClass">
+        <div style="width: 20%;" class="button" id="button-3" @click="submitClass">
           <div id="circle"></div>
           <a href="#">ساخت کلاس</a>
         </div>
@@ -109,7 +112,25 @@
 
 <script>
 import loading from '../../public/loading.vue'
+import store from './../store.js'
 export default {
+    beforeRouteEnter : (to,from,next)=>{
+          if(store.getters.loggedin){
+            console.log("check data e yaro")
+            console.log(store.getters.firstName,store.getters.lastName)
+            if(store.getters.firstName != null && store.getters.lastName != null 
+                && store.getters.firstName != "" && store.getters.lastName != ""){
+              next()
+            }else{
+              alert(" لطفا نام و نام خانوادگی خود را در حساب کاربری ذکر کنید")
+              next('/profile')
+            } 
+          }else{
+              alert(" .ابتدا وارد حساب کاربری خود شوید")
+              console.log("you are not loggedin yet, re-directing you to Authentication page")
+              next('/account')
+          }
+    },
     components:{
         'loading': loading
     },
@@ -118,9 +139,9 @@ export default {
             className: "",
             lessonName: "",
             description: "",
-            firstName: "",
+           /* firstName: "",
             lastName: "",
-            email: "",
+            email: "",*/
             waiting : false
         }
         
@@ -156,7 +177,7 @@ export default {
                 return false;
             }
         },
-        checkFirstName: function(){
+       /* checkFirstName: function(){
             var nametest =/^[a-zA-Z\s.]*$/
             if(nametest.test(this.firstname)){
                 console.log("firstname is fine")
@@ -186,27 +207,31 @@ export default {
                 return false;
             }
             
-        },
+        },*/
         checkAll(){
             return this.checkClassName() && this.checkLessonName () && this.checkDescription()
-                && this.checkFirstName() &&this.checkLastName() && this.checkEmail()
+               // && this.checkFirstName() &&this.checkLastName() && this.checkEmail()
         },
         submitClass(){
             this.waiting = true
+            
             if(this.checkAll()){
                 const classData = {
-                    lesson: {name: this.lessonName, description: this.description},
+                    lesson: {name: this.lessonName},
+                    description: this.description,
                     name: this.className,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    email: this.email
+                    // firstName: this.firstName,
+                    // lastName: this.lastName,
+                    // email: this.email
                 }
+                console.log(classData)
                 this.$store.dispatch('submitClass',{
                  classData: classData,
-                 success:()=>{
+                 success:(data)=>{
                      this.waiting = false
+                     console.log("success callback:",data)
                      this.$router.push({name: 'classroom', params:{className: classData.name}})
-                     },
+                 },
                  failure:()=>{
                      alert("خطا به هنگام ایجاد کلاس جدید")
                      this.waiting = false

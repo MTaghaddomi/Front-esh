@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper animated bounce">
+    <div class="wrapper">
         <!--h1>
             <p>
                 تکلیف:

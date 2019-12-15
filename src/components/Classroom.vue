@@ -1,26 +1,21 @@
 <template>
-    <div>
-      <h1>
-       : کلاس
-       {{$route.params.className}}
+    <div class="wrapper">
+        <h1>
+        : نام انحصاری کلاس
         </h1>  
-
         <p>
             {{name}}
         </p>
+        توضیحات کلاس
         <p>
             {{description}}
         </p>
 
         <div>
-           : اطلاعات درس
+                : اطلاعات درس
             <p>
-               : نام
-                {{lesson.name}}
-            </p>
-            <p>
-               : توضیحات 
-                {{lesson.description}}
+               : نام درس
+                {{lesson}}
             </p>
             
         </div>
@@ -33,7 +28,7 @@
             </p>
             <p>
                 : نام خانوادگی 
-                {{teacherInfo.lastName}}
+               {{teacherInfo.lastName}}
             </p>
             <p>
                 : ایمیل 
@@ -41,8 +36,6 @@
             </p>
         </div>
 
-
-        
         <div id = "main" v-if="!noHomeworks">
             <h1>: تکالیف </h1>
             <smallAssignment v-for="assignment in assignments"
@@ -55,15 +48,16 @@
             </h1>
             
         </div>
+        <div v-if="isTeacher">
+            <button  @click="editClass">
+                وییرایش اطلاعات کلاس
+            </button>
 
-        <button v-if="isTeacher" @click="editClass">
-            وییرایش اطلاعات کلاس
-        </button>
-
-        <button v-if="isTeacher" @click="addHomework">
-            تکلیف جدید
-        </button>
-
+            <button  @click="addHomework">
+                تکلیف جدید
+            </button>
+        </div>
+        
         
 
 
@@ -83,7 +77,7 @@ export default {
         return {
             name: "",
             description: "",
-            lesson: {name: "",description:""},
+            lesson: {name: ""},
             teacherInfo: {firstName:"",lastName:"",email:""},
             studentsInfo: [],
             isTeacher: false,
@@ -94,16 +88,17 @@ export default {
     mounted: function(){
         store.dispatch('getClassroomDetails',
         {
+            className: this.$route.params.className,
             success:(data)=>{          //TODO: check these lines
                 this.name = data.name
                 this.description = data.description
                 this.lesson = data.lesson
                 this.teacherInfo = data.teacherInfo
-                if(data.studentsInfo == null){
-                    this.isTeacher = false
-                }else{
+                if(data.role == "teacher"){
                     this.isTeacher = true
                     this.studentsInfo = data.studentsInfo
+                }else{
+                    this.isTeacher = false
                 }
                 store.dispatch('getAssignments',{
                     success:(data)=>{
@@ -130,7 +125,10 @@ export default {
     },
     methods:{
         addHomework(){
-            this.$router.push({name: 'createAssignment',params:{className: $router.params.className}} ) //TODO implemet newHomework page
+            this.$router.push({name: 'createAssignment',params:{className: this.$route.params.className}} ) //TODO implemet newHomework page
+        },
+        editClass(){
+            return true;
         }
     }
 

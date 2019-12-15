@@ -147,19 +147,21 @@ export default {
                 const newAssignment = {
                     description: this.description,
                     subject: this.subject,
-                    deadline: this.toTimestamp(this.deadline.month+"/"+
-                        this.deadline.day+"/"+this.deadline.year+" "+this.deadline.hour+":"+this.deadline.minute+":00"),
-                    lateDeadline: this.toTimestamp(this.lateDeadline.month+"/"+
-                        this.lateDeadline.day+"/"+this.lateDeadline.year+" "+this.lateDeadline.hour+":"+this.lateDeadline.minute+":00"),
-                   
-                    accessLevel: ""  //TODO assign value
+                    // deadline: this.toTimestamp(this.deadline.month+"/"+
+                    //     this.deadline.day+"/"+this.deadline.year+" "+this.deadline.hour+":"+this.deadline.minute+":00"),
+                    // lateDeadline: this.toTimestamp(this.lateDeadline.month+"/"+
+                    //     this.lateDeadline.day+"/"+this.lateDeadline.year+" "+this.lateDeadline.hour+":"+this.lateDeadline.minute+":00"),
+                    deadLine: 91213123,
+                    lateDeadline: 91299999,
+                    accessLevel: "ALL_STUDENTS"  //TODO assign value
                 }
                 this.$store.dispatch('newAssignment',{
+                  
                     newAssignment: newAssignment,
-                    className: $router.params.className,
+                    className: this.$route.params.className,
                     success:()=>{
                         this.waiting = false
-                        this.$router.push({name: 'classroom', params:{className: $router.params.className}})
+                        this.$router.push({name: 'classroom', params:{className: this.$route.params.className}})
                     },
                     failure:()=>{
                         alert("خطا به هنگام ایجاد تکلیف جدید")
@@ -171,6 +173,11 @@ export default {
 
                 this.waiting = false
             }
+        },
+        toTimestamp: function(strDate){
+
+          var datum = Date.parse(strDate);
+          return datum/1000;
         },
         range: function(min,max){
           var array = [],

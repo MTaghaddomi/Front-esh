@@ -17,6 +17,12 @@
         <button @click="newClass">
             ساخت کلاس
         </button>
+        
+        <div>
+            <h1>اضافه شدن به کلاس جدید</h1>
+            <input type="text" v-model="joiningClass" >
+            <button @click="join"> join new class </button>
+        </div>
     </div>
     
 
@@ -42,6 +48,7 @@ export default {
         return {
             enrolledList:[],
             noClass: false,
+            joiningClass: ""
             // enrolledList: // masalan az server por shode( listi az enrolled ha)
             // [{className:"myClass1",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
             //  {className:"myClass2",lessonName:"درس ۲۲۲",lastName:"دلیر" },
@@ -50,23 +57,34 @@ export default {
     },
     mounted: function(){
       store.dispatch('getEnrolledClassrooms',{
-          success:(data)=>{
-              this.enrolledList = data.classrooms  //TODO: check this line
-              if(this.enrolledList == null){
-                  this.noClass = true;
-              }else{
-                  this.noClass = false;
-              }
-              console.log("success on loading all your classrooms")},
-          failure:()=>{
-              this.noClass = true;
-              alert("خطا به هنگام دریافت کلاس های شما")
-              }
+            success:(data)=>{
+                this.enrolledList = data.classrooms  //TODO: check this line
+                if(this.enrolledList == null){
+                    this.noClass = true;
+                }else{
+                    this.noClass = false;
+                }
+                console.log("success on loading all your classrooms")},
+            failure:()=>{
+                this.noClass = true;
+                alert("خطا به هنگام دریافت کلاس های شما")
+            }
         })
     },
     methods:{
         newClass(){
             this.$router.push({name:'createClass'})
+        },
+        join(){
+            this.$store.dispatch('joinClass',
+            {className: this.joiningClass,
+            success:()=>{
+                this.$router.push({name: 'classroom', params:{className: this.joiningClass}})
+            },
+            failure:()=>{
+                alert("خطا در اضافه شدن به کلاس")
+                console.log("failure on joining the new class")
+            }})
         }
     }
 }
