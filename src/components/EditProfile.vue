@@ -296,7 +296,7 @@ input:focus {
   margin-left: 75px;
 }
 </style>
-<style lang="scss">
+<style scoped lang="scss">
 input[type="text"] {
   &:valid {
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);

@@ -1,40 +1,122 @@
 <template>
-  <div class="wrapper animated bounce">
-    <div class="containeraa">
-      <p>
-        نام کاربری:
-        <input type="text" v-model="username" />
-      </p>
-      <p>
-        نام:
-        <span>{{ firstName }}</span>
-      </p>
-      <p>
-        نام خانوادگی:<span>{{ lastName }}</span>
-      </p>
-      <p>
-        پست الکترونیک:<span>{{ email }}</span>
-      </p>
-      <p>
-        شماره همراه:<span>{{ phoneNumber }}</span>
-      </p>
-      <p>
-        تاریخ تولد:<span>{{ birthday }}</span>
-      </p>
+  <div>
+    
 
-      <div class="button" id="button-3" @click="editProfile">
-        <div id="circle"></div>
-        <a href="#">ویرایش</a>
-      </div>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
 
-      <div class="button" id="button-3" @click="logout">
-        <div id="circle"></div>
-        <a href="#">خروج</a>
-      </div>
+
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+  		
     </div>
-  </div>
-</template>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+              
 
+      <div class="text-center">
+        <img src="../components/assets/avatar.png" class="avatar img-circle img-thumbnail" alt="avatar">
+      </div><br>
+
+               
+          
+          
+          
+               
+      
+          
+        </div><!--/col-3-->
+    	<div class="col-sm-9">
+
+              
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+                  <form class="form" action="##" method="post" id="registrationForm">
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="first_name"><h4>First name</h4></label>
+                              <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="last_name"><h4>Last name</h4></label>
+                              <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="phone"><h4>Phone</h4></label>
+                              <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                             <label for="mobile"><h4>Mobile</h4></label>
+                              <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Email</h4></label>
+                              <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Location</h4></label>
+                              <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="password"><h4>Password</h4></label>
+                              <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="password2"><h4>Verify</h4></label>
+                              <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                               	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                            </div>
+                      </div>
+              	</form>
+              
+              <hr>
+              
+             
+               
+              </div><!--/tab-pane-->
+          </div><!--/tab-content-->
+
+        </div><!--/col-9-->
+    </div><!--/row-->
+</div>
+  </div>
+                                                      
+</template>
 <script>
 import store from "../store.js";
 import { mapGetters } from "vuex";
@@ -86,136 +168,100 @@ export default {
   }
 };
 </script>
-
 <style scoped>
-.containeraa {
-  text-align: right;
-  border: 1px solid black;
+body {
+  background: -webkit-linear-gradient(left, #3931af, #00c6ff);
 }
-.glow-on-hover {
-  display: inline-block;
-
-  border: none;
-  outline: none;
-  color: #fff;
-  background: #111;
-  position: relative;
-  z-index: 0;
-  border-radius: 10px;
+.emp-profile {
+  padding: 3%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  border-radius: 0.5rem;
+  background: #fff;
 }
-.glow-on-hover:before {
-  content: "";
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000
-  );
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing 20s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
-}
-
-@keyframes glowing {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 400% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
-.wrapper {
-  margin: 50px auto;
-  width: 343px;
-  height: 280px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-}
-.wrapper h1 {
-  font-family: "Galada", cursive;
-  color: black;
-  letter-spacing: 8px;
+.profile-img {
   text-align: center;
-  padding-top: 5px;
-  padding-bottom: 5px;
 }
-.wrapper hr {
-  opacity: 0.2;
+.profile-img img {
+  width: 70%;
+  height: 100%;
 }
-.crtacc {
-  margin-left: 75px;
-}
-.button {
-  display: inline-flex;
-  height: 40px;
-  width: 150px;
-  border: 2px solid #3d5a5a;
-  margin: 20px 20px 20px 20px;
-  color: #bfc0c0;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-size: 0.8em;
-  letter-spacing: 1.5px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-a {
-  color: #2d5f5f;
-  text-decoration: none;
-  letter-spacing: 1px;
-}
-#button-3 {
+.profile-img .file {
   position: relative;
   overflow: hidden;
+  margin-top: -20%;
+  width: 70%;
+  border: none;
+  border-radius: 0;
+  font-size: 15px;
+  background: #212529b8;
+}
+.profile-img .file input {
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+.profile-head h5 {
+  color: #333;
+}
+.profile-head h6 {
+  color: #0062cc;
+}
+.profile-edit-btn {
+  border: none;
+  border-radius: 1.5rem;
+  width: 70%;
+  padding: 2%;
+  font-weight: 600;
+  color: #6c757d;
   cursor: pointer;
 }
-
-#button-3 a {
-  position: relative;
-  transition: all 0.45s ease-Out;
+.proile-rating {
+  font-size: 12px;
+  color: #818182;
+  margin-top: 5%;
 }
-
-#circle {
-  width: 0%;
-  height: 0%;
-  opacity: 0;
-  line-height: 40px;
-  border-radius: 50%;
-  position: absolute;
-  transition: all 0.5s ease-Out;
-  top: 20px;
-  left: 70px;
+.proile-rating span {
+  color: #495057;
+  font-size: 15px;
+  font-weight: 600;
 }
-
-#button-3:hover #circle {
-  width: 200%;
-  height: 500%;
-  opacity: 1;
-  top: -70px;
-  left: -70px;
+.profile-head .nav-tabs {
+  margin-bottom: 5%;
 }
-
-#button-3:hover a {
-  color: #2d3142;
+.profile-head .nav-tabs .nav-link {
+  font-weight: 600;
+  border: none;
+}
+.profile-head .nav-tabs .nav-link.active {
+  border: none;
+  border-bottom: 2px solid #0062cc;
+}
+.profile-work {
+  padding: 14%;
+  margin-top: -15%;
+}
+.profile-work p {
+  font-size: 12px;
+  color: #818182;
+  font-weight: 600;
+  margin-top: 10%;
+}
+.profile-work a {
+  text-decoration: none;
+  color: #495057;
+  font-weight: 600;
+  font-size: 14px;
+}
+.profile-work ul {
+  list-style: none;
+}
+.profile-tab label {
+  font-weight: 600;
+}
+.profile-tab p {
+  font-weight: 600;
+  color: #0062cc;
 }
 </style>

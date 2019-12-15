@@ -1,6 +1,9 @@
 <template>
-  <div class="wrapper animated bounce">
+  <div class="wrapper animated bounce ">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <h1>خوش آمدید</h1>
+
     <p>
       <button class="glow-on-hover css-selector" @click="navigateToLogin">
         ورود
@@ -38,9 +41,6 @@ export default {
 </script>
 
 <style scoped>
-body {
-  font-family: "Baloo Bhaijaan", cursive;
-}
 .wrapper {
   margin: 50px auto;
   width: 343px;
