@@ -33,15 +33,16 @@
              .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
         </div>
       </div>
-      
 
       <div class="button" id="button-3" @click="postData">
         <div id="circle"></div>
         <a href="#">بزن بریم</a>
       </div>
-
+      <div style="width: 100%">
+        <loading v-if="waiting" ></loading>
+      </div>
       
-      <loading v-if="waiting"></loading>
+      
     
       
     </form>

@@ -104,7 +104,9 @@
           <div id="circle"></div>
           <a href="#">ساخت کلاس</a>
         </div>
-        <loading v-if="waiting"></loading>
+        <div style="width: 100%">
+          <loading v-if="waiting" ></loading>
+        </div>
 
     </div>
    

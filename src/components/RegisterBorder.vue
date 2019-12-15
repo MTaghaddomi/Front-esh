@@ -37,7 +37,9 @@
         <a href="#">ثبت نام</a>
       </div>
 
-      <loading v-if="waiting"></loading>
+         <div style="width: 100%">
+      <loading v-if="waiting" ></loading>
+    </div>
     </form>
   </div>
 </template>

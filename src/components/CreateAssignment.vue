@@ -41,7 +41,7 @@
           </p>
           <div>
               <select required v-model="deadline.year" class="custom-select">
-                  <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
+                  <option v-for="y in range(1300,1399)" v-bind:key="y" >{{ y }}</option>
               </select>
               <strong>/</strong>
               <select required v-model="deadline.month" class="custom-select">
@@ -65,7 +65,7 @@
           </p>
           <div>
               <select required v-model="lateDeadline.year" class="custom-select">
-                  <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
+                  <option v-for="y in range(1300,1399)" v-bind:key="y" >{{ y }}</option>
               </select>
               <strong>/</strong>
               <select required v-model="lateDeadline.month" class="custom-select">
@@ -95,7 +95,9 @@
         </div>
       </div>  
       
-      <loading v-if="waiting"></loading>
+      <div style="width: 100%">
+        <loading v-if="waiting" ></loading>
+      </div>
 
     </div>
    
@@ -111,8 +113,8 @@ export default {
         return{
             subject: "",
             description: "",
-            deadline: {year: "1398",month: "1",day: "1"},
-            lateDeadline: { year: "1399",month: "12",day: "30"},
+            deadline: {year: "1398",month: "1",day: "1",hour: "0",minute:"0"},
+            lateDeadline: { year: "1399",month: "1",day: "1",hour: "0",minute:"0"},
             waiting : false
         }
         
@@ -140,6 +142,7 @@ export default {
         },
         checkAll(){
             return this.checkSubject() && this.checkDescription()
+
         },
         addAssignment(){
             this.waiting = true
@@ -147,14 +150,15 @@ export default {
                 const newAssignment = {
                     description: this.description,
                     subject: this.subject,
-                    // deadline: this.toTimestamp(this.deadline.month+"/"+
-                    //     this.deadline.day+"/"+this.deadline.year+" "+this.deadline.hour+":"+this.deadline.minute+":00"),
-                    // lateDeadline: this.toTimestamp(this.lateDeadline.month+"/"+
-                    //     this.lateDeadline.day+"/"+this.lateDeadline.year+" "+this.lateDeadline.hour+":"+this.lateDeadline.minute+":00"),
-                    deadLine: 91213123,
-                    lateDeadline: 91299999,
-                    accessLevel: "ALL_STUDENTS"  //TODO assign value
+                    deadline: this.toTimestamp(this.deadline.month+"/"+
+                        this.deadline.day+"/"+this.deadline.year+" "+this.deadline.hour+":"+this.deadline.minute+":00"),
+                    lateDeadline: this.toTimestamp(this.lateDeadline.month+"/"+
+                        this.lateDeadline.day+"/"+this.lateDeadline.year+" "+this.lateDeadline.hour+":"+this.lateDeadline.minute+":00"),
+                    accessLevel: "ALL_STUDENTS"  //TODO assign currect value
                 }
+                console.log("time stamps:")
+                console.log("deadline:",newAssignment.deadline)
+                console.log("late deadline :",newAssignment.lateDeadline)
                 this.$store.dispatch('newAssignment',{
                   
                     newAssignment: newAssignment,
@@ -175,7 +179,6 @@ export default {
             }
         },
         toTimestamp: function(strDate){
-
           var datum = Date.parse(strDate);
           return datum/1000;
         },

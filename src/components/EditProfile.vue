@@ -68,7 +68,9 @@
         <a href="#">ارسال اطلاعات</a>
       </div>
     </div>
-    <loading v-if="waiting"></loading>
+    <div style="width: 100%">
+      <loading v-if="waiting" ></loading>
+    </div>
   </div>
 </template>
 <script>
