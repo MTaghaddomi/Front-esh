@@ -1,19 +1,125 @@
 <template>
   <div class="wrapper animated bounce ">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <h1>خوش آمدید</h1>
+    <div class="w3-container">
+      <p>
+        <button
+          class="glow-on-hover css-selector"
+          onclick="document.getElementById('login').style.display='block'"
+        >
+          ورود
+        </button>
+      </p>
+      <p>
+        <button
+          class="glow-on-hover css-selector"
+          onclick="document.getElementById('Register').style.display='block'"
+        >
+          ثبت نام
+        </button>
+      </p>
 
-    <p>
-      <button class="glow-on-hover css-selector" @click="navigateToLogin">
-        ورود
-      </button>
-    </p>
-    <p>
-      <button class="glow-on-hover css-selector" @click="navigateToRegister">
-        ثبت نام
-      </button>
-    </p>
+      <div id="login" class="w3-modal w3-border w3-round">
+        <div
+          class="w3-modal-content w3-card-4 w3-animate-zoom"
+          style="max-width:600px"
+        >
+          <div class="w3-center">
+            <br />
+            <span
+              onclick="document.getElementById('login').style.display='none'"
+              class="w3-button w3-xlarge w3-transparent w3-display-topright"
+              title="Close Modal"
+              >×</span
+            >
+            <img
+              src="../components/assets/img_avatar.png"
+              alt="Avatar"
+              style="width:30%"
+              class="w3-circle w3-margin-top"
+            />
+          </div>
+
+          <form class="w3-container">
+            <div class="w3-section">
+              <label><b>Username</b></label>
+              <input
+                class="w3-input w3-border w3-margin-bottom"
+                type="text"
+                placeholder="Enter Username"
+                name="usrname"
+                required
+              />
+              <label><b>Password</b></label>
+              <input
+                class="w3-input w3-border"
+                type="text"
+                placeholder="Enter Password"
+                name="psw"
+                required
+              />
+              <button
+                class="w3-button  w3-purple w3-section w3-padding"
+                type="submit"
+              >
+                ورود
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="Register" class="w3-modal">
+        <div
+          class="w3-modal-content w3-card-4 w3-animate-zoom"
+          style="max-width:600px"
+        >
+          <div class="w3-center">
+            <br />
+            <span
+              onclick="document.getElementById('Register').style.display='none'"
+              class="w3-button w3-xlarge w3-transparent w3-display-topright"
+              title="Close Modal"
+              >×</span
+            >
+            <img
+              src="../components/assets/img_avatar.png"
+              alt="Avatar"
+              style="width:30%"
+              class="w3-circle w3-margin-top"
+            />
+          </div>
+
+          <form class="w3-container">
+            <div class="w3-section">
+              <label><b>Username</b></label>
+              <input
+                class="w3-input w3-border w3-margin-bottom"
+                type="text"
+                placeholder="Enter Username"
+                name="usrname"
+                required
+              />
+              <label><b>Password</b></label>
+              <input
+                class="w3-input w3-border"
+                type="text"
+                placeholder="Enter Password"
+                name="psw"
+                required
+              />
+              <button
+                class="w3-button  w3-purple w3-section w3-padding"
+                type="submit"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -21,6 +127,11 @@
 import store from "../store.js";
 import loading from "../../public/loading.vue";
 export default {
+  data: function() {
+    return {
+      show: false
+    };
+  },
   beforeRouteEnter: (to, from, next) => {
     if (store.getters.loggedin) {
       console.log("you are loggedin!, loading your profile page");
@@ -35,6 +146,9 @@ export default {
     },
     navigateToRegister: function() {
       this.$router.push("/Register");
+    },
+    toggle: function() {
+      this.show = !this.show;
     }
   }
 };
@@ -144,5 +258,61 @@ export default {
 }
 .css-selector {
   font-family: "Almarai", sans-serif;
+}
+</style>
+<style lang="scss" scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  margin: 2% auto;
+}
+
+.button-primary {
+  width: 200px;
+  margin: auto;
+  background: lighten(teal, 10%);
+  color: whitesmoke;
+  border: none;
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.modal {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+  width: 450px;
+  height: 350px;
+  background: white;
+  border-radius: 3px;
+  cursor: pointer;
+
+  .modal-exit {
+    position: absolute;
+    right: 0;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+  }
+}
+
+.modal-message {
+  margin: auto;
+  color: whitesmoke;
+  h2 {
+    text-align: center;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
 }
 </style>
