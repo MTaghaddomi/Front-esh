@@ -6,7 +6,8 @@ Vue.use(Vuex)
 import customAxios from './customAxios'
 export default new Vuex.Store({
     state: {
-        userProfile: {firstName: "", lastName: "",email:"",birthday:"",phoneNumber:""},
+        userProfile: {firstName: "", lastName: "",email:"",birthdayTimestamp:"",phoneNumber:"", 
+                     birthdayDate: {year: " ", month: " ", day: " "}},
         loggedin: false,
         token:"",
         username:""
@@ -18,8 +19,10 @@ export default new Vuex.Store({
         firstName: (state)=>{return state.userProfile.firstName},
         lastName: (state)=>{return state.userProfile.lastName},
         email: (state)=>{return state.userProfile.email},
-        birthday: (state)=>{var date = new Date(state.userProfile.birthday * 1000); return {year:date.year, month:date.month,day:date.day}},
-        phoneNumber: (state)=>{return state.userProfile.phoneNumber}
+        phoneNumber: (state)=>{return state.userProfile.phoneNumber},
+        birthdayDate: (state)=>{ return state.userProfile.birthdayDate},
+        birthdayTimestamp: (state)=>{return state.userProfile.birthdayTimestamp}
+        
     },
     mutations: {
         saveLogin(state,serverData){
@@ -33,7 +36,8 @@ export default new Vuex.Store({
             console.log("deleting current state")
             state.userProfile.firstName = ""
             state.userProfile.lastName = ""
-            state.userProfile.birthday = ""
+            state.userProfile.birthdayDate = {year: " ", month: " ", day: " "}
+            state.userProfile.birthdayTimestamp = 0
             state.userProfile.phoneNumber = ""
             state.userProfile.email = ""
             state.username = ""
@@ -48,7 +52,16 @@ export default new Vuex.Store({
             state.userProfile.firstName = serverData.firstName
             state.userProfile.lastName=serverData.lastName
             state.userProfile.email= serverData.email
-            state.userProfile.birthday= serverData.birthday
+            state.userProfile.birthdayTimestamp= serverData.birthday
+            var date = new Date(parseInt(serverData.birthday) * 1000); 
+            var mm = date.getMonth() + 1; // getMonth() is zero-based
+            var dd = date.getDate();
+            
+            if(serverData.birthday != null){
+                state.userProfile.birthdayDate = 
+                {year: date.getFullYear(), month: mm, day: dd}
+            }
+
             state.userProfile.phoneNumber=serverData.phoneNumber
             state.loggedin = true
             console.log("the following has been saved: ")
@@ -72,7 +85,6 @@ export default new Vuex.Store({
             })
             .catch((error)=>{
                 console.log(error);
-                alert("Something went wrong in signup process") 
                 args.failure() 
             })
         },
@@ -94,7 +106,6 @@ export default new Vuex.Store({
             .catch((error)=>{
                 console.log("our status::",error)
                 console.log(error);
-                alert("Something went wrong in login process")
                 args.failure()
             })
 
@@ -116,13 +127,12 @@ export default new Vuex.Store({
                 args.success()
             })
             .catch((err)=>{ console.log("getProfile went to cache")
-                alert('Something went wrong while getting your profile!')
                 commit('deleteLogin')
                 args.failure()
                 
             })        
         },
-        editProfile({commit,state},args){   //add header
+        editProfile({commit,state},args){   
             console.log('state username ' + state.username);
             console.log('state token ' + state.token);
 
@@ -143,8 +153,10 @@ export default new Vuex.Store({
             console.log("submitting the new classroom:")
             const classData = args.classData
             console.log("the sending data:",classData)
-            customAxios.post('/classrooms/',classData)
-            .then((res)=>{
+
+            customAxios.post('/classrooms/',
+            classData, { headers: {"Auth" : state.token } }
+            ).then((res)=>{
                 console.log(res)
                 args.success()
             })
@@ -153,8 +165,80 @@ export default new Vuex.Store({
                 args.failure()
             })
             
-        }
+        },
+        getEnrolledClassrooms({state},args){
+            console.log("starting getEnrolledClassrooms action")
+            customAxios.get('/users/classrooms/myClasses',
+                { headers: { 'Auth': state.token } }
+            ).then(
+                (res)=>{
+                    console.log("succes on getEnrolledClassrooms Action")
+                    console.log(res)
+                    // args.success( ... ) TODO pass the list
+                }
+            ).catch(
+                (error)=>{
+                    console.log("failed to getEnrolledClassrooms Action")
+                    console.log(error)
+                    args.failure()
+                }
+            )
+        },
+        getClassroomDetails({state},args){
+            console.log("starting getClassroomDetails action")
+            customAxios.get('/classrooms/'+args.className,
+                { headers: { 'Auth':state.token}}
+            ).then(
+                (res)=>{
+                    console.log("success on getClassroomDetails Action")
+                    console.log(res)
+                    // args.success( ... ) TODO pass the class data
+                }
+            ).catch(
+                (error)=>{
+                    console.log("failure on getClassroomDetails Action")
+                    console.log(error)
+                    args.failure()
+                }
+            )
+        },
+        getAssignments({state},args){
+            console.log("starting getAssignments action")
+            customAxios.get('/classrooms/'+args.className+'/exercises',
+                { headers: {'Auth': state.token}}
+            ).then(
+                (res)=>{
+                    console.log("success on getAssignments Action")
+                    console.log(res)
+                    // args.success ( ... ) TODO pass the assignments
+                }
+            ).catch(
+                (error)=>{
+                    console.log("failure on getAssignments Action")
+                    console.log(error)
+                    args.failure()
+                }
+            )
 
+        },
+        newAssignment({state},args){
+            console.log("starting newAssignment action")
+            customAxios.post('/exercise/'+args.className,
+                args.newAssignment, {headers: {'Auth': state.token}}
+            ).then(
+                (res)=>{
+                    console.log("success on newAssignment Action")
+                    console.log(res)
+                    args.sucess()
+                }
+            ).catch(
+                (error)=>{
+                    console.log("failure on newAssignment Action")
+                    console.log(error)
+                    args.failure()
+                }
+            )
+        }
 
     },
 });

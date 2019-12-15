@@ -8,21 +8,27 @@ import Home from './components/Home.vue'
 import Classrooms from './components/Classrooms.vue'
 import Classroom from './components/Classroom.vue'
 import Notifications from './components/Notifications.vue'
+import Assignment from './components/Assignment.vue'
 import NotFound from './components/NotFound.vue'
+import CreateClassroom from './components/CreateClassroom.vue'
+import CreateAssignment from './components/CreateAssignment.vue'
 
 export const routes = [
-
     {path: '/account', component: LoginOrRegister},
     {path: '/login' ,component: Login},
     {path: '/register', component: Register},
     {path: '/profile', component: Profile},
     {path: '/editProfile', component: EditProfile},
     {path: '/home', component: Home},
-    {path: '/classrooms', component: Classrooms},
-    {name:'classroom' ,path: '/classroom/:id',component: Classroom},
+    {path: '/classrooms',component: Classrooms},
+
+    {name: 'classroom' ,path: '/classroom/:className',component: Classroom},
+    {name: 'assignment', path: '/classroom/:className/assignments/:assignmentId' , component: Assignment, append: true},
+    {name: 'createAssignment' , path: '/classroom/:className/createAssignment'  , component: CreateAssignment},
+    {name: 'createClass' , path: '/createClass' , component: CreateClassroom},
     {path: '/notifications', component: Notifications},
-    {path: '/notFound', component: NotFound},
+    {name: 'notFound', path: '/notFound', component: NotFound},
     {path: '/', component: Home},
-    {path:'*' , redirect:'/notFound'}, //for non-specified routes, redirect to the homepage
+    {path: '*' , redirect:'/notFound'}, //for non-specified routes, redirect to the homepage
     
 ];

@@ -7,32 +7,34 @@
 
     <h1>ورود</h1>
     <form>
-      <input
-        type="text"
-        name="u"
-        v-model="username"
-        pattern="[a-z_A-Z0-9]{3,}"
-        placeholder="نام کاربری"
-        required="required"
-      />
+        <div>
+          <input
+          type="text"
+          v-model="username"
+          pattern="[a-z_A-Z0-9]{4,}"
+          placeholder="نام کاربری"
+          required="required"
+        />
 
-      <div class="requirements">
-        Your username must be at least 3 characters, only containing letters,
-        numbers, and underscores
+        <div class="requirements">
+          نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
+        </div>
       </div>
+      
+      <div>
+          <input
+          type="password"
+          v-model="password"
+          pattern=".{8,}"
+          placeholder="رمز عبور"
+          required="required"
+        />
 
-      <input
-        type="password"
-        v-model="password"
-        name="p"
-        pattern=".{8,}"
-        placeholder="رمز عبور"
-        required="required"
-      />
-
-      <div class="requirements1">
-        Your password must be at least 8 characters
+        <div class="requirements">
+             .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
+        </div>
       </div>
+      
 
       <div class="button" id="button-3" @click="postData">
         <div id="circle"></div>
@@ -49,122 +51,66 @@
 </template>
 
 <script>
-import axios from "axios";
-import loading from "../../public/loading.vue";
+import loading from '../../public/loading.vue'
 export default {
-  components: {
-    loading: loading
-  },
-  data: function() {
-    return {
-      username: "",
-      password: "",
-      usernameStatus: true,
-      passwordStatus: true,
-      waiting: false
-    };
-  },
-  checkUsername: function() {
-    const usernameFormat = /^[a-z_A-Z0-9]{3,}$/;
-    if (usernameFormat.test(this.username)) {
-      console.log("username is fine");
-      this.usernameStatus = true;
-    } else {
-      console.log("username is wrong");
-      this.usernameStatus = false;
-    }
-  },
-  methods: {
-    checkAll: function() {
-      this.checkUsername();
-      this.checkPassword();
+    components:{
+      'loading': loading
     },
-    checkUsername: function() {
-      const usernameFormat = /^[a-z_A-Z0-9]{3,}$/;
-      if (usernameFormat.test(this.username)) {
-        console.log("username is fine");
-        this.usernameStatus = true;
-      } else {
-        console.log("username is wrong");
-        this.usernameStatus = false;
-      }
-    },
-
-    checkPassword: function() {
-      if (this.password.length >= 8) {
-        console.log("password is fine");
-        this.passwordStatus = true;
-      } else {
-        console.log("password is wrong");
-        this.passwordStatus = false;
-      }
-    },
-    postData: function() {
-      console.log("checking your input data");
-      this.checkAll();
-      if (this.checkSubmission) {
-        const loginRequest = {
-          username: this.username,
-          password: this.password
+    data: function() {
+        return {
+            username: "",
+            password: "",
+            waiting: false,
         };
-        this.waiting = true;
-
-        this.$store.dispatch("login", {
-          loginRequest: loginRequest,
-          success: () => {
-            this.waiting = false;
-            this.$router.push({ path: "/profile" });
-          },
-          failure: () => {
-            this.waiting = false;
-            console.log("failed to login");
-          }
-        });
-      } else {
-        alert("Wrong submission, check the errors!");
-      }
     },
+    methods:{
+        checkAll: function(){
+          return this.checkUsername() && this.checkPassword()
+          
+        },
+        checkUsername: function(){  
 
-    checkPassword: function() {
-      if (this.password.length >= 8) {
-        console.log("password is fine");
-        this.passwordStatus = true;
-      } else {
-        console.log("password is wrong");
-        this.passwordStatus = false;
-      }
-    },
-    postData: function() {
-      console.log("checking your input data");
-      this.checkAll();
-      if (this.checkSubmission) {
-        const loginRequest = {
-          username: this.username,
-          password: this.password
-        };
+           const usernameFormat = /^[a-z_A-Z0-9]{4,}$/ 
+           if(usernameFormat.test(this.username)){
+               console.log("username is fine")
+               return true;
+           }else{
+               console.log("username is wrong")
+               return false;
+           }
+        },
 
-        this.$store.dispatch("login", {
-          loginRequest: loginRequest,
-          success: () => {
-            this.$store.dispatch("getProfile", {
-              success: () => {
-                this.$router.push({ path: "/profile" });
-              },
-              failure: () => {
-                console.log("success on login, failed to get profile");
-              }
-            });
-          },
-          failure: () => {
-            console.log("failed to login");
-          }
-        });
-      } else {
-        alert("Wrong submission, check the errors!");
-      }
+        checkPassword: function(){
+            if(this.password.length >= 8){
+                console.log("password is fine")
+                return true;
+            }else{
+                console.log("password is wrong")
+                return false;
+            }
+        },
+        postData:function(){
+             console.log("checking your input data")
+
+             if(this.checkAll()){
+               const loginRequest ={
+                   username: this.username,
+                   password: this.password 
+               }
+               this.waiting = true           
+              
+             this.$store.dispatch('login',
+              {loginRequest:loginRequest,
+                success: ()=> {this.waiting = false; this.$router.push({path:'/profile'})},
+                failure: ()=> {this.waiting = false; console.log('failed to login'); alert("خطا به هنگام ورود") }
+              })
+             }else{
+               alert("اطلاعات وارد شده صحیح نیست، لطفا موارد قرمز را برطرف کنید")
+             }
+        },
     }
-  }
 };
+
 </script>
 
 <style scoped>
@@ -192,8 +138,7 @@ input {
   -ms-transition: box-shadow 0.5s ease;
   transition: box-shadow 0.5s ease;
 }
-input:focus {
-}
+
 .wrapper {
   margin: 50px auto;
   width: 343px;

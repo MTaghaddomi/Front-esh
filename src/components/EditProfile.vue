@@ -5,14 +5,12 @@
       <input
         v-model="firstname"
         type="text"
-        id="firstname"
-        name="firstname"
         pattern="[a-z A-Z]*"
         required
         placeholder="نام "
       />
       <div class="requirements">
-        Your lastname cannot have anything but letters and spaces.
+           .نام شما باید فقط از حروف و فاصله تشکیل شده باشد
       </div>
     </div>
 
@@ -21,216 +19,178 @@
         type="text"
         v-model="lastname"
         pattern="[a-z A-Z]*"
-        id="lastname"
-        name="lastname"
         required
         placeholder="نام خانوادگی "
       />
       <div class="requirements">
-        Your lastname cannot have anything but letters and spaces.
+           .نام خانوادگی شما باید فقط از حروف و فاصله تشکیل شده باشد
       </div>
+    <div>
+
+        <select placeholder ="سال" required v-model="dateofbirth.year" class="custom-select">
+            <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
+        </select>
+        <select placeholder = "ماه" required v-model="dateofbirth.month" class="custom-select">
+            <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
+        </select>
+        <select placeholder = "روز" required  v-model="dateofbirth.day" class="custom-select">
+            <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
+        </select>
+
     </div>
     <div>
-      <select required name="year" id="year" v-model="dateofbirth.year">
-        <option v-for="y in range(1300, 1398)" v-bind:key="y">{{ y }}</option>
-      </select>
-      <select required name="month" id="month" v-model="dateofbirth.month">
-        <option v-for="m in range(1, 12)" v-bind:key="m">{{ m }}</option>
-      </select>
-      <select required name="day" id="day" v-model="dateofbirth.day">
-        <option v-for="d in range(1, 31)" v-bind:key="d">{{ d }}</option>
-      </select>
+      <input
+        type="phonenumber"
+        v-model="phonenumber"
+        pattern="09[0-9]{9}"
+        required
+        placeholder="شماره همراه "
+      />
+      <div class="requirements">
+       .شماره همراه شما باید معتبر باشد 
+      </div>
     </div>
     <div>
       <input
         type="email"
         v-model="email"
-        id="email"
-        name="email"
         pattern="[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*"
         required
-        placeholder="Email Address "
+        placeholder="پست الکترونیک "
       />
 
-      <div>
-        <input
-          type="phonenumber"
-          v-model="phonenumber"
-          id="number"
-          name="number"
-          pattern="09[0-9]{9}"
-          required
-          placeholder="شماره همراه "
-        />
-        <div class="requirements">
-          Must be a valid phonenumber.
-        </div>
-      </div>
-      <div>
-        <input
-          type="email"
-          v-model="email"
-          id="email"
-          name="email"
-          pattern="(([<>()\[\]\.,;:\s@\]+(\.[<>()\[\]\.,;:\s@\]+)*)|(\.+\))@(([<>()[\]\.,;:\s@\]+\.)+[<>()[\]\.,;:\s@\]{2,})"
-          required
-          placeholder="پست الکترونیک "
-        />
-
-        <div class="requirements">
-          Must be a valid email address.
-        </div>
-      </div>
-      <div class="button" id="button-3" @click="updateProfile">
-        <div id="circle"></div>
-        <a href="#">Let's Go!</a>
+       <div class="requirements">
+       .پست الکترونیک شما باید معتبر باشد 
       </div>
     </div>
+      <div class="button" id="button-3" @click="updateProfile">
+        <div id="circle"></div>
+        <a href="#">ارسال اطلاعات</a>
+      </div>
+    </div>
+    <loading v-if="waiting"></loading>
   </div>
 </template>
 <script>
-import store from "../store.js";
-import loading from "../../public/loading.vue";
-export default {
-  components: {
-    loading: loading
-  },
-  beforeRouteEnter: (to, from, next) => {
-    if (store.getters.loggedin) {
-      console.log("you are loggedin!, loading your profile edit page");
-      next();
-    } else {
-      alert(
-        "you are not loggedin yet, re-directing you to Authentication page"
-      );
-      console.log(
-        "you are not loggedin yet, re-directing you to Authentication page"
-      );
-      next("/account");
-    }
-  },
-  data: function() {
-    return {
-      firstname: store.getters.firstName,
-      firstnameStatus: true,
-      lastname: store.getters.lastName,
-      lastnameStatus: true,
-      email: store.getters.email,
-      emailStatus: true,
-      phonenumber: store.getters.phoneNumber,
-      phoneNumberStatus: true,
-      dateofbirth: new Date(store.getters.birthday * 1000)
-    };
-  },
-  checklastname: function() {
-    var nametest = /^[a-zA-Z\s.]*$/;
-    if (nametest.test(this.lastname)) {
-      console.log("lastname is fine");
-      this.lastnameStatus = true;
-    } else {
-      console.log("lastname is wrong");
-      this.lastnameStatus = false;
-    }
-  },
-  checknumber: function() {
-    var numbertest = /^09[0-9]{9}$/;
-    if (numbertest.test(this.phonenumber) || this.phoneNumber.length == 0) {
-      console.log("phonenumber is fine");
-      this.phoneNumberStatus = true;
-    } else {
-      console.log("phonenumer is wrong");
-      this.phoneNumberStatus = false;
-    }
-  },
-  methods: {
-    checkAll: function() {
-      this.checkfirstname();
-      this.checklastname();
-      this.checknumber();
-      this.checkemail();
+import store from '../store.js'
+import loading from '../../public/loading.vue'
+export default{
+    components:{
+      'loading': loading
     },
-    checkfirstname: function() {
-      var nametest = /^[a-zA-Z\s.]*$/;
-      if (nametest.test(this.firstname) || this.firstname == null) {
-        console.log("firstname is fine");
-        this.firstnameStatus = true;
-      } else {
-        console.log("firstname is wrong");
-        this.firstnameStatus = false;
-      }
-    },
-    checklastname: function() {
-      var nametest = /^[a-zA-Z\s.]*$/;
-      if (nametest.test(this.lastname) || this.lastname == null) {
-        console.log("lastname is fine");
-        this.lastnameStatus = true;
-      } else {
-        console.log("lastname is wrong");
-        this.lastnameStatus = false;
-      }
-    },
-    checknumber: function() {
-      var numbertest = /^09[0-9]{9}$/;
-      if (numbertest.test(this.phonenumber) || this.phonenumber == null) {
-        console.log("phonenumber is fine");
-        this.phoneNumberStatus = true;
-      } else {
-        console.log("phonenumer is wrong");
-        this.phoneNumberStatus = false;
-      }
-    },
-    checkemail: function() {
-      var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/;
-      if (emailtest.test(this.email) || this.email == null) {
-        console.log("email is fine");
-        this.emailStatus = true;
-      } else {
-        console.log("email is wrong");
-        this.emailStatus = false;
-      }
-    },
-    toTimestamp: function(strDate) {
-      var datum = Date.parse(strDate);
-      return datum / 1000;
-    },
-    updateProfile() {
-      console.log("checking your submission");
-      this.checkAll();
-      if (this.checkSubmission) {
-        const updatedProfile = {
-          firstName: this.firstname,
-          lastName: this.lastname,
-          email: this.email,
-          phoneNumber: this.phonenumber,
-          birthday: this.toTimestamp(
-            this.dateofbirth.month +
-              "/" +
-              this.dateofbirth.day +
-              "/" +
-              this.dateofbirth.year
-          )
-        };
-        this.waiting = true;
-        console.log("new profile is being submitted");
-        this.$store.dispatch("editProfile", {
-          updatedProfile: updatedProfile,
-          success: () => {
-            this.waiting = false;
-            this.$router.push({ path: "/profile" });
-          },
-          failure: () => {
-            alert("Something went wrong while updating your profile!");
-            console.log("failed to upddate your profile");
-          },
-          failure: () => {
-            this.waiting = false;
-            alert("Something went wrong while updating your profile!");
-            console.log("failed to upddate your profile");
+    beforeRouteEnter : (to,from,next)=>{
+          if(store.getters.loggedin){
+              console.log("you are loggedin!, loading your profile edit page")
+              next()
+          }else{
+              alert(" .ابتدا وارد حساب کاربری خود شوید")
+              console.log("you are not loggedin yet, re-directing you to Authentication page")
+              next('/account')
           }
-        });
+    },
+    data: function(){
+      return {
+        firstname: store.getters.firstName,
+        lastname:store.getters.lastName,
+        email: store.getters.email,
+        phonenumber: store.getters.phoneNumber,
+        dateofbirth: store.getters.birthdayDate,
+        waiting: false
       }
     },
-    range: function(min, max) {
+    methods:{
+       checkAll: function(){
+         return this.checkfirstname() && this.checklastname()
+                && this.checknumber() && this.checkemail()
+       },
+       checkfirstname: function(){
+            var nametest =/^[a-zA-Z\s.]*$/
+            if(nametest.test(this.firstname) || this.firstname == "" || this.firstname == null){
+                console.log("firstname is fine")
+                return true;
+            }else{
+                console.log("firstname is wrong")
+                return false;
+            }
+        },
+        checklastname: function(){
+            var nametest = /^[a-zA-Z\s.]*$/ 
+            if(nametest.test(this.lastname) || this.lastname == "" || this.lastname== null){
+                console.log("lastname is fine")
+                return true;
+            }else{
+                console.log("lastname is wrong")
+                return false;
+            }
+        },
+        checknumber: function(){
+            var numbertest = /^09[0-9]{9}$/
+            if(numbertest.test(this.phonenumber) || this.phonenumber == ""|| this.phonenumber == null ){
+                console.log("phonenumber is fine")
+                return true;
+            }else{
+                console.log("phonenumber is wrong")
+                return false;
+            }
+        },
+        checkemail: function(){
+            var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/
+            if(emailtest.test(this.email) || this.email == "" || this.email == null){
+                console.log("email is fine")
+                return true;
+            }else{
+                console.log("email is wrong")
+                return false;
+            }
+            
+        },
+        toTimestamp: function(strDate){
+
+          var datum = Date.parse(strDate);
+          return datum/1000;
+        },
+        updateProfile(){
+          this.waiting = true;
+          console.log("checking your submission")
+          
+          if(this.checkAll()){
+            const updatedProfile = {     
+              firstName: this.firstname,
+              lastName: this.lastname,
+              email: this.email,
+              phoneNumber: this.phonenumber,
+              birthday: this.toTimestamp(this.dateofbirth.month+"/"+this.dateofbirth.day+"/"+this.dateofbirth.year)
+            }
+            console.log("new profile is being submitted")
+            this.$store.dispatch('editProfile',{
+              updatedProfile:updatedProfile,
+              success:()=>{
+                this.waiting = false;
+                this.$router.push({path: '/profile'}) 
+              },
+              failure:()=>{
+                alert("خطا به هنگام بروزرسانی حساب کاربری");
+                this.waiting = false;
+                console.log("failed to upddate your profile");
+              },
+            });
+          }else{
+            alert(".اطلاعات وارد شده صحیح نیست! موارد قرمز را برطرف کنید")
+            this.waiting = false
+          }
+          
+        },
+        range: function(min,max){
+          var array = [],
+          j = 0;
+          for(var i = min; i <= max; i++){
+            array[j] = i;
+            j++;
+          }
+        },
+      
+    
+    range: function (min, max) {
       var array = [],
         j = 0;
       for (var i = min; i <= max; i++) {
@@ -447,4 +407,29 @@ a {
 #button-3:hover a {
   color: #2d3142;
 }
+.custom-select {
+  position: relative;
+  padding: 20px 20px 20px 50px;
+  width: 33%;
+  margin: 5px;
+  margin-bottom: 10px;
+  font-family: "Baloo Bhaijaan", cursive;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2),
+    0 1px 1px rgba(255, 255, 255, 0.2);
+  -webkit-transition: box-shadow 0.5s ease;
+  -moz-transition: box-shadow 0.5s ease;
+  -o-transition: box-shadow 0.5s ease;
+  -ms-transition: box-shadow 0.5s ease;
+  transition: box-shadow 0.5s ease;
+}
+
+
 </style>

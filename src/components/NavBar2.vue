@@ -2,7 +2,7 @@
   <div class="nav">
     <input type="checkbox" id="nav-check" />
     <div class="nav-header">
-      <div class="nav-title">
+      <div class="nav-title" @click="home() ">
         EZlearn
       </div>
     </div>
@@ -15,23 +15,26 @@
     </div>
 
     <div class="nav-links">
-      <a @click="routeToprofile()">پروفایل</a>
-      <a @click="NavigateToClassrooms()">کلاس ها</a>
-      <a @click="NavigateToNotifications()">اعلانات</a>
+      <a @click="profile()">پروفایل</a>
+      <a @click="classrooms()">کلاس ها</a>
+      <a @click="notifications()">اعلانات</a>
     </div>
   </div>
 </template>
 <script>
 export default {
   methods: {
-    routeToprofile: function() {
-      this.$router.push("/Profile");
+    home: function(){
+      this.$router.push("/home")
     },
-    NavigateToClassrooms: function() {
-      this.$router.push("/Classrooms");
+    profile: function() {
+      this.$router.push("/profile");
     },
-    NavigateToClassrooms: function() {
-      this.$router.push("/Notification");
+    classrooms: function() {
+      this.$router.push("/classrooms");
+    },
+    notifications: function() {
+      this.$router.push("/notifications");
     }
   }
 };
@@ -62,6 +65,9 @@ body {
   color: #fff;
   padding: 10px 10px 10px 10px;
 }
+.nav > .nav-header > .nav-title:hover {
+  cursor: pointer;
+}
 
 .nav > .nav-btn {
   display: none;
@@ -83,6 +89,7 @@ body {
 
 .nav > .nav-links > a:hover {
   color: #fa923f;
+  cursor: pointer;
 }
 
 .nav > #nav-check {

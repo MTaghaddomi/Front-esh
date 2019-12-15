@@ -121,52 +121,54 @@
 import store from "../store.js";
 import { mapGetters } from "vuex";
 export default {
-  data: function() {
-    return {};
-  },
-  computed: {
-    ...mapGetters([
-      "username",
-      "lastName",
-      "firstName",
-      "email",
-      "phoneNumber",
-      "birthday",
-      "loggedin"
-    ])
-  },
-  mounted: function() {
-    store.dispatch("getProfile", {
-      success: () => {
-        console.log("success on f profile --------");
-      },
-      failure: () => {
-        console.log("failed to get profile --------");
+    data: function(){
+      return{
+        //nothing
       }
-    });
-  },
-  beforeRouteEnter: (to, from, next) => {
-    console.log("checking loggedin status");
-    if (store.state.loggedin) {
-      console.log("you are loggedin!, loading your profile page");
-      next();
-    } else {
-      alert(
-        "you are not loggedin yet, re-directing you to Authentication page"
-      );
-      next("/account");
-    }
-  },
-  methods: {
-    editProfile: function() {
-      this.$router.push({ path: "/editProfile" });
     },
-    logout: function() {
-      this.$store.dispatch("logout");
-      this.$router.push({ path: "/account" });
+
+    computed:{
+      ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthdayDate','birthdayTimestamp','loggedin'])
+    },
+    mounted: function(){
+      store.dispatch('getProfile',{
+          success:()=>{console.log("success on loading profile")},
+          failure:()=>{console.log("failed to get profile"); alert('خطا به هنگام دریافت اطلاعات مربوط به حساب کاربری')}
+        })
+    },
+    beforeRouteEnter : (to,from,next)=>{
+          console.log("checking loggedin status")
+          if(store.state.loggedin){
+              console.log("you are loggedin!, loading your profile page")
+              next()
+          }else{
+              alert("ابتدا وارد حساب کاربری خود شوید")
+              next('/account') 
+          }
+            
+    },
+    methods:{
+      editProfile: function(){
+        this.$router.push({path: '/editProfile'})
+      },
+      logout: function(){
+        this.$store.dispatch('logout')
+        this.$router.push({path: '/account'})
+      },
+      getBirthdayRight: function(date){
+
+          var mm = date.getMonth() + 1; // getMonth() is zero-based
+          var dd = date.getDate();
+
+          return [date.getFullYear(),
+            (mm>9 ? '' : '0') + mm,
+            (dd>9 ? '' : '0') + dd
+          ].join(' / ');
+      },
+      checkDate(){ return !(this.birthdayDate.year == " ") }
     }
-  }
-};
+}
+  
 </script>
 <style scoped>
 body {
