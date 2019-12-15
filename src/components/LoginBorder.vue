@@ -7,8 +7,8 @@
 
     <h1>ورود</h1>
     <form>
-        <div>
-          <input
+      <div>
+        <input
           type="text"
           v-model="username"
           pattern="[a-z_A-Z0-9]{4,}"
@@ -17,12 +17,12 @@
         />
 
         <div class="requirements">
-          نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
+          نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و _ باشد
         </div>
       </div>
-      
+
       <div>
-          <input
+        <input
           type="password"
           v-model="password"
           pattern=".{8,}"
@@ -31,15 +31,11 @@
         />
 
         <div class="requirements">
-             .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
+          .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
         </div>
       </div>
-      
 
-      <div class="button" id="button-3" @click="postData">
-        <div id="circle"></div>
-        <a href="#">بزن بریم</a>
-      </div>
+      <button class="btn btn-sm button">بزن بریم</button>
 
       <i
         v-if="waiting"
@@ -51,66 +47,70 @@
 </template>
 
 <script>
-import loading from '../../public/loading.vue'
+import loading from "../../public/loading.vue";
 export default {
-    components:{
-      'loading': loading
+  components: {
+    loading: loading
+  },
+  data: function() {
+    return {
+      username: "",
+      password: "",
+      waiting: false
+    };
+  },
+  methods: {
+    checkAll: function() {
+      return this.checkUsername() && this.checkPassword();
     },
-    data: function() {
-        return {
-            username: "",
-            password: "",
-            waiting: false,
+    checkUsername: function() {
+      const usernameFormat = /^[a-z_A-Z0-9]{4,}$/;
+      if (usernameFormat.test(this.username)) {
+        console.log("username is fine");
+        return true;
+      } else {
+        console.log("username is wrong");
+        return false;
+      }
+    },
+
+    checkPassword: function() {
+      if (this.password.length >= 8) {
+        console.log("password is fine");
+        return true;
+      } else {
+        console.log("password is wrong");
+        return false;
+      }
+    },
+    postData: function() {
+      console.log("checking your input data");
+
+      if (this.checkAll()) {
+        const loginRequest = {
+          username: this.username,
+          password: this.password
         };
-    },
-    methods:{
-        checkAll: function(){
-          return this.checkUsername() && this.checkPassword()
-          
-        },
-        checkUsername: function(){  
+        this.waiting = true;
 
-           const usernameFormat = /^[a-z_A-Z0-9]{4,}$/ 
-           if(usernameFormat.test(this.username)){
-               console.log("username is fine")
-               return true;
-           }else{
-               console.log("username is wrong")
-               return false;
-           }
-        },
-
-        checkPassword: function(){
-            if(this.password.length >= 8){
-                console.log("password is fine")
-                return true;
-            }else{
-                console.log("password is wrong")
-                return false;
-            }
-        },
-        postData:function(){
-             console.log("checking your input data")
-
-             if(this.checkAll()){
-               const loginRequest ={
-                   username: this.username,
-                   password: this.password 
-               }
-               this.waiting = true           
-              
-             this.$store.dispatch('login',
-              {loginRequest:loginRequest,
-                success: ()=> {this.waiting = false; this.$router.push({path:'/profile'})},
-                failure: ()=> {this.waiting = false; console.log('failed to login'); alert("خطا به هنگام ورود") }
-              })
-             }else{
-               alert("اطلاعات وارد شده صحیح نیست، لطفا موارد قرمز را برطرف کنید")
-             }
-        },
+        this.$store.dispatch("login", {
+          loginRequest: loginRequest,
+          success: () => {
+            this.waiting = false;
+            this.$router.push({ path: "/profile" });
+          },
+          failure: () => {
+            this.waiting = false;
+            console.log("failed to login");
+            alert("خطا به هنگام ورود");
+          }
+        });
+      } else {
+        alert("اطلاعات وارد شده صحیح نیست، لطفا موارد قرمز را برطرف کنید");
+      }
     }
+  }
 };
-
 </script>
 
 <style scoped>
@@ -126,8 +126,9 @@ input {
   background-color: aliceblue;
   border: none;
   outline: none;
-  font-size: 13px;
-  font-family: "Baloo Bhaijaan", cursive;
+  font-size: 15px;
+  font-family: "Almarai", sans-serif;
+  font-weight: bold;
   color: black;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -148,7 +149,7 @@ input {
   -webkit-border-radius: 5px;
 }
 .wrapper h1 {
-  font-family: "Baloo Bhaijaan", cursive;
+  font-family: "Almarai", sans-serif;
   color: black;
   text-align: center;
   padding-top: 5px;

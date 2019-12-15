@@ -1,196 +1,327 @@
 <template>
-  <div class="wrapper animated bounce">
+  <div>
     <h1 class="css-selector">ویرایش حساب کاربری</h1>
-    <div>
-      <input
-        v-model="firstname"
-        type="text"
-        pattern="[a-z A-Z]*"
-        required
-        placeholder="نام "
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
       />
-      <div class="requirements">
-           .نام شما باید فقط از حروف و فاصله تشکیل شده باشد
-      </div>
-    </div>
+    </head>
 
-    <div>
-      <input
-        type="text"
-        v-model="lastname"
-        pattern="[a-z A-Z]*"
-        required
-        placeholder="نام خانوادگی "
-      />
-      <div class="requirements">
-           .نام خانوادگی شما باید فقط از حروف و فاصله تشکیل شده باشد
-      </div>
-    <div>
+    <div class="container bootstrap snippet emp-profile">
+      <div class="row"></div>
+      <div class="row">
+        <div class="col-sm-3">
+          <!--left col-->
 
-        <select placeholder ="سال" required v-model="dateofbirth.year" class="custom-select">
-            <option v-for="y in range(1300,1398)" v-bind:key="y" >{{ y }}</option>
-        </select>
-        <select placeholder = "ماه" required v-model="dateofbirth.month" class="custom-select">
-            <option v-for="m in range(1,12)" v-bind:key="m" >{{ m }}</option>
-        </select>
-        <select placeholder = "روز" required  v-model="dateofbirth.day" class="custom-select">
-            <option v-for="d in range(1,31)" v-bind:key="d" >{{ d }}</option>
-        </select>
+          <div class="text-center">
+            <img
+              src="../components/assets/avatar.png"
+              class="avatar img-circle img-thumbnail"
+              alt="avatar"
+            />
+          </div>
+          <br />
+        </div>
+        <!--/col-3-->
+        <div class="col-sm-9">
+          <div class="tab-content">
+            <div class="tab-pane active">
+              <form class="form">
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <label for="first_name"><h4>نام</h4></label>
+                    <input
+                      v-model="firstname"
+                      type="text"
+                      pattern="[a-z A-Z]*"
+                      required
+                      placeholder="نام "
+                    />
+                    <div class="requirements">
+                      .نام شما باید فقط از حروف و فاصله تشکیل شده باشد
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <label for="last_name"><h4>نام خانوادگی</h4></label>
+                    <input
+                      type="text"
+                      v-model="lastname"
+                      pattern="[a-z A-Z]*"
+                      required
+                      placeholder="نام خانوادگی "
+                    />
+                    <div class="requirements">
+                      .نام خانوادگی شما باید فقط از حروف و فاصله تشکیل شده باشد
+                    </div>
+                  </div>
+                </div>
 
-    </div>
-    <div>
-      <input
-        type="phonenumber"
-        v-model="phonenumber"
-        pattern="09[0-9]{9}"
-        required
-        placeholder="شماره همراه "
-      />
-      <div class="requirements">
-       .شماره همراه شما باید معتبر باشد 
-      </div>
-    </div>
-    <div>
-      <input
-        type="email"
-        v-model="email"
-        pattern="[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*"
-        required
-        placeholder="پست الکترونیک "
-      />
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <label for="username"><h4>نام کاربری</h4></label>
+                    <input
+                      v-model="username"
+                      type="text"
+                      pattern="[a-z A-Z]*"
+                      required
+                      placeholder=" نام کاربری "
+                    />
+                    <div class="requirements">
+                      .نام شما باید فقط از حروف و فاصله تشکیل شده باشد
+                    </div>
+                  </div>
+                </div>
 
-       <div class="requirements">
-       .پست الکترونیک شما باید معتبر باشد 
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <label for="mobile"><h4>تلفن</h4></label>
+                    <input
+                      type="phonenumber"
+                      v-model="phonenumber"
+                      pattern="09[0-9]{9}"
+                      required
+                      placeholder="شماره همراه "
+                    />
+                    <div class="requirements">
+                      .شماره همراه شما باید معتبر باشد
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <label for="email"><h4>پست الکترونیک</h4></label>
+                    <input
+                      type="email"
+                      v-model="email"
+                      pattern="[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*"
+                      required
+                      placeholder="پست الکترونیک "
+                    />
+
+                    <div class="requirements">
+                      .پست الکترونیک شما باید معتبر باشد
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <label for="birthday"><h4>تاریخ تولد</h4></label>
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <select
+                          placeholder="سال"
+                          required
+                          v-model="dateofbirth.year"
+                          class="form-control selectItems "
+                        >
+                          <option
+                           
+                            v-for="y in range(1300, 1398)"
+                            v-bind:key="y"
+                            >{{ y }}</option
+                          >
+                        </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <select
+                          placeholder="ماه"
+                          required
+                          v-model="dateofbirth.month"
+                          class="form-control selectItems "
+                        >
+                          <option v-for="m in range(1, 12)" v-bind:key="m">{{
+                            m
+                          }}</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <select
+                          placeholder="روز"
+                          required
+                          v-model="dateofbirth.day"
+                          class="form-control selectItems "
+                        >
+                          <option v-for="d in range(1, 31)" v-bind:key="d">{{
+                            d
+                          }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-xs-12">
+                    <br />
+                    <button class="btn btn-lg btn-primary" type="submit">
+                      <i class="glyphicon glyphicon-ok-sign"></i> Save
+                    </button>
+                    <button class="btn btn-lg" type="reset">
+                      <i class="glyphicon glyphicon-repeat"></i> Reset
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!--/tab-pane-->
+          </div>
+          <!--/tab-content-->
+        </div>
+        <!--/col-9-->
       </div>
+      <!--/row-->
     </div>
-      <div class="button" id="button-3" @click="updateProfile">
-        <div id="circle"></div>
-        <a href="#">ارسال اطلاعات</a>
-      </div>
-    </div>
-    <loading v-if="waiting"></loading>
   </div>
 </template>
 <script>
-import store from '../store.js'
-import loading from '../../public/loading.vue'
-export default{
-    components:{
-      'loading': loading
+import store from "../store.js";
+import loading from "../../public/loading.vue";
+export default {
+  components: {
+    loading: loading
+  },
+  beforeRouteEnter: (to, from, next) => {
+    if (store.getters.loggedin) {
+      console.log("you are loggedin!, loading your profile edit page");
+      next();
+    } else {
+      alert(" .ابتدا وارد حساب کاربری خود شوید");
+      console.log(
+        "you are not loggedin yet, re-directing you to Authentication page"
+      );
+      next("/account");
+    }
+  },
+  data: function() {
+    return {
+      firstname: store.getters.firstName,
+      lastname: store.getters.lastName,
+      email: store.getters.email,
+      phonenumber: store.getters.phoneNumber,
+      dateofbirth: store.getters.birthdayDate,
+      waiting: false
+    };
+  },
+  methods: {
+    checkAll: function() {
+      return (
+        this.checkfirstname() &&
+        this.checklastname() &&
+        this.checknumber() &&
+        this.checkemail()
+      );
     },
-    beforeRouteEnter : (to,from,next)=>{
-          if(store.getters.loggedin){
-              console.log("you are loggedin!, loading your profile edit page")
-              next()
-          }else{
-              alert(" .ابتدا وارد حساب کاربری خود شوید")
-              console.log("you are not loggedin yet, re-directing you to Authentication page")
-              next('/account')
-          }
-    },
-    data: function(){
-      return {
-        firstname: store.getters.firstName,
-        lastname:store.getters.lastName,
-        email: store.getters.email,
-        phonenumber: store.getters.phoneNumber,
-        dateofbirth: store.getters.birthdayDate,
-        waiting: false
+    checkfirstname: function() {
+      var nametest = /^[a-zA-Z\s.]*$/;
+      if (
+        nametest.test(this.firstname) ||
+        this.firstname == "" ||
+        this.firstname == null
+      ) {
+        console.log("firstname is fine");
+        return true;
+      } else {
+        console.log("firstname is wrong");
+        return false;
       }
     },
-    methods:{
-       checkAll: function(){
-         return this.checkfirstname() && this.checklastname()
-                && this.checknumber() && this.checkemail()
-       },
-       checkfirstname: function(){
-            var nametest =/^[a-zA-Z\s.]*$/
-            if(nametest.test(this.firstname) || this.firstname == "" || this.firstname == null){
-                console.log("firstname is fine")
-                return true;
-            }else{
-                console.log("firstname is wrong")
-                return false;
-            }
-        },
-        checklastname: function(){
-            var nametest = /^[a-zA-Z\s.]*$/ 
-            if(nametest.test(this.lastname) || this.lastname == "" || this.lastname== null){
-                console.log("lastname is fine")
-                return true;
-            }else{
-                console.log("lastname is wrong")
-                return false;
-            }
-        },
-        checknumber: function(){
-            var numbertest = /^09[0-9]{9}$/
-            if(numbertest.test(this.phonenumber) || this.phonenumber == ""|| this.phonenumber == null ){
-                console.log("phonenumber is fine")
-                return true;
-            }else{
-                console.log("phonenumber is wrong")
-                return false;
-            }
-        },
-        checkemail: function(){
-            var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/
-            if(emailtest.test(this.email) || this.email == "" || this.email == null){
-                console.log("email is fine")
-                return true;
-            }else{
-                console.log("email is wrong")
-                return false;
-            }
-            
-        },
-        toTimestamp: function(strDate){
+    checklastname: function() {
+      var nametest = /^[a-zA-Z\s.]*$/;
+      if (
+        nametest.test(this.lastname) ||
+        this.lastname == "" ||
+        this.lastname == null
+      ) {
+        console.log("lastname is fine");
+        return true;
+      } else {
+        console.log("lastname is wrong");
+        return false;
+      }
+    },
+    checknumber: function() {
+      var numbertest = /^09[0-9]{9}$/;
+      if (
+        numbertest.test(this.phonenumber) ||
+        this.phonenumber == "" ||
+        this.phonenumber == null
+      ) {
+        console.log("phonenumber is fine");
+        return true;
+      } else {
+        console.log("phonenumber is wrong");
+        return false;
+      }
+    },
+    checkemail: function() {
+      var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/;
+      if (
+        emailtest.test(this.email) ||
+        this.email == "" ||
+        this.email == null
+      ) {
+        console.log("email is fine");
+        return true;
+      } else {
+        console.log("email is wrong");
+        return false;
+      }
+    },
+    toTimestamp: function(strDate) {
+      var datum = Date.parse(strDate);
+      return datum / 1000;
+    },
+    updateProfile() {
+      this.waiting = true;
+      console.log("checking your submission");
 
-          var datum = Date.parse(strDate);
-          return datum/1000;
-        },
-        updateProfile(){
-          this.waiting = true;
-          console.log("checking your submission")
-          
-          if(this.checkAll()){
-            const updatedProfile = {     
-              firstName: this.firstname,
-              lastName: this.lastname,
-              email: this.email,
-              phoneNumber: this.phonenumber,
-              birthday: this.toTimestamp(this.dateofbirth.month+"/"+this.dateofbirth.day+"/"+this.dateofbirth.year)
-            }
-            console.log("new profile is being submitted")
-            this.$store.dispatch('editProfile',{
-              updatedProfile:updatedProfile,
-              success:()=>{
-                this.waiting = false;
-                this.$router.push({path: '/profile'}) 
-              },
-              failure:()=>{
-                alert("خطا به هنگام بروزرسانی حساب کاربری");
-                this.waiting = false;
-                console.log("failed to upddate your profile");
-              },
-            });
-          }else{
-            alert(".اطلاعات وارد شده صحیح نیست! موارد قرمز را برطرف کنید")
-            this.waiting = false
+      if (this.checkAll()) {
+        const updatedProfile = {
+          firstName: this.firstname,
+          lastName: this.lastname,
+          email: this.email,
+          phoneNumber: this.phonenumber,
+          birthday: this.toTimestamp(
+            this.dateofbirth.month +
+              "/" +
+              this.dateofbirth.day +
+              "/" +
+              this.dateofbirth.year
+          )
+        };
+        console.log("new profile is being submitted");
+        this.$store.dispatch("editProfile", {
+          updatedProfile: updatedProfile,
+          success: () => {
+            this.waiting = false;
+            this.$router.push({ path: "/profile" });
+          },
+          failure: () => {
+            alert("خطا به هنگام بروزرسانی حساب کاربری");
+            this.waiting = false;
+            console.log("failed to upddate your profile");
           }
-          
-        },
-        range: function(min,max){
-          var array = [],
-          j = 0;
-          for(var i = min; i <= max; i++){
-            array[j] = i;
-            j++;
-          }
-        },
-      
-    
-    range: function (min, max) {
+        });
+      } else {
+        alert(".اطلاعات وارد شده صحیح نیست! موارد قرمز را برطرف کنید");
+        this.waiting = false;
+      }
+    },
+    range: function(min, max) {
+      var array = [],
+        j = 0;
+      for (var i = min; i <= max; i++) {
+        array[j] = i;
+        j++;
+      }
+    },
+
+    range: function(min, max) {
       var array = [],
         j = 0;
       for (var i = min; i <= max; i++) {
@@ -203,7 +334,66 @@ export default{
 };
 </script>
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
+body {
+  background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+}
+.emp-profile {
+  padding: 3%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  border-radius: 0.5rem;
+  border: solid darkslategrey;
+  background: #fff;
+}
+.profile-img {
+  text-align: center;
+}
+.profile-img img {
+  width: 70%;
+  height: 100%;
+}
+.profile-img .file {
+  position: relative;
+  overflow: hidden;
+  margin-top: -20%;
+  width: 70%;
+  border: none;
+  border-radius: 0;
+  font-size: 15px;
+  background: #212529b8;
+}
+.profile-img .file input {
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+.profile-head h5 {
+  color: #333;
+}
+.profile-head h6 {
+  color: #0062cc;
+}
+.profile-edit-btn {
+  border: none;
+  border-radius: 1.5rem;
+  width: 70%;
+  padding: 2%;
+  font-weight: 600;
+  color: #6c757d;
+  cursor: pointer;
+}
+.proile-rating {
+  font-size: 12px;
+  color: #818182;
+  margin-top: 5%;
+}
+
+.profile-work ul {
+  list-style: none;
+}
+</style>
+<style scoped>
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 @import "https://fonts.googleapis.com/css?family=Galada";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
@@ -212,26 +402,41 @@ input {
   padding: 20px 20px 20px 50px;
   width: 100%;
   margin-bottom: 10px;
-  font-family: "Baloo Bhaijaan", cursive;
-  background: rgba(0, 0, 0, 0.3);
+  text-align: right;
+  background-color: aliceblue;
   border: none;
   outline: none;
   font-size: 13px;
-  color: #fff;
+  font-family: 'Almarai', sans-serif;
+  color: black;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2),
-    0 1px 1px rgba(255, 255, 255, 0.2);
   -webkit-transition: box-shadow 0.5s ease;
   -moz-transition: box-shadow 0.5s ease;
   -o-transition: box-shadow 0.5s ease;
   -ms-transition: box-shadow 0.5s ease;
   transition: box-shadow 0.5s ease;
 }
-input:focus {
-  box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4),
-    0 1px 1px rgba(255, 255, 255, 0.2);
+.selectItems {
+  padding: 20px 20px 20px 50px;
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: right;
+  background-color: aliceblue;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  font-family: "Baloo Bhaijaan", cursive;
+  color: black;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  -webkit-transition: box-shadow 0.5s ease;
+  -moz-transition: box-shadow 0.5s ease;
+  -o-transition: box-shadow 0.5s ease;
+  -ms-transition: box-shadow 0.5s ease;
+  transition: box-shadow 0.5s ease;
 }
 .wrapper {
   margin: 50px auto;
@@ -242,7 +447,7 @@ input:focus {
   -webkit-border-radius: 5px;
 }
 .wrapper h1 {
-  font-family: "Baloo Bhaijaan", cursive;
+  font-family: 'Almarai', sans-serif;
   color: black;
   letter-spacing: 0px;
   text-align: center;
@@ -430,6 +635,4 @@ a {
   -ms-transition: box-shadow 0.5s ease;
   transition: box-shadow 0.5s ease;
 }
-
-
 </style>

@@ -1,78 +1,78 @@
 <template>
-    <div>
-        <div id="main" v-if="!noClass">
+  <div>
+    <div id="main" v-if="!noClass">
+      <h1>
+        :کلاس ها شما
+      </h1>
 
-            <h1>
-            :کلاس ها شما  
-            </h1>
-
-            <smallClass v-for="enrolled in enrolledList"
-                :classroom="enrolled" :key="enrolled.className"/>
-        </div>
-
-        <div v-else id="main">
-            <h1>هنوز در هیچ کلاسی ثبت نام نکرده اید</h1>
-        </div>
-
-        <button @click="newClass">
-            ساخت کلاس
-        </button>
+      <smallClass
+        v-for="enrolled in enrolledList"
+        :classroom="enrolled"
+        :key="enrolled.className"
+      />
     </div>
-    
 
+    <div v-else id="main">
+      <h1>هنوز در هیچ کلاسی ثبت نام نکرده اید</h1>
+    </div>
+
+    <button @click="newClass">
+      ساخت کلاس
+    </button>
+  </div>
 </template>
 
 <script>
-import SmallClass from './SmallClass'
-import store from '../store.js'
+import smallClass from "../components/smallClass";
+import store from "../store.js";
 export default {
-    beforeRouteEnter : (to,from,next)=>{
-          if(store.getters.loggedin){
-              next()
-          }else{
-              alert("ابتدا وارد حساب کاربری خود شوید")
-              next('/account')
-          }
-          
-    },
-    components:{
-        'smallClass': SmallClass
-    },
-    data: function(){
-        return {
-            enrolledList:[],
-            noClass: false,
-            // enrolledList: // masalan az server por shode( listi az enrolled ha)
-            // [{className:"myClass1",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
-            //  {className:"myClass2",lessonName:"درس ۲۲۲",lastName:"دلیر" },
-            //  {className:"myClass3",lessonName:"درس ۳۳۳",lastName:"چیترا" }] 
-        }
-    },
-    mounted: function(){
-      store.dispatch('getEnrolledClassrooms',{
-          success:(data)=>{
-              this.enrolledList = data.classrooms  //TODO: check this line
-              if(this.enrolledList == null){
-                  this.noClass = true;
-              }else{
-                  this.noClass = false;
-              }
-              console.log("success on loading all your classrooms")},
-          failure:()=>{
-              this.noClass = true;
-              alert("خطا به هنگام دریافت کلاس های شما")
-              }
-        })
-    },
-    methods:{
-        newClass(){
-            this.$router.push({name:'createClass'})
-        }
+  beforeRouteEnter: (to, from, next) => {
+    if (store.getters.loggedin) {
+      next();
+    } else {
+      alert("ابتدا وارد حساب کاربری خود شوید");
+      next("/account");
     }
-}
+  },
+  components: {
+    smallClass: smallClass
+  },
+  data: function() {
+    return {
+      enrolledList: [],
+      noClass: false
+      // enrolledList: // masalan az server por shode( listi az enrolled ha)
+      // [{className:"myClass1",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
+      //  {className:"myClass2",lessonName:"درس ۲۲۲",lastName:"دلیر" },
+      //  {className:"myClass3",lessonName:"درس ۳۳۳",lastName:"چیترا" }]
+    };
+  },
+  mounted: function() {
+    store.dispatch("getEnrolledClassrooms", {
+      success: data => {
+        this.enrolledList = data.classrooms; //TODO: check this line
+        if (this.enrolledList == null) {
+          this.noClass = true;
+        } else {
+          this.noClass = false;
+        }
+        console.log("success on loading all your classrooms");
+      },
+      failure: () => {
+        this.noClass = true;
+        alert("خطا به هنگام دریافت کلاس های شما");
+      }
+    });
+  },
+  methods: {
+    newClass() {
+      this.$router.push({ name: "createClass" });
+    }
+  }
+};
 </script>
 
-<style> 
+<style scoped>
 #main {
   width: 100%;
   height: 100%;
@@ -83,10 +83,10 @@ export default {
   flex-flow: row-reverse wrap;
 }
 
-#main  div{
+#main div {
   width: 100px;
   height: 60px;
-  margin : 20px;
+  margin: 20px;
   color: white;
   background-color: darkblue;
 }

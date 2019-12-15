@@ -5,9 +5,7 @@ import { routes } from "./routes";
 import store from "./store.js";
 import VModal from "vue-js-modal";
 import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 Vue.config.productionTip = false;
-
 
 Vue.use(VueRouter);
 Vue.use(VModal);

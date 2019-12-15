@@ -221,7 +221,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 @import "https://fonts.googleapis.com/css?family=Galada";
@@ -232,7 +232,7 @@ input {
   padding: 20px 20px 20px 50px;
   width: 100%;
   margin-bottom: 10px;
-  font-family: "Baloo Bhaijaan", cursive;
+  font-family: 'Almarai', sans-serif;
   background: rgba(0, 0, 0, 0.3);
   border: none;
   outline: none;
@@ -263,7 +263,7 @@ input:focus {
   text-align: center;
 }
 .wrapper h1{
-  font-family: "Baloo Bhaijaan", cursive;
+  font-family: 'Almarai', sans-serif;
   color: black;
   letter-spacing: 0px;
   text-align: center;
@@ -277,7 +277,7 @@ input:focus {
   margin-left: 75px;
 }
 </style>
-<style lang="scss">
+<style scoped lang="scss">
 input[type="text"] {
   &:valid {
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);

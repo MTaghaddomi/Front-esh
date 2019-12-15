@@ -50,7 +50,7 @@ export default {
   -webkit-border-radius: 5px;
 }
 .wrapper h1 {
-  font-family: "Baloo Bhaijaan", cursive;
+  font-family: "Almarai", sans-serif;
   color: black;
   letter-spacing: 0px;
   text-align: center;
@@ -143,6 +143,6 @@ export default {
   }
 }
 .css-selector {
-  font-family: "Baloo Bhaijaan", cursive;
+  font-family: "Almarai", sans-serif;
 }
 </style>

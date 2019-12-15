@@ -1,8 +1,12 @@
 <template>
   <div class="nav">
+    <link
+      href="https://fonts.googleapis.com/css?family=Almarai&display=swap"
+      rel="stylesheet"
+    />
     <input type="checkbox" id="nav-check" />
     <div class="nav-header">
-      <div class="nav-title" @click="home() ">
+      <div class="nav-title" @click="home()">
         EZlearn
       </div>
     </div>
@@ -24,8 +28,8 @@
 <script>
 export default {
   methods: {
-    home: function(){
-      this.$router.push("/home")
+    home: function() {
+      this.$router.push("/home");
     },
     profile: function() {
       this.$router.push("/profile");
@@ -40,13 +44,14 @@ export default {
 };
 </script>
 <style>
+@import "https://fonts.googleapis.com/css?family=Galada";
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0px;
-  font-family: "segoe ui";
+  font-family: "Almarai", sans-serif;
 }
 .nav {
   height: 50px;
@@ -64,6 +69,7 @@ body {
   font-size: 22px;
   color: #fff;
   padding: 10px 10px 10px 10px;
+  font-family: "Almarai", sans-serif;
 }
 .nav > .nav-header > .nav-title:hover {
   cursor: pointer;
@@ -85,6 +91,7 @@ body {
   text-decoration: none;
   color: #efefef;
   cursor: pointer;
+  font-family: "Almarai", sans-serif;
 }
 
 .nav > .nav-links > a:hover {
