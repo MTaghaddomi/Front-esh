@@ -64,7 +64,8 @@ export default {
                 }else{
                     this.noClass = false;
                 }
-                console.log("success on loading all your classrooms")},
+                console.log("success on loading all your classrooms")
+            },
             failure:()=>{
                 this.noClass = true;
                 alert("خطا به هنگام دریافت کلاس های شما")
@@ -79,6 +80,7 @@ export default {
             this.$store.dispatch('joinClass',
             {className: this.joiningClass,
             success:()=>{
+                console.log("ffff")
                 this.$router.push({name: 'classroom', params:{className: this.joiningClass}})
             },
             failure:()=>{

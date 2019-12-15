@@ -169,13 +169,15 @@ export default new Vuex.Store({
         },
         getEnrolledClassrooms({state},args){
             console.log("starting getEnrolledClassrooms action")
+
             customAxios.get('/users/myClasses',
                 { headers: { 'Auth': state.token } }
             ).then(
                 (res)=>{
                     console.log("succes on getEnrolledClassrooms Action")
                     console.log(res)
-                    // args.success( ... ) TODO pass the list
+                    
+                    args.success(res.data)
                 }
             ).catch(
                 (error)=>{
@@ -244,7 +246,7 @@ export default new Vuex.Store({
                 (res)=>{
                     console.log("success on newAssignment Action")
                     console.log(res)
-                    args.sucess()
+                    args.success()
                 }
             ).catch(
                 (error)=>{
@@ -260,8 +262,14 @@ export default new Vuex.Store({
         },
         joinClass({state},args){
             console.log("startin join action")
+            console.log(args.className)
+            console.log(state.token)
             customAxios.post('/classrooms/join/'+ args.className,
-                {headers: {'Auth':state.token}}
+            null,{headers:{'Auth' : state.token }}
+            //)
+            // customAxios.post('/classrooms/join/'+ args.className,
+            // { headers: { 'Auth':state.token , 'chertopert':"chert tar"}}
+
             ).then(
                 (res)=>{
                     console.log("success on join action")
