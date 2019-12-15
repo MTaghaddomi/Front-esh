@@ -12,13 +12,15 @@
       />
     </div>
 
-    <div v-else id="main">
-      <h1>هنوز در هیچ کلاسی ثبت نام نکرده اید</h1>
-    </div>
-
     <button @click="newClass">
       ساخت کلاس
     </button>
+
+    <div>
+      <h1>اضافه شدن به کلاس جدید</h1>
+      <input type="text" v-model="joiningClass" />
+      <button @click="join">join new class</button>
+    </div>
   </div>
 </template>
 
@@ -35,12 +37,13 @@ export default {
     }
   },
   components: {
-    smallClass: smallClass
+    smallClass: SmallClass
   },
   data: function() {
     return {
       enrolledList: [],
-      noClass: false
+      noClass: false,
+      joiningClass: ""
       // enrolledList: // masalan az server por shode( listi az enrolled ha)
       // [{className:"myClass1",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
       //  {className:"myClass2",lessonName:"درس ۲۲۲",lastName:"دلیر" },
@@ -67,7 +70,23 @@ export default {
   methods: {
     newClass() {
       this.$router.push({ name: "createClass" });
+    },
+    join() {
+      this.$store.dispatch("joinClass", {
+        className: this.joiningClass,
+        success: () => {
+          this.$router.push({
+            name: "classroom",
+            params: { className: this.joiningClass }
+          });
+        },
+        failure: () => {
+          alert("خطا در اضافه شدن به کلاس");
+          console.log("failure on joining the new class");
+        }
+      });
     }
+    // console.log("success on loading all your classrooms");
   }
 };
 </script>

@@ -35,13 +35,13 @@
         </div>
       </div>
 
-      <button class="btn btn-sm button">بزن بریم</button>
-
-      <i
-        v-if="waiting"
-        class="fa fa-spinner fa-spin"
-        style="font-size:24px"
-      ></i>
+      <div class="button" id="button-3" @click="postData">
+        <div id="circle"></div>
+        <a href="#">بزن بریم</a>
+      </div>
+      <div style="width: 100%">
+        <loading v-if="waiting"></loading>
+      </div>
     </form>
   </div>
 </template>

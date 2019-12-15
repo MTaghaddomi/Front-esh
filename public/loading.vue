@@ -1,12 +1,33 @@
 <template>
-  <div>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
-  </div>
+  <div class="lds-dual-ring"></div>
 </template>
 
 <script></script>
+
+<style>
+.lds-dual-ring {
+  display: inline-block;
+  width: 15;
+  height: 15;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+</style>

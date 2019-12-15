@@ -176,6 +176,9 @@
       </div>
       <!--/row-->
     </div>
+    <div style="width: 100%">
+      <loading v-if="waiting" ></loading>
+    </div>
   </div>
 </template>
 <script>
