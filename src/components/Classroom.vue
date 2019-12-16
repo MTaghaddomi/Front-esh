@@ -1,5 +1,13 @@
 <template>
   <div>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
     <div class="container bootstrap snippets">
       <div class="row">
         <div class="col-xs-1 col-sm-9" style="margin-left:13%">
@@ -8,7 +16,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">اطلاعات درس</h4>
               </div>
-              <div class="panel-body">
+              <div class="panel-body" style="text-align:right">
                 <div class="form-group">
                   <label class="col-sm-2 control-label">نام</label>
                   <div class="col-sm-10"></div>
@@ -26,20 +34,14 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  : کلاس {{ $route.params.className }}
+                  : کلاس 
                 </h4>
               </div>
               <div class="panel-body">
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">نام</label>
+                  <label class="col-sm-2 control-label">نام انحصاری کلاس</label>
                   <div class="col-sm-10">
                     <p>{{ name }}</p>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">توضیحات</label>
-                  <div class="col-sm-10">
-                    <p>{{ description }}</p>
                   </div>
                 </div>
               </div>
@@ -166,73 +168,42 @@
         
 
 
-    </div>
-   
+    </div>-->
 </template>
 
 <script>
 import SmallAssignment from "./SmallAssignment";
 import store from "../store.js";
 export default {
-    components:{
-        'smallAssignment': SmallAssignment
-    },
-    data: function(){
-        return {
-            name: "",
-            description: "",
-            lesson: {name: ""},
-            teacherInfo: {firstName:"",lastName:"",email:""},
-            studentsInfo: [],
-            isTeacher: false,
-            noHomeworks: true,
-            assignments: [],
-        }       
-    },
-    mounted: function(){
-        store.dispatch('getClassroomDetails',
-        {
-            className: this.$route.params.className,
-            success:(data)=>{          //TODO: check these lines
-                this.name = data.name
-                this.description = data.description
-                this.lesson = data.lesson
-                this.teacherInfo = data.teacherInfo
-                if(data.role == "teacher"){
-                    this.isTeacher = true
-                    this.studentsInfo = data.studentsInfo
-                }else{
-                    this.isTeacher = false
-                }
-                store.dispatch('getAssignments',{
-                    success:(data)=>{
-                        if(data.exerciseInfo == null){
-                            this.noAssignments = true
-                        }else{
-                            this.noAssignments = false
-                            this.assignments = data.exerciseInfo
-                        }
-                    },
-                    failure:()=>{
-                        console.log("success on loading your classroom but failed to get homeworks")
-                        this.noAssignments = true
-                    }
-                })
-                console.log("success on loading all your classrooms")
-            },
-            failure:()=>{ 
-                alert("خطا به هنگام گرفتن اطلاعات مربوط به کلاس") 
-                this.$router.push('/notFound')
-            }
-        }
-        )
-    },
-    methods:{
-        addHomework(){
-            this.$router.push({name: 'createAssignment',params:{className: this.$route.params.className}} ) //TODO implemet newHomework page
-        },
-        editClass(){
-            return true;
+  components: {
+    smallAssignment: SmallAssignment
+  },
+  data: function() {
+    return {
+      name: "",
+      description: "",
+      lesson: { name: "" },
+      teacherInfo: { firstName: "", lastName: "", email: "" },
+      studentsInfo: [],
+      isTeacher: false,
+      noHomeworks: true,
+      assignments: []
+    };
+  },
+  /*mounted: function() {
+    store.dispatch("getClassroomDetails", {
+      className: this.$route.params.className,
+      success: data => {
+        //TODO: check these lines
+        this.name = data.name;
+        this.description = data.description;
+        this.lesson = data.lesson;
+        this.teacherInfo = data.teacherInfo;
+        if (data.role == "teacher") {
+          this.isTeacher = true;
+          this.studentsInfo = data.studentsInfo;
+        } else {
+          this.isTeacher = false;
         }
         store.dispatch("getAssignments", {
           success: data => {
@@ -257,13 +228,16 @@ export default {
         this.$router.push("/notFound");
       }
     });
-  },
+  },*/
   methods: {
     addHomework() {
       this.$router.push({
         name: "createAssignment",
-        params: { className: $router.params.className }
+        params: { className: this.$route.params.className }
       }); //TODO implemet newHomework page
+    },
+    editClass() {
+      return true;
     }
   }
 };
@@ -307,6 +281,7 @@ body {
 form label {
   color: #999999;
   font-weight: 400;
+  float: right;
 }
 
 .form-horizontal .form-group {

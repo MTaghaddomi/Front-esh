@@ -198,6 +198,7 @@ export default {
         "you are not loggedin yet, re-directing you to Authentication page"
       );
       next("/account");
+     
     }
   },
   data: function() {
@@ -347,6 +348,7 @@ body {
   border-radius: 0.5rem;
   border: solid darkslategrey;
   background: #fff;
+   font-family: 'Almarai', sans-serif;
 }
 .profile-img {
   text-align: center;
@@ -426,6 +428,7 @@ input {
   width: 100%;
   margin-bottom: 10px;
   text-align: right;
+   font-family: 'Almarai', sans-serif;
   background-color: aliceblue;
   border: none;
   outline: none;

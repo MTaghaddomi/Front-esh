@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import smallClass from "../components/smallClass";
+import SmallClass from "../components/SmallClass";
 import store from "../store.js";
 export default {
   beforeRouteEnter: (to, from, next) => {
