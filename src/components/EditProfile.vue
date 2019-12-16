@@ -61,21 +61,6 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <div class="col-xs-6">
-                    <label for="username"><h4>نام کاربری</h4></label>
-                    <input
-                      v-model="username"
-                      type="text"
-                      pattern="[a-z A-Z]*"
-                      required
-                      placeholder=" نام کاربری "
-                    />
-                    <div class="requirements">
-                      .نام شما باید فقط از حروف و فاصله تشکیل شده باشد
-                    </div>
-                  </div>
-                </div>
 
                 <div class="form-group">
                   <div class="col-xs-6">
@@ -197,8 +182,8 @@ export default {
       console.log(
         "you are not loggedin yet, re-directing you to Authentication page"
       );
-      next("/account");
-     
+     // next("/account");
+     next();
     }
   },
   data: function() {
@@ -349,6 +334,7 @@ body {
   border: solid darkslategrey;
   background: #fff;
    font-family: 'Almarai', sans-serif;
+   text-align: right
 }
 .profile-img {
   text-align: center;

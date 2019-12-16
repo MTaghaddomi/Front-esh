@@ -125,7 +125,8 @@ export default {
               next()
             }else{
               alert(" لطفا نام و نام خانوادگی خود را در حساب کاربری ذکر کنید")
-              next('/profile')
+              //next('/profile')
+              next();
             } 
           }else{
               alert(" .ابتدا وارد حساب کاربری خود شوید")
