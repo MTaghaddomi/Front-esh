@@ -81,13 +81,13 @@ export default{
       'loading': loading
     },
     beforeRouteEnter : (to,from,next)=>{
-          if(store.getters.loggedin){
-              console.log("you are loggedin!, loading your profile edit page")
-              next()
-          }else{
+          if(!localStorage.token){
               alert(" .ابتدا وارد حساب کاربری خود شوید")
               console.log("you are not loggedin yet, re-directing you to Authentication page")
               next('/account')
+          }else{
+              console.log("you are loggedin!, loading your profile edit page")
+              next()
           }
     },
     data: function(){

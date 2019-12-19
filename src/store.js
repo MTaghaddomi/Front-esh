@@ -9,13 +9,11 @@ export default new Vuex.Store({
         userProfile: {firstName: "", lastName: "",email:"",birthdayTimestamp:"",phoneNumber:"", 
                      birthdayDate: {year: " ", month: " ", day: " "}},
         loggedin: false,
-        token:"",
-        username:""
     },
     getters:{
         loggedin: (state)=>{return state.loggedin},
-        token: (state)=>{return state.token},
-        username:(state)=>{return state.username},
+        token: ()=>{return localStorage.getItem('token')},
+        username:()=>{return localStorage.getItem('username')},
         firstName: (state)=>{return state.userProfile.firstName},
         lastName: (state)=>{return state.userProfile.lastName},
         email: (state)=>{return state.userProfile.email},
@@ -27,8 +25,8 @@ export default new Vuex.Store({
     mutations: {
         saveLogin(state,serverData){
             console.log('saving the state')
-            state.username = serverData.username;         
-            state.token = serverData.token
+            localStorage.setItem('username',serverData.username);         
+            localStorage.setItem('token',serverData.token)
             state.loggedin = true
             console.log("finished saveLogin")
         },
@@ -40,15 +38,15 @@ export default new Vuex.Store({
             state.userProfile.birthdayTimestamp = 0
             state.userProfile.phoneNumber = ""
             state.userProfile.email = ""
-            state.username = ""
-            state.token = ""
+            localStorage.removeItem('username')
+            localStorage.removeItem('token')
             state.loggedin = false
             console.log("state was deleted")
         },
         saveProfile(state,serverData){
             console.log("saving profile on the state")
             console.log(serverData)
-            state.username = serverData.username
+            localStorage.setItem('username',serverData.username)
             state.userProfile.firstName = serverData.firstName
             state.userProfile.lastName=serverData.lastName
             state.userProfile.email= serverData.email
@@ -72,7 +70,7 @@ export default new Vuex.Store({
     actions: {
         signup({commit,state},args){
             const newRegister = args.newRegister
-            state.username = newRegister.username  //try to comment this one! a bit risk
+            localStorage.setItem('username',newRegister.username)  //try to comment this one! a bit risk
             console.log("register data:",newRegister)
             customAxios.post('/users', newRegister)
             .then((res)=>{
@@ -117,10 +115,10 @@ export default new Vuex.Store({
 
         getProfile({commit,state},args){
             console.log("request data:")
-            console.log('state username ' + state.username);
-            console.log('state token ' + state.token);
-            customAxios.get('/users/'+state.username,{
-                headers: {'Auth':state.token}
+            console.log('state username ' + localStorage.getItem('username'));
+            console.log('state token ' + localStorage.getItem('token'));
+            customAxios.get('/users/'+localStorage.getItem('username'),{
+                headers: {'Auth': localStorage.getItem('token')}
             })
             .then((res)=>{ 
                 commit('saveProfile',res.data) 
@@ -133,13 +131,13 @@ export default new Vuex.Store({
             })        
         },
         editProfile({commit,state},args){   
-            console.log('state username ' + state.username);
-            console.log('state token ' + state.token);
+            console.log('state username ' + localStorage.getItem('username'));
+            console.log('state token ' + localStorage.getItem('token'));
 
             const updatedProfile = args.updatedProfile
             console.log("updated profile::::",updatedProfile)
-            customAxios.put('/users/' + state.username,
-                updatedProfile, { headers: { 'Auth': state.token } }
+            customAxios.put('/users/' + localStorage.getItem('username'),
+                updatedProfile, { headers: { 'Auth': localStorage.getItem('token')} }
             ).then((res)=>{
                 console.log(res)
                 commit('saveProfile',res.data)
@@ -153,9 +151,9 @@ export default new Vuex.Store({
             console.log("submitting the new classroom:")
             const classData = args.classData
             console.log("the sending data:",classData)
-            console.log("the sending token",state.token)
+            console.log("the sending token", localStorage.getItem('token'))
             customAxios.post('/classrooms',
-            classData, { headers: {"Auth" : state.token } }
+            classData, { headers: {"Auth" : localStorage.getItem('token') } }
             ).then((res)=>{
                 console.log(res)
                 const data = res.data
@@ -171,7 +169,7 @@ export default new Vuex.Store({
             console.log("starting getEnrolledClassrooms action")
 
             customAxios.get('/users/myClasses',
-                { headers: { 'Auth': state.token } }
+                { headers: { 'Auth': localStorage.getItem('token') } }
             ).then(
                 (res)=>{
                     console.log("succes on getEnrolledClassrooms Action")
@@ -190,7 +188,7 @@ export default new Vuex.Store({
         getClassroomDetails({state},args){
             console.log("starting getClassroomDetails action")
             customAxios.get('/classrooms/'+args.className,
-                { headers: { 'Auth':state.token}}
+                { headers: { 'Auth':localStorage.getItem('token')}}
             ).then(
                 (res)=>{
                     console.log("success on getClassroomDetails Action")
@@ -221,7 +219,7 @@ export default new Vuex.Store({
         getAssignments({state},args){
             console.log("starting getAssignments action")
             customAxios.get('/classrooms/'+args.className+'/exercises',
-                { headers: {'Auth': state.token}}
+                { headers: {'Auth': localStorage.getItem('token')}}
             ).then(
                 (res)=>{
                     console.log("success on getAssignments Action")
@@ -241,7 +239,7 @@ export default new Vuex.Store({
             console.log("starting newAssignment action")
             console.log(args)
             customAxios.post('/exercise/'+args.className,
-                args.newAssignment, {headers: {'Auth': state.token}}
+                args.newAssignment, {headers: {'Auth': localStorage.getItem('token')}}
             ).then(
                 (res)=>{
                     console.log("success on newAssignment Action")
@@ -263,12 +261,9 @@ export default new Vuex.Store({
         joinClass({state},args){
             console.log("startin join action")
             console.log(args.className)
-            console.log(state.token)
+            console.log(localStorage.getItem('token'))
             customAxios.post('/classrooms/join/'+ args.className,
-            null,{headers:{'Auth' : state.token }}
-            //)
-            // customAxios.post('/classrooms/join/'+ args.className,
-            // { headers: { 'Auth':state.token , 'chertopert':"chert tar"}}
+            null,{headers:{'Auth' : localStorage.getItem('token') }}
 
             ).then(
                 (res)=>{

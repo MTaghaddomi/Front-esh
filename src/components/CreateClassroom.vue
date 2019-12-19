@@ -117,7 +117,12 @@ import loading from '../../public/loading.vue'
 import store from './../store.js'
 export default {
     beforeRouteEnter : (to,from,next)=>{
-          if(store.getters.loggedin){
+          if(!localStorage.token){
+            alert(" .ابتدا وارد حساب کاربری خود شوید")
+            console.log("you are not loggedin yet, re-directing you to Authentication page")
+            next('/account')
+            
+          }else{
             console.log("check data e yaro")
             console.log(store.getters.firstName,store.getters.lastName)
             if(store.getters.firstName != null && store.getters.lastName != null 
@@ -127,10 +132,6 @@ export default {
               alert(" لطفا نام و نام خانوادگی خود را در حساب کاربری ذکر کنید")
               next('/profile')
             } 
-          }else{
-              alert(" .ابتدا وارد حساب کاربری خود شوید")
-              console.log("you are not loggedin yet, re-directing you to Authentication page")
-              next('/account')
           }
     },
     components:{

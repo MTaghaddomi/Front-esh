@@ -48,12 +48,12 @@ export default {
     },
     beforeRouteEnter : (to,from,next)=>{
           console.log("checking loggedin status")
-          if(store.state.loggedin){
-              console.log("you are loggedin!, loading your profile page")
-              next()
+          if(!localStorage.token){
+            alert("ابتدا وارد حساب کاربری خود شوید")
+            next('/account') 
           }else{
-              alert("ابتدا وارد حساب کاربری خود شوید")
-              next('/account') 
+            console.log("you are loggedin!, loading your profile page")
+            next()
           }
             
     },

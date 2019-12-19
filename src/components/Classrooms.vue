@@ -33,11 +33,11 @@ import SmallClass from './SmallClass'
 import store from '../store.js'
 export default {
     beforeRouteEnter : (to,from,next)=>{
-          if(store.getters.loggedin){
-              next()
-          }else{
+          if(!localStorage.token){
               alert("ابتدا وارد حساب کاربری خود شوید")
               next('/account')
+          }else{
+              next()
           }
           
     },
