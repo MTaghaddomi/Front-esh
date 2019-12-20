@@ -169,11 +169,11 @@ export default {
     };
   },
   beforeRouteEnter: (to, from, next) => {
-    if (store.getters.loggedin) {
+    if (!localStorage.token) {
+      next();
+    } else {
       console.log("you are loggedin!, loading your profile page");
       next("/profile");
-    } else {
-      next();
     }
   },
   computed: {

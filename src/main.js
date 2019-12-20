@@ -3,8 +3,8 @@ import App from "./App.vue";
 import VueRouter from "vue-router";
 import { routes } from "./routes";
 import store from "./store.js";
-import VModal from "vue-js-modal";
 import "bootstrap";
+
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);

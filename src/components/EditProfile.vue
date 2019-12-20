@@ -205,47 +205,15 @@ export default {
         this.checkemail()
       );
     },
-    checkfirstname: function() {
-      var nametest = /^[a-zA-Z\s.]*$/;
-      if (
-        nametest.test(this.firstname) ||
-        this.firstname == "" ||
-        this.firstname == null
-      ) {
-        console.log("firstname is fine");
-        return true;
-      } else {
-        console.log("firstname is wrong");
-        return false;
-      }
-    },
-    checklastname: function() {
-      var nametest = /^[a-zA-Z\s.]*$/;
-      if (
-        nametest.test(this.lastname) ||
-        this.lastname == "" ||
-        this.lastname == null
-      ) {
-        console.log("lastname is fine");
-        return true;
-      } else {
-        console.log("lastname is wrong");
-        return false;
-      }
-    },
-    checknumber: function() {
-      var numbertest = /^09[0-9]{9}$/;
-      if (
-        numbertest.test(this.phonenumber) ||
-        this.phonenumber == "" ||
-        this.phonenumber == null
-      ) {
-        console.log("phonenumber is fine");
-        return true;
-      } else {
-        console.log("phonenumber is wrong");
-        return false;
-      }
+    beforeRouteEnter : (to,from,next)=>{
+          if(!localStorage.token){
+              alert(" .ابتدا وارد حساب کاربری خود شوید")
+              console.log("you are not loggedin yet, re-directing you to Authentication page")
+              next('/account')
+          }else{
+              console.log("you are loggedin!, loading your profile edit page")
+              next()
+          }
     },
     checkemail: function() {
       var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/;

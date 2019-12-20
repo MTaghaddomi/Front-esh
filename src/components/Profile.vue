@@ -148,9 +148,25 @@ export default {
     editProfile: function() {
       this.$router.push({ path: "/editProfile" });
     },
-    logout: function() {
-      this.$store.dispatch("logout");
-      this.$router.push({ path: "/account" });
+    computed:{
+      ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthdayDate','birthdayTimestamp','loggedin'])
+    },
+    mounted: function(){
+      store.dispatch('getProfile',{
+          success:()=>{console.log("success on loading profile")},
+          failure:()=>{console.log("failed to get profile"); alert('خطا به هنگام دریافت اطلاعات مربوط به حساب کاربری')}
+        })
+    },
+    beforeRouteEnter : (to,from,next)=>{
+          console.log("checking loggedin status")
+          if(!localStorage.token){
+            alert("ابتدا وارد حساب کاربری خود شوید")
+            next('/account') 
+          }else{
+            console.log("you are loggedin!, loading your profile page")
+            next()
+          }
+            
     },
     getBirthdayRight: function(date) {
       var mm = date.getMonth() + 1; // getMonth() is zero-based
