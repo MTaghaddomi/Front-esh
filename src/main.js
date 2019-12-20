@@ -8,7 +8,7 @@ import "bootstrap";
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
-Vue.use(VModal);
+
 const router = new VueRouter({
   routes
 });

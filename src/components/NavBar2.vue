@@ -1,28 +1,56 @@
 <template>
-  <div class="nav">
+  <div>
     <link
       href="https://fonts.googleapis.com/css?family=Almarai&display=swap"
       rel="stylesheet"
     />
-    <input type="checkbox" id="nav-check" />
-    <div class="nav-header">
-      <div class="nav-title" @click="home()">
-        EZlearn
-      </div>
-    </div>
-    <div class="nav-btn">
-      <label for="nav-check">
-        <span></span>
-        <span></span>
-        <span></span>
-      </label>
-    </div>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
 
-    <div class="nav-links">
-      <a @click="profile()">پروفایل</a>
-      <a @click="classrooms()">کلاس ها</a>
-      <a @click="notifications()">اعلانات</a>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark  ">
+      <a class="navbar-brand" style="color:white">EZlearn</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
+        <ul class=" mr-auto mt-2 mt-lg-0"></ul>
+        <form class="navbar-nav form-inline my-2 my-lg-0">
+          <a
+            class=" mr-sm-2 nav-link linky"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            @click="notifications()"
+            >اعلانات</a
+          >
+          <a
+            class=" mr-sm-2 nav-link linky"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            @click="classrooms()"
+            >کلاس ها</a
+          >
+          <a
+            class=" my-2 my-sm-0 nav-link linky"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            @click="profile()"
+          >
+            پروفایل</a
+          >
+        </form>
+      </div>
+    </nav>
   </div>
 </template>
 <script>
@@ -148,5 +176,15 @@ body {
     height: calc(100vh - 50px);
     overflow-y: auto;
   }
+}
+.linky {
+  cursor: pointer;
+  font-family: "Almarai", sans-serif;
+}
+.linky:hover {
+  color: #fa923f;
+}
+a:hover {
+  color: #fa923f;
 }
 </style>

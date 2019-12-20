@@ -25,30 +25,39 @@
 </template>
 
 <script>
-import SmallClass from "../components/SmallClass";
+import SmallClass from "./SmallClass";
 import store from "../store.js";
 export default {
-    beforeRouteEnter : (to,from,next)=>{
-          if(!localStorage.token){
-              alert("ابتدا وارد حساب کاربری خود شوید")
-              next('/account')
-          }else{
-              next()
-          }
-          
-    },
-    components:{
-        'smallClass': SmallClass
-    },
-    data: function(){
-        return {
-            enrolledList:[],
-            noClass: false,
-            joiningClass: ""
-            // enrolledList: // masalan az server por shode( listi az enrolled ha)
-            // [{className:"myClass1",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
-            //  {className:"myClass2",lessonName:"درس ۲۲۲",lastName:"دلیر" },
-            //  {className:"myClass3",lessonName:"درس ۳۳۳",lastName:"چیترا" }] 
+  beforeRouteEnter: (to, from, next) => {
+    if (!localStorage.token) {
+      alert("ابتدا وارد حساب کاربری خود شوید");
+      next("/account");
+    } else {
+      next();
+    }
+  },
+  components: {
+    smallClass: SmallClass
+  },
+  data: function() {
+    return {
+      enrolledList: [],
+      noClass: false,
+      joiningClass: ""
+      // enrolledList: // masalan az server por shode( listi az enrolled ha)
+      // [{className:"myClass1",lessonName:"درس ۱۱۱",lastName:"خانمیرزا" },
+      //  {className:"myClass2",lessonName:"درس ۲۲۲",lastName:"دلیر" },
+      //  {className:"myClass3",lessonName:"درس ۳۳۳",lastName:"چیترا" }]
+    };
+  },
+  mounted: function() {
+    store.dispatch("getEnrolledClassrooms", {
+      success: data => {
+        this.enrolledList = data.classrooms; //TODO: check this line
+        if (this.enrolledList == null) {
+          this.noClass = true;
+        } else {
+          this.noClass = false;
         }
         console.log("success on loading all your classrooms");
       },
@@ -62,42 +71,22 @@ export default {
     newClass() {
       this.$router.push({ name: "createClass" });
     },
-    mounted: function(){
-      store.dispatch('getEnrolledClassrooms',{
-            success:(data)=>{
-                this.enrolledList = data.classrooms  //TODO: check this line
-                if(this.enrolledList == null){
-                    this.noClass = true;
-                }else{
-                    this.noClass = false;
-                }
-                console.log("success on loading all your classrooms")
-            },
-            failure:()=>{
-                this.noClass = true;
-                alert("خطا به هنگام دریافت کلاس های شما")
-            }
-        })
-    },
-    methods:{
-        newClass(){
-            this.$router.push({name:'createClass'})
+    join() {
+      this.$store.dispatch("joinClass", {
+        className: this.joiningClass,
+        success: () => {
+          console.log("ffff");
+          this.$router.push({
+            name: "classroom",
+            params: { className: this.joiningClass }
+          });
         },
-        join(){
-            this.$store.dispatch('joinClass',
-            {className: this.joiningClass,
-            success:()=>{
-                console.log("ffff")
-                this.$router.push({name: 'classroom', params:{className: this.joiningClass}})
-            },
-            failure:()=>{
-                alert("خطا در اضافه شدن به کلاس")
-                console.log("failure on joining the new class")
-            }})
+        failure: () => {
+          alert("خطا در اضافه شدن به کلاس");
+          console.log("failure on joining the new class");
         }
       });
     }
-    // console.log("success on loading all your classrooms");
   }
 };
 </script>
