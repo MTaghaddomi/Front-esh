@@ -1,149 +1,174 @@
 <template>
   <div class="wrapper animated bounce ">
+    <meta charset="utf-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
     <h1>خوش آمدید</h1>
-    <div class="w3-container">
-      <p>
-        <button
-          class="glow-on-hover css-selector"
-          onclick="document.getElementById('login').style.display='block'"
-        >
-          ورود
-        </button>
-      </p>
-      <p>
-        <button
-          class="glow-on-hover css-selector"
-          onclick="document.getElementById('Register').style.display='block'"
-        >
-          ثبت نام
-        </button>
-      </p>
 
-      <div id="Register" class="w3-modal">
-        <div
-          class="w3-modal-content w3-card-4 w3-animate-zoom"
-          style="max-width:600px"
-        >
-          <div class="w3-center">
-            <br />
-            <span
-              onclick="document.getElementById('Register').style.display='none'"
-              class="w3-button w3-xlarge w3-transparent w3-display-topright"
-              title="Close Modal"
-              >×</span
+    <p>
+      <button
+        class="glow-on-hover css-selector"
+        href="#Login"
+        data-toggle="modal"
+      >
+        ورود
+      </button>
+    </p>
+    <p>
+      <button
+        class="glow-on-hover css-selector"
+        href="#Register"
+        data-toggle="modal"
+      >
+        ثبت نام
+      </button>
+    </p>
+
+    <!-- Modal HTML -->
+    <div id="Login" class="modal fade">
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">ورود</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-hidden="true"
             >
-            <img
-              src="../components/assets/img_avatar.png"
-              alt="Avatar"
-              style="width:30%"
-              class="w3-circle w3-margin-top"
-            />
+              &times;
+            </button>
           </div>
-
-          <form class="w3-container">
-            <div class="w3-section">
-              <label><b>Username</b></label>
-              <div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"
+                    ><i class="fa fa-user"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="username"
+                    v-model="username"
+                    placeholder="نام کاربری"
+                    required="required"
+                    pattern="[a-z_A-Z0-9]{4,}"
+                  />
+                  <div class="requirements">
+                    نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و _
+                    باشد
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"
+                    ><i class="fa fa-lock"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="password"
+                    name="password"
+                    placeholder="رمز عبور"
+                    required="required"
+                    pattern=".{8,}"
+                  />
+                  <div class="requirements">
+                    .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                  ورود
+                </button>
+              </div>
+              <p class="hint-text"><a href="#">Forgot Password?</a></p>
+            </form>
+          </div>
+          <div class="modal-footer">
+            Don't have an account? <a href="#">Create one</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="Register" class="modal fade">
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">ثبت نام</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"
+                  ><i class="fa fa-user"></i
+                ></span>
                 <input
-                  class="w3-input w3-border w3-margin-bottom"
                   type="text"
-                  name="usrname"
-                  required
+                  class="form-control"
                   v-model="username"
-                  pattern="[a-z_A-Z0-9]{4,}"
+                  name="username"
                   placeholder="نام کاربری"
+                  required="required"
+                  pattern="[a-z_A-Z0-9]{4,}"
                 />
                 <div class="requirements">
                   نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و _
                   باشد
                 </div>
               </div>
-              <label><b>Password</b></label>
-              <div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon" style="text-align:right"
+                  ><i class="fa fa-lock"></i
+                ></span>
                 <input
-                  class="w3-input w3-border"
                   type="text"
-                  placeholder="رمز عبور"
-                  name="psw"
-                  required
                   v-model="password"
+                  class="form-control"
+                  name="password"
+                  placeholder="رمز عبور"
+                  required="required"
+                  pattern=".{8,}"
                 />
                 <div class="requirements">
                   .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
                 </div>
               </div>
-              <button
-                class="w3-button  w3-purple w3-section w3-padding"
-                type="submit"
-              >
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block btn-lg">
                 ثبت نام
               </button>
             </div>
-          </form>
-        </div>
-      </div>
-      <div id="login" class="w3-modal w3-border w3-round">
-        <div
-          class="w3-modal-content w3-card-4 w3-animate-zoom"
-          style="max-width:600px"
-        >
-          <div class="w3-center">
-            <br />
-            <span
-              onclick="document.getElementById('login').style.display='none'"
-              class="w3-button w3-xlarge w3-transparent w3-display-topright"
-              title="Close Modal"
-              >×</span
-            >
-            <img
-              src="../components/assets/img_avatar.png"
-              alt="Avatar"
-              style="width:30%"
-              class="w3-circle w3-margin-top"
-            />
           </div>
-
-          <form class="w3-container">
-            <div class="w3-section">
-              <label><b>Username</b></label>
-              <div>
-                <input
-                  class="w3-input w3-border w3-margin-bottom"
-                  type="text"
-                  name="usrname"
-                  v-model="username"
-                  placeholder="نام کاربری"
-                  required
-                />
-                <div class="requirements">
-                  نام کاربری باید حداقل ۴ کاراکتر و فقط شامل حروف ، اعداد و _
-                  باشد
-                </div>
-              </div>
-              <label><b>Password</b></label>
-              <div>
-                <input
-                  class="w3-input w3-border"
-                  type="text"
-                  placeholder="رمز عبور"
-                  name="psw"
-                  v-model="password"
-                  required
-                />
-                <div class="requirements">
-                  .کلمه عبور باید حداقل ۸ کاراکتر داشته باشد
-                </div>
-              </div>
-              <button
-                class="w3-button  w3-purple w3-section w3-padding"
-                type="submit"
-              >
-                ورود
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </div>
@@ -153,11 +178,10 @@
 <script>
 import store from "../store.js";
 import loading from "../../public/loading.vue";
-import NewLogin from "./NewLogin.vue";
+
 // import LoginBorder from "./LoginBorder.vue";
 export default {
   components: {
-    newLogin: NewLogin,
     loading: loading
     // LoginBorder: LoginBorder
   },
@@ -302,6 +326,9 @@ export default {
 </script>
 
 <style scoped>
+body {
+  font-family: "Almarai", sans-serif;
+}
 .wrapper {
   margin: 50px auto;
   width: 343px;
@@ -325,7 +352,6 @@ export default {
   margin-left: 75px;
 }
 
-@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
 .glow-on-hover {
   display: inline-block;
   width: 220px;
@@ -406,149 +432,128 @@ export default {
 .css-selector {
   font-family: "Almarai", sans-serif;
 }
-</style>
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 90%;
-  margin: 2% auto;
+.modal-login {
+  width: 350px;
 }
-
-.button-primary {
-  width: 200px;
-  margin: auto;
-  background: lighten(teal, 10%);
-  color: whitesmoke;
+.modal-login .modal-content {
+  padding: 20px;
+  text-align: right;
+  border-radius: 5px;
   border: none;
-  padding: 10px;
-  border-radius: 3px;
-  cursor: pointer;
+  font-family: "Almarai", sans-serif;
 }
-.modal {
-  display: flex;
+.modal-login .modal-header {
+  border-bottom: none;
   position: relative;
-  flex-direction: row;
   justify-content: center;
-  margin: auto;
-  width: 450px;
-  height: 350px;
-  background: white;
+  font-family: "Almarai", sans-serif;
+}
+.modal-login .close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+.modal-login h4 {
+  color: #636363;
+  text-align: center;
+  font-size: 26px;
+  margin-top: 0;
+}
+.modal-login .modal-content {
+  color: #999;
+  border-radius: 1px;
+  margin-bottom: 15px;
+  background: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  text-align: right;
+}
+.modal-login .form-group {
+  margin-bottom: 20px;
+}
+.modal-login label {
+  font-weight: normal;
+  font-size: 13px;
+  font-family: "Almarai", sans-serif;
+}
+.modal-login .form-control {
+  min-height: 38px;
+  padding-left: 5px;
+  box-shadow: none !important;
+  border-width: 0 0 1px 0;
+  border-radius: 0;
+  text-align: right;
+}
+.modal-login .form-control:focus {
+  border-color: #ccc;
+}
+.modal-login .input-group-addon {
+  max-width: 42px;
+  font-family: "Almarai", sans-serif;
+  text-align: center;
+  background: none;
+  border-width: 0 0 1px 0;
+  padding-left: 5px;
+  border-radius: 0;
+}
+.modal-login .btn {
+  font-size: 13px;
+  font-weight: bold;
+  font-family: "Almarai", sans-serif;
+  background: #19aa8d;
   border-radius: 3px;
-  cursor: pointer;
-
-  .modal-exit {
-    position: absolute;
-    right: 0;
-    font-weight: bold;
-    cursor: pointer;
-    color: black;
-  }
-}
-
-.modal-message {
-  margin: auto;
-  color: whitesmoke;
-  h2 {
-    text-align: center;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0;
-}
-input {
-  padding: 20px 20px 20px 50px;
-  width: 100%;
-  margin-bottom: 10px;
-  text-align: right;
-  background-color: aliceblue;
   border: none;
-  outline: none;
-  font-size: 15px;
-  font-family: "Almarai", sans-serif;
-  font-weight: bold;
-  color: black;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  -webkit-transition: box-shadow 0.5s ease;
-  -moz-transition: box-shadow 0.5s ease;
-  -o-transition: box-shadow 0.5s ease;
-  -ms-transition: box-shadow 0.5s ease;
-  transition: box-shadow 0.5s ease;
+  width: 50%;
+  outline: none !important;
+  margin-left: 25%;
 }
-
-.wrapper {
-  margin: 50px auto;
-  width: 343px;
-  height: 280px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+.modal-login .btn:hover,
+.modal-login .btn:focus {
+  background: #179b81;
 }
-</style>
-<style scoped>
-@import "https://fonts.googleapis.com/css?family=Open+Sans";
-@import "https://fonts.googleapis.com/css?family=Galada";
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
-input {
-  padding: 20px 20px 20px 50px;
-  width: 100%;
-  margin-bottom: 10px;
-  text-align: right;
-  background-color: aliceblue;
-  border: none;
-  outline: none;
-  font-size: 15px;
-  font-family: "Almarai", sans-serif;
-  font-weight: bold;
-  color: black;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  -webkit-transition: box-shadow 0.5s ease;
-  -moz-transition: box-shadow 0.5s ease;
-  -o-transition: box-shadow 0.5s ease;
-  -ms-transition: box-shadow 0.5s ease;
-  transition: box-shadow 0.5s ease;
-}
-
-.wrapper {
-  margin: 50px auto;
-  width: 343px;
-  height: 280px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-}
-.wrapper h1 {
-  font-family: "Almarai", sans-serif;
-  color: black;
+.modal-login .hint-text {
   text-align: center;
   padding-top: 5px;
-  padding-bottom: 5px;
+  font-size: 13px;
 }
-.wrapper hr {
-  opacity: 0.2;
+.modal-login .modal-footer {
+  color: #999;
+  border-color: #dee4e7;
+  text-align: center;
+  margin: 0 -25px -25px;
+  font-size: 13px;
+  justify-content: center;
 }
-.crtacc {
-  margin-left: 75px;
+.modal-login a {
+  color: #fff;
+  text-decoration: underline;
+}
+.modal-login a:hover {
+  text-decoration: none;
+}
+.modal-login a {
+  color: #19aa8d;
+  text-decoration: none;
+}
+.modal-login a:hover {
+  text-decoration: underline;
+}
+.modal-login .fa {
+  font-size: 21px;
+}
+.trigger-btn {
+  display: inline-block;
+  margin: 100px auto;
 }
 </style>
-<style scoped lang="scss">
-input[type="password"] {
+<style lang="scss" scoped>
+input[type="text"] {
   &:valid {
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
     background-size: 20px;
     background-repeat: no-repeat;
-    background-position: 20px 20px;
+    background-position: 10px 5px;
     background-color: white;
     & + label {
       opacity: 0;
@@ -563,13 +568,14 @@ input[type="password"] {
   }
 
   &:invalid:focus:not(:placeholder-shown) {
-    & ~ .requirements1 {
+    & ~ .requirements {
       max-height: 200px;
       padding: 0 30px 20px 50px;
     }
   }
 }
-input[type="text"] {
+
+input[type="password"] {
   &:valid {
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
     background-size: 20px;
@@ -595,25 +601,12 @@ input[type="text"] {
     }
   }
 }
-
 .requirements {
   padding: 0 30px 0 50px;
-  color: #999;
   max-height: 0;
   transition: 0.28s;
   overflow: hidden;
   color: rgb(182, 87, 118);
   font-style: italic;
-  font-size: 13px;
-}
-.requirements1 {
-  padding: 0 30px 0 50px;
-  color: #999;
-  max-height: 0;
-  transition: 0.28s;
-  overflow: hidden;
-  color: rgb(182, 87, 118);
-  font-style: italic;
-  font-size: 13px;
 }
 </style>
