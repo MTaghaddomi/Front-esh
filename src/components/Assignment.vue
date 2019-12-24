@@ -1,16 +1,5 @@
 <template>
     <div class="wrapper">
-        <!--h1>
-            <p>
-                تکلیف:
-            {{$route.params.assignmentId}}
-            </p>
-            <p>
-               درس 
-            {{$route.params.className}}
-            </p>
-            
-        </h1-->
         <p>
             {{subject}}
         </p>
@@ -46,7 +35,6 @@
 import store from '../store.js'
 export default {
 
-    //request get assignment data
     data: function(){
         return{
             subject: "Recursive functions",
