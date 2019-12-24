@@ -66,9 +66,10 @@ export default {
                 }
                 console.log("success on loading all your classrooms")
             },
-            failure:()=>{
+            failure:(message)=>{
                 this.noClass = true;
-                alert("خطا به هنگام دریافت کلاس های شما")
+                // alert("خطا به هنگام دریافت کلاس های شما")
+                alrt(message)
             }
         })
     },
@@ -83,8 +84,9 @@ export default {
                 console.log("ffff")
                 this.$router.push({name: 'classroom', params:{className: this.joiningClass}})
             },
-            failure:()=>{
-                alert("خطا در اضافه شدن به کلاس")
+            failure:(message)=>{
+                // alert("خطا در اضافه شدن به کلاس")
+                alert(message)
                 console.log("failure on joining the new class")
             }})
         }

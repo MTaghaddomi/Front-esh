@@ -82,8 +82,8 @@ export default new Vuex.Store({
                 args.success()
             })
             .catch((error)=>{
-                console.log(error);
-                args.failure() 
+                console.log(error.response);
+                args.failure(error.response.data.message) 
             })
         },
 
@@ -104,7 +104,7 @@ export default new Vuex.Store({
             .catch((error)=>{
                 console.log("our status::",error)
                 console.log(error);
-                args.failure()
+                args.failure(error.response.data.message) 
             })
 
         },
@@ -124,9 +124,9 @@ export default new Vuex.Store({
                 commit('saveProfile',res.data) 
                 args.success()
             })
-            .catch((err)=>{ console.log("getProfile went to cache")
+            .catch((error)=>{ console.log("getProfile went to cache")
                 commit('deleteLogin')
-                args.failure()
+                args.failure(error.response.data.message) 
                 
             })        
         },
@@ -144,7 +144,7 @@ export default new Vuex.Store({
                 args.success()
             }).catch((error)=>{
                 console.log(error)
-                args.failure()
+                args.failure(error.response.data.message) 
             })
         },
         submitClass({state},args){
@@ -159,9 +159,9 @@ export default new Vuex.Store({
                 const data = res.data
                 args.success({className: data.name, lessonName: data.lesson, teacherName: data.teacher})
             })
-            .catch((err)=>{
+            .catch((error)=>{
                 console.log(err)
-                args.failure()
+                args.failure(error.response.data.message) 
             })
             
         },
@@ -181,7 +181,7 @@ export default new Vuex.Store({
                 (error)=>{
                     console.log("failed to getEnrolledClassrooms Action")
                     console.log(error)
-                    args.failure()
+                    args.failure(error.response.data.message) 
                 }
             )
         },
@@ -212,7 +212,7 @@ export default new Vuex.Store({
                 (error)=>{
                     console.log("failure on getClassroomDetails Action")
                     console.log(error)
-                    args.failure()
+                    args.failure(error.response.data.message) 
                 }
             )
         },
@@ -230,7 +230,7 @@ export default new Vuex.Store({
                 (error)=>{
                     console.log("failure on getAssignments Action")
                     console.log(error)
-                    args.failure()
+                    args.failure(error.response.data.message) 
                 }
             )
 
@@ -250,7 +250,7 @@ export default new Vuex.Store({
                 (error)=>{
                     console.log("failure on newAssignment Action")
                     console.log(error)
-                    args.failure()
+                    args.failure(error.response.data.message) 
                 }
             )
         },
@@ -275,7 +275,7 @@ export default new Vuex.Store({
                 (error)=>{
                     console.log("failure on join action")
                     console.log(error)
-                    args.failure()
+                    args.failure(error.response.data.message) 
                 }
             )
         }

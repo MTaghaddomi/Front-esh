@@ -102,7 +102,9 @@ export default {
              this.$store.dispatch('login',
               {loginRequest:loginRequest,
                 success: ()=> {this.waiting = false; this.$router.push({path:'/profile'})},
-                failure: ()=> {this.waiting = false; console.log('failed to login'); alert("خطا به هنگام ورود") }
+                failure: (message)=> {this.waiting = false; console.log('failed to login');
+                //  alert("خطا به هنگام ورود")
+                alert(message) }
               })
              }else{
                alert("اطلاعات وارد شده صحیح نیست، لطفا موارد قرمز را برطرف کنید")

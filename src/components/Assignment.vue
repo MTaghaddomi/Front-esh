@@ -66,9 +66,10 @@ export default {
                 this.lateDeadline = data.lateDeadline
                 this.accessLevel = data.accessLevel
             },
-            failure: ()=>{
+            failure: (message)=>{
                 console.log("failed to loadd the assignment")
-                alert("خطا به هنگام دریافت اطلاعات مربوط به تکلیف")
+                // alert("خطا به هنگام دریافت اطلاعات مربوط به تکلیف")
+                alert(message)
                 // this.$router.push({name: 'notFound'})
             }
         })

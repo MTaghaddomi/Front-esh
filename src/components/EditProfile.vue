@@ -170,10 +170,12 @@ export default{
                 this.waiting = false;
                 this.$router.push({path: '/profile'}) 
               },
-              failure:()=>{
-                alert("خطا به هنگام بروزرسانی حساب کاربری");
+              failure:(message)=>{
+                // alert("خطا به هنگام بروزرسانی حساب کاربری");
+                alert(message)
                 this.waiting = false;
                 console.log("failed to upddate your profile");
+                
               },
             });
           }else{

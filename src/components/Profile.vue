@@ -43,7 +43,9 @@ export default {
     mounted: function(){
       store.dispatch('getProfile',{
           success:()=>{console.log("success on loading profile")},
-          failure:()=>{console.log("failed to get profile"); alert('خطا به هنگام دریافت اطلاعات مربوط به حساب کاربری')}
+          failure:(message)=>{console.log("failed to get profile");
+          //  alert('خطا به هنگام دریافت اطلاعات مربوط به حساب کاربری')
+          alert(message)}
         })
     },
     beforeRouteEnter : (to,from,next)=>{

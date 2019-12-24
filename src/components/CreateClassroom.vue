@@ -235,8 +235,9 @@ export default {
                      console.log("success callback:",data)
                      this.$router.push({name: 'classroom', params:{className: classData.name}})
                  },
-                 failure:()=>{
-                     alert("خطا به هنگام ایجاد کلاس جدید")
+                 failure:(message)=>{
+                    //  alert("خطا به هنگام ایجاد کلاس جدید")
+                     aler(message)
                      this.waiting = false
                      }
                 })

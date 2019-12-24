@@ -116,8 +116,9 @@ export default {
                 })
                 console.log("success on loading all your classrooms")
             },
-            failure:()=>{ 
-                alert("خطا به هنگام گرفتن اطلاعات مربوط به کلاس") 
+            failure:(message)=>{ 
+                // alert("خطا به هنگام گرفتن اطلاعات مربوط به کلاس") 
+                alert(message)
                 this.$router.push('/notFound')
             }
         }
