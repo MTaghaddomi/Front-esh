@@ -70,6 +70,15 @@
 import SmallAssignment from './SmallAssignment'
 import store from '../store.js'
 export default {
+     beforeRouteEnter : (to,from,next)=>{
+          if(!localStorage.token){
+              alert("ابتدا وارد حساب کاربری خود شوید")
+              next('/account')
+          }else{
+              next()
+          }
+          
+    },
     components:{
         'smallAssignment': SmallAssignment
     },
@@ -92,7 +101,7 @@ export default {
             success:(data)=>{          //TODO: check these lines
                 this.name = data.name
                 this.description = data.description
-                this.lesson = data.lesson
+                this.lesson = data.lesson.name
                 this.teacherInfo = data.teacherInfo
                 if(data.role == "teacher"){
                     this.isTeacher = true
@@ -129,7 +138,7 @@ export default {
             this.$router.push({name: 'createAssignment',params:{className: this.$route.params.className}} ) //TODO implemet newHomework page
         },
         editClass(){
-            return true;
+            this.$router.push({name: 'editClassroom', params:{className: this.$route.params.className}})
         }
     }
 

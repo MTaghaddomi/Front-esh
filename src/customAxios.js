@@ -5,7 +5,6 @@ const customAxios = axios.create({
      // configure the customAxios instance
      headers:{
           'Access-Control-Allow-Origin':'https://tts-fall.herokuapp.com',
-          // 'Access-Control-Allow-Origin':'http://192.168.1.156:8000',
      }
 
 

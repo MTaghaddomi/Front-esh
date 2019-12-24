@@ -34,11 +34,12 @@ import { mapGetters } from "vuex"
 export default {
     data: function(){
       return{
-        //nothing
+        username: localStorage.getItem('username')
       }
     },
     computed:{
-      ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthdayDate','birthdayTimestamp','loggedin'])
+      ...mapGetters(['lastName','firstName','email','phoneNumber','birthdayDate','birthdayTimestamp','loggedin']),
+      
     },
     mounted: function(){
       store.dispatch('getProfile',{

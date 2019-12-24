@@ -18,24 +18,10 @@
               .نام درس باید فقط شامل حروف و فاصله باشد 
               </div>
             </div>
-
-            <div>
-                <input
-                    type="text"
-                    v-model="className"
-                    pattern="[a-z_A-Z0-9]{3,}"
-                    placeholder="نام انحصاری "
-                    required="required"
-                />
-
-                <div class="requirements">
-                .نام انحصاری کلاس باید حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد و  _ باشد
-                </div>
-            </div>
-    
-
           </div>
         </div>
+
+        
         <div>
           <div>
             <h1>
@@ -70,23 +56,38 @@
 import loading from '../../public/loading.vue'
 import store from './../store.js'
 export default {
-    beforeRouteEnter : (to,from,next)=>{
+ beforeRouteEnter : (to,from,next)=>{
           if(!localStorage.token){
-            alert(" .ابتدا وارد حساب کاربری خود شوید")
-            console.log("you are not loggedin yet, re-directing you to Authentication page")
-            next('/account')
-            
+              alert("ابتدا وارد حساب کاربری خود شوید")
+              next('/account')
           }else{
-            console.log("check data e yaro")
-            console.log(store.getters.firstName,store.getters.lastName)
-            if(store.getters.firstName != null && store.getters.lastName != null 
-                && store.getters.firstName != "" && store.getters.lastName != ""){
               next()
-            }else{
-              alert(" لطفا نام و نام خانوادگی خود را در حساب کاربری ذکر کنید")
-              next('/profile')
-            } 
           }
+          
+    },
+  
+mounted: function(){
+        store.dispatch('getClassroomDetails',
+        {
+            className: this.$route.params.className,
+            success:(data)=>{
+                this.description = data.description
+                this.lessonName = data.lesson.name
+                this.className = data.name
+                if(data.role == "teacher"){
+                  
+                }else{
+                  alert("شما اجازه ی ایجاد تغییرات در کلاس را ندارید")
+                  this.$router.push({name: 'classrooms'})
+                }
+            },
+            failure:(message)=>{ 
+                // alert("خطا به هنگام گرفتن اطلاعات مربوط به کلاس") 
+                alert(message)
+                this.$router.push('/notFound')
+            }
+        }
+        )
     },
     components:{
         'loading': loading
@@ -101,16 +102,6 @@ export default {
         
     },
     methods:{
-        checkClassName(){
-            const classNameFormat = /^[a-z_A-Z0-9]{3,}$/;
-            if (classNameFormat.test(this.className)) {
-                console.log("className is fine");
-                return true;
-            } else {
-                console.log("className is wrong");
-                return false;
-            }
-        },
         checkLessonName(){  
             var nametest =/^[a-zA-Z\s.]*$/
             if(nametest.test(this.lessonName)){
@@ -133,7 +124,7 @@ export default {
         },
        
         checkAll(){
-            return this.checkClassName() && this.checkLessonName () && this.checkDescription()
+            return this.checkLessonName () && this.checkDescription()
         },
         submitClass(){
             this.waiting = true
@@ -145,19 +136,19 @@ export default {
                     name: this.className,
                 }
                 console.log(classData)
-                this.$store.dispatch('submitClass',{
-                 classData: classData,
-                 success:(data)=>{
-                     this.waiting = false
-                     console.log("success callback:",data)
-                     this.$router.push({name: 'classroom', params:{className: classData.name}})
-                 },
-                 failure:(message)=>{
-                    //  alert("خطا به هنگام ایجاد کلاس جدید")
-                     aler(message)
-                     this.waiting = false
-                     }
-                })
+                // this.$store.dispatch('submitClass',{
+                //  classData: classData,
+                //  success:(data)=>{
+                //      this.waiting = false
+                //      console.log("success callback:",data)
+                //      this.$router.push({name: 'classroom', params:{className: classData.name}})
+                //  },
+                //  failure:(message)=>{
+                //     //  alert("خطا به هنگام ایجاد کلاس جدید")
+                //      aler(message)
+                //      this.waiting = false
+                //      }
+                // })
             }else{
                 alert("اطلاعات وارد شده صحیح نیست!، لطفا موارد قرمز را برطرف کرده و هیچ قسمتی را خالی نگذارید")
                 this.waiting = false

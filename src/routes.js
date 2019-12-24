@@ -12,6 +12,7 @@ import Assignment from './components/Assignment.vue'
 import NotFound from './components/NotFound.vue'
 import CreateClassroom from './components/CreateClassroom.vue'
 import CreateAssignment from './components/CreateAssignment.vue'
+import EditClassroom from './components/EditClassroom.vue'
 
 export const routes = [
     {path: '/account', component: LoginOrRegister},
@@ -20,7 +21,7 @@ export const routes = [
     {path: '/profile', component: Profile},
     {path: '/editProfile', component: EditProfile},
     {path: '/home', component: Home},
-    {path: '/classrooms',component: Classrooms},
+    {name: 'classrooms', path: '/classrooms',component: Classrooms},
 
     {name: 'classroom' ,path: '/classroom/:className',component: Classroom},
     {name: 'assignment', path: '/classroom/:className/assignments/:assignmentId' , component: Assignment, append: true},
@@ -29,6 +30,7 @@ export const routes = [
     {path: '/notifications', component: Notifications},
     {name: 'notFound', path: '/notFound', component: NotFound},
     {path: '/', component: Home},
+    {name: 'editClassroom' ,path: '/classroom/:className/editClassroom', component: EditClassroom},
     {path: '*' , redirect:'/notFound'}, //for non-specified routes, redirect to the homepage
     
 ];

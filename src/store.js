@@ -12,8 +12,6 @@ export default new Vuex.Store({
     },
     getters:{
         loggedin: (state)=>{return state.loggedin},
-        token: ()=>{return localStorage.getItem('token')},
-        username:()=>{return localStorage.getItem('username')},
         firstName: (state)=>{return state.userProfile.firstName},
         lastName: (state)=>{return state.userProfile.lastName},
         email: (state)=>{return state.userProfile.email},
@@ -23,13 +21,6 @@ export default new Vuex.Store({
         
     },
     mutations: {
-        saveLogin(state,serverData){
-            console.log('saving the state')
-            localStorage.setItem('username',serverData.username);         
-            localStorage.setItem('token',serverData.token)
-            state.loggedin = true
-            console.log("finished saveLogin")
-        },
         deleteLogin(state){
             console.log("deleting current state")
             state.userProfile.firstName = ""
@@ -42,6 +33,21 @@ export default new Vuex.Store({
             localStorage.removeItem('token')
             state.loggedin = false
             console.log("state was deleted")
+        },
+        saveLogin(state,serverData){
+            state.userProfile.firstName = ""
+            state.userProfile.lastName = ""
+            state.userProfile.birthdayDate = {year: " ", month: " ", day: " "}
+            state.userProfile.birthdayTimestamp = 0
+            state.userProfile.phoneNumber = ""
+            state.userProfile.email = ""
+            localStorage.removeItem('username')
+            localStorage.removeItem('token')
+            console.log('saving the state')
+            localStorage.setItem('username',serverData.username);         
+            localStorage.setItem('token',serverData.token)
+            state.loggedin = true
+            console.log("finished saveLogin")
         },
         saveProfile(state,serverData){
             console.log("saving profile on the state")
