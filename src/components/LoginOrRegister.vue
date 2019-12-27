@@ -100,9 +100,15 @@
                 </div>
               </div>
               <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                <button
+                  @click="postDataa"
+                  class="btn btn-primary btn-block btn-lg"
+                >
                   ورود
                 </button>
+                <div style="width: 100%">
+                  <loading v-if="waiting"></loading>
+                </div>
               </div>
               <p class="hint-text"><a href="#">Forgot Password?</a></p>
             </form>
@@ -168,9 +174,15 @@
               </div>
             </div>
             <div class="form-group">
-              <button class="btn btn-primary btn-block btn-lg">
+              <button
+                @click="postData"
+                class="btn btn-primary btn-block btn-lg"
+              >
                 ثبت نام
               </button>
+              <div style="width: 100%">
+                <loading v-if="waiting"></loading>
+              </div>
             </div>
           </div>
         </div>
@@ -185,9 +197,10 @@ import loading from "../../public/loading.vue";
 
 // import LoginBorder from "./LoginBorder.vue";
 export default {
-  components: {
-    loading: loading
-    // LoginBorder: LoginBorder
+  computed: {
+    checkSubmission: function() {
+      return this.passwordStatus && this.usernameStatus;
+    }
   },
   data: function() {
     return {
@@ -242,6 +255,7 @@ export default {
         return false;
       }
     },
+
     postData: function() {
       console.log("checking your input data");
 
@@ -292,37 +306,40 @@ export default {
         this.passwordStatus = false;
       }
     },
-    postData() {
-      this.waiting = true;
-      this.checkAll();
-      if (this.checkSubmission) {
-        const newRegister = {
+
+    postDataa: function() {
+      console.log("checking your input data");
+
+      if (this.checkAll()) {
+        const loginRequest = {
           username: this.username,
           password: this.password
         };
+        this.waiting = true;
 
-        this.$store.dispatch("signup", {
-          newRegister: newRegister,
-          success: () => {
-            this.$store.dispatch("getProfile", {
-              success: () => {
-                this.waiting = false;
-                this.$router.push({ path: "/profile" });
-              },
-              failure: () => {
-                this.waiting = false;
-                alert("خطا به هنگام دریافت اطلاعات حساب");
-              }
-            });
-          },
-          failure: () => {
-            this.waiting = false;
-            alert("خطا به هنگام دریافت ثبت نام");
-          }
-        });
-      } else {
-        this.waiting = false;
-        alert(" .اطلاعات وارد شده صحیح نیست! لطفا موارد قرمز را برطرف کنید");
+        if (this.checkAll()) {
+          const loginRequest = {
+            username: this.username,
+            password: this.password
+          };
+          this.waiting = true;
+
+          this.$store.dispatch("login", {
+            loginRequest: loginRequest,
+            success: () => {
+              this.waiting = false;
+              this.$router.push({ path: "/profile" });
+            },
+            failure: message => {
+              this.waiting = false;
+              console.log("failed to login");
+              //  alert("خطا به هنگام ورود")
+              alert(message);
+            }
+          });
+        } else {
+          alert("اطلاعات وارد شده صحیح نیست، لطفا موارد قرمز را برطرف کنید");
+        }
       }
     }
   }

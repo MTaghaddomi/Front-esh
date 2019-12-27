@@ -81,7 +81,7 @@
                   <div class="col-xs-12">
                     <br />
 
-                    <button class="btn btn-lg" @click="editProfile">
+                    <button @click="editProfile" class="btn btn-lg">
                       <i class="glyphicon glyphicon-pencil"></i> ویرایش
                     </button>
                     <button class="btn btn-lg" @click="logout">
@@ -146,29 +146,41 @@ export default {
   },
   methods: {
     editProfile: function() {
-      this.$router.push({ path: "/editProfile" });
+      this.$router.push({ path: "/EditProfile" });
     },
-    computed:{
-      ...mapGetters(['username','lastName','firstName','email','phoneNumber','birthdayDate','birthdayTimestamp','loggedin'])
+    computed: {
+      ...mapGetters([
+        "username",
+        "lastName",
+        "firstName",
+        "email",
+        "phoneNumber",
+        "birthdayDate",
+        "birthdayTimestamp",
+        "loggedin"
+      ])
     },
-    mounted: function(){
-      store.dispatch('getProfile',{
-          success:()=>{console.log("success on loading profile")},
-          failure:(message)=>{console.log("failed to get profile");
+    mounted: function() {
+      store.dispatch("getProfile", {
+        success: () => {
+          console.log("success on loading profile");
+        },
+        failure: message => {
+          console.log("failed to get profile");
           //  alert('خطا به هنگام دریافت اطلاعات مربوط به حساب کاربری')
-          alert(message)}
-        })
+          alert(message);
+        }
+      });
     },
-    beforeRouteEnter : (to,from,next)=>{
-          console.log("checking loggedin status")
-          if(!localStorage.token){
-            alert("ابتدا وارد حساب کاربری خود شوید")
-            next('/account') 
-          }else{
-            console.log("you are loggedin!, loading your profile page")
-            next()
-          }
-            
+    beforeRouteEnter: (to, from, next) => {
+      console.log("checking loggedin status");
+      if (!localStorage.token) {
+        alert("ابتدا وارد حساب کاربری خود شوید");
+        next("/account");
+      } else {
+        console.log("you are loggedin!, loading your profile page");
+        next();
+      }
     },
     getBirthdayRight: function(date) {
       var mm = date.getMonth() + 1; // getMonth() is zero-based
