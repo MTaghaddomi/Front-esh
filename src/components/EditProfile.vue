@@ -168,7 +168,7 @@ export default{
               updatedProfile:updatedProfile,
               success:()=>{
                 this.waiting = false;
-                this.$router.push({path: '/profile'}) 
+                this.$router.push({name: 'profile'}) 
               },
               failure:(message)=>{
                 // alert("خطا به هنگام بروزرسانی حساب کاربری");

@@ -13,24 +13,26 @@ import NotFound from './components/NotFound.vue'
 import CreateClassroom from './components/CreateClassroom.vue'
 import CreateAssignment from './components/CreateAssignment.vue'
 import EditClassroom from './components/EditClassroom.vue'
+import CreateDocument from './components/CreateDocument.vue'
 
 export const routes = [
-    {path: '/account', component: LoginOrRegister},
-    {path: '/login' ,component: Login},
-    {path: '/register', component: Register},
-    {path: '/profile', component: Profile},
-    {path: '/editProfile', component: EditProfile},
-    {path: '/home', component: Home},
+    {name: 'account', path: '/account', component: LoginOrRegister},
+    {name: 'login', path: '/login' ,component: Login},
+    {name: 'register', path: '/register', component: Register},
+    {name: 'profile', path: '/profile', component: Profile},
+    {name: 'editProfile', path: '/editProfile', component: EditProfile},
+    {name: 'home', path: '/home', component: Home},
     {name: 'classrooms', path: '/classrooms',component: Classrooms},
 
     {name: 'classroom' ,path: '/classroom/:className',component: Classroom},
     {name: 'assignment', path: '/classroom/:className/assignments/:assignmentId' , component: Assignment, append: true},
     {name: 'createAssignment' , path: '/classroom/:className/createAssignment'  , component: CreateAssignment},
     {name: 'createClass' , path: '/createClass' , component: CreateClassroom},
-    {path: '/notifications', component: Notifications},
+    {name: 'createDocument',path: '/classroom/:className/createDocument',component: CreateDocument},
+    {name: 'notifications', path: '/notifications', component: Notifications},
     {name: 'notFound', path: '/notFound', component: NotFound},
     {path: '/', component: Home},
-    {name: 'editClassroom' ,path: '/classroom/:className/editClassroom', component: EditClassroom},
-    {path: '*' , redirect:'/notFound'}, //for non-specified routes, redirect to the homepage
+    {name: 'editClassroom', name: 'editClassroom' ,path: '/classroom/:className/editClassroom', component: EditClassroom},
+    {name: 'redirect', path: '*' , redirect:'/notFound'}, //for non-specified routes, redirect to the homepage
     
 ];

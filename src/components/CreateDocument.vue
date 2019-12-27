@@ -1,118 +1,71 @@
 <template>
-    <div class="wrapper">
-        <div>
-          <div >
-            <h1>
-               اطلاعات کلاس 
-            </h1>
 
-            <div >
-              <input
-                  v-model="lessonName"
-                  type="text"
-                  pattern="[a-z A-Z]*"
-                  required
-                  placeholder="نام درس"
-              />
-              <div class="requirements">
-              .نام درس باید فقط شامل حروف و فاصله باشد 
-              </div>
-            </div>
-          </div>
-        </div>
-
+    <div class="wrapper" style="width:65%;">
         
-        <div>
-          <div>
-            <h1>
-               توضیحات کلاس
-            </h1>
-            <input style="height: 120px"
-              v-model="description"
-              type="text"
-              pattern="[a-z_ ,.A-Z0-9-!]{3,}"
-              required
-              placeholder="توضیحات کلاس"
-            />
-            <div class="requirements">
-            .توضیحات کلاس باید شامل حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد ، و کاراکتر های رایج باشد 
+        <h1>
+            اطلاعات فایل
+        </h1> 
+        <div style=" display:flex; flex-direction:column;">
+            <div style="width: 30%; float:right; min-width:150px">
+                <input
+                    type="text"
+                    v-model="subject"
+                    pattern="[a-z A-Z]*"
+                    placeholder="عنوان فایل"
+                    required="required"
+                />
+                <div class="requirements">
+                .عنوان فایل باید فقط شامل حروف و فاصله باشد 
+                </div>
             </div>
-          </div>
-          
+            <div style="width : 60%; float:right; min-width:200px;s">
+                <input
+                    v-model="description"
+                    type="text"
+                    pattern="[a-z_ ,.A-Z0-9-!]{3,}"
+                    required
+                    placeholder="توضیحات تمرین"
+                />
+                <div class="requirements">
+                    .توضیحات فایل باید شامل حداقل ۳ کاراکتر و فقط شامل حروف ، اعداد ، و کاراکتر های رایج باشد 
+                </div>
+            </div>
         </div>
-        <div style="width: 20%;" class="button" id="button-3" @click="submitClass">
-          <div id="circle"></div>
-          <a href="#">ساخت کلاس</a>
+        <div>
+        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
         </div>
+        <div style="margin-top = 10px; width: 100%;">
+            <div class="button" id="button-3" style="width: 40%" @click="addDocument">
+            <div id="circle"></div>
+            <a>اضافه کردن فایل</a>
+            </div>
+        </div> 
         <div style="width: 100%">
-          <loading v-if="waiting" ></loading>
+            <loading v-if="waiting" ></loading>
         </div>
 
     </div>
+
    
 </template>
 
 <script>
 import loading from '../../public/loading.vue'
-import store from './../store.js'
 export default {
- beforeRouteEnter : (to,from,next)=>{
-          if(!localStorage.token){
-              alert("ابتدا وارد حساب کاربری خود شوید")
-              next('/account')
-          }else{
-              next()
-          }
-          
-    },
-  
-mounted: function(){
-        store.dispatch('getClassroomDetails',
-        {
-            className: this.$route.params.className,
-            success:(data)=>{
-                this.description = data.description
-                this.lessonName = data.lesson.name
-                this.className = data.name
-                if(data.role == "teacher"){
-                  
-                }else{
-                  alert("شما اجازه ی ایجاد تغییرات در کلاس را ندارید")
-                  this.$router.push({name: 'classrooms'})
-                }
-            },
-            failure:(message)=>{ 
-                // alert("خطا به هنگام گرفتن اطلاعات مربوط به کلاس") 
-                alert(message)
-                this.$router.push({name: 'notFound'})
-            }
-        }
-        )
-    },
     components:{
         'loading': loading
     },
     data: function(){
         return{
-            className: "",
-            lessonName: "",
+            subject: "",
             description: "",
+            file: "",
             waiting : false
         }
         
     },
     methods:{
-        checkLessonName(){  
-            var nametest =/^[a-zA-Z\s.]*$/
-            if(nametest.test(this.lessonName)){
-                console.log("lessonName is fine")
-                return true;
-            }else{
-                console.log("lessonName is wrong")
-                return false;
-            }
-        },
-        checkDescription(){ 
+        checkDescription(){
             var nametest =/^[a-z_ ,.A-Z0-9-!]{3,}$/
             if(nametest.test(this.description)){
                 console.log("description is fine")
@@ -122,37 +75,50 @@ mounted: function(){
                 return false;
             }
         },
-       
-        checkAll(){
-            return this.checkLessonName () && this.checkDescription()
+        checkSubject: function(){
+            var nametest =/^[a-zA-Z\s.]*$/
+            if(nametest.test(this.subject)){
+                console.log("subject is fine")
+                return true;
+            }else{
+                console.log("subject is wrong")
+                return false;
+            }
         },
-        submitClass(){
+        checkAll(){
+            return this.checkSubject() && this.checkDescription()
+        },
+        addDocument(){
             this.waiting = true
             
             if(this.checkAll()){
-                const classData = {
-                    lesson: {name: this.lessonName},
-                    description: this.description,
-                    name: this.className,
-                }
-                console.log(classData)
-                // this.$store.dispatch('submitClass',{
-                //  classData: classData,
-                //  success:(data)=>{
-                //      this.waiting = false
-                //      console.log("success callback:",data)
-                //      this.$router.push({name: 'classroom', params:{className: classData.name}})
-                //  },
-                //  failure:(message)=>{
-                //     //  alert("خطا به هنگام ایجاد کلاس جدید")
-                //      aler(message)
-                //      this.waiting = false
-                //      }
-                // })
+                let formData = new FormData();
+                formData.append('file', this.file);
+                formData.append('description',this.description)
+                formData.append('subject',this.subject)
+                formData.append('accessLevel','ALL_STUDENTS')
+
+                this.$store.dispatch('newDocument',{
+                    formData: formData,
+                    className: this.$route.params.className,
+                    success:()=>{
+                        this.waiting = false
+                        this.$router.push({name: 'classroom', params:{className: this.$route.params.className}})
+                    },
+                    failure:(message)=>{
+                        // alert("خطا به هنگام ایجاد فایل جدید")
+                        alert(message)
+                        this.waiting = false
+                    }
+                })
             }else{
                 alert("اطلاعات وارد شده صحیح نیست!، لطفا موارد قرمز را برطرف کرده و هیچ قسمتی را خالی نگذارید")
+
                 this.waiting = false
             }
+        },
+        handleFileUpload(){
+            this.file = this.$refs.file.files[0];
         }
     }
 }
@@ -197,9 +163,8 @@ input:focus {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  text-align: center;
 }
-.wrapper h1{
+.wrapper h1 {
   font-family: "Baloo Bhaijaan", cursive;
   color: black;
   letter-spacing: 0px;
@@ -207,10 +172,10 @@ input:focus {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.wrapper hr{
+.wrapper hr {
   opacity: 0.2;
 }
-.crtacc{
+.crtacc {
   margin-left: 75px;
 }
 </style>

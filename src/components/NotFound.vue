@@ -32,7 +32,7 @@
 export default {
     methods:{
         goHome: function(){
-            this.$router.push({path:'/home'})
+            this.$router.push({name:'home'})
         }
     }
 }

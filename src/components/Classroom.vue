@@ -1,8 +1,11 @@
 <template>
     <div class="wrapper">
         <h1>
-        : نام انحصاری کلاس
+        : اطلاعات کلاس
         </h1>  
+        <p>
+            نام انحصاری کلاس
+        </p>
         <p>
             {{name}}
         </p>
@@ -12,7 +15,10 @@
         </p>
 
         <div>
+            <h1>
                 : اطلاعات درس
+            </h1>
+                
             <p>
                : نام درس
                 {{lesson}}
@@ -55,6 +61,10 @@
 
             <button  @click="addHomework">
                 تکلیف جدید
+            </button>
+
+            <button @click="addDocument">
+                اضافه کردن محتوای جدید
             </button>
         </div>
         
@@ -135,7 +145,10 @@ export default {
     },
     methods:{
         addHomework(){
-            this.$router.push({name: 'createAssignment',params:{className: this.$route.params.className}} ) //TODO implemet newHomework page
+            this.$router.push({name: 'createAssignment',params:{className: this.$route.params.className}})
+        },
+        addDocument(){
+            this.$router.push({name: 'createDocument', params: {className: this.$route.params.className}})
         },
         editClass(){
             this.$router.push({name: 'editClassroom', params:{className: this.$route.params.className}})

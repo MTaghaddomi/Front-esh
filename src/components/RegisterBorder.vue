@@ -101,7 +101,7 @@ export default {
             this.$store.dispatch("getProfile", {
               success: () => {
                 this.waiting = false;
-                this.$router.push({ path: "/profile" });
+                this.$router.push({ name: 'profile'});
               },
               failure: (message) => {
                 this.waiting = false;

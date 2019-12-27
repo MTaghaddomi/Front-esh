@@ -260,10 +260,22 @@ export default new Vuex.Store({
                 }
             )
         },
-        getAssignmentDetails({state},args){
+        getAssignmentDetails({state},args){ //TODO
             console.log("starting getAssignmentDetails action")
             //customAxios.get
         },
+        submitHomework({state},args){ //TODO
+            console.log("starting submitHomework action")
+            //customAxios.post
+        },
+        newDocument({state},args){ //TODO
+            console.log("starting newDocument action")
+            //customAxios.post
+        },
+        newAssignment({state},args){ //REDO !
+            //customAxios.post
+        }
+        ,
         joinClass({state},args){
             console.log("startin join action")
             console.log(args.className)

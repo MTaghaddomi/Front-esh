@@ -25,16 +25,16 @@
 export default {
   methods: {
     home: function(){
-      this.$router.push("/home")
+      this.$router.push({name: 'home'})
     },
     profile: function() {
-      this.$router.push("/profile");
+      this.$router.push({name: 'profile'});
     },
     classrooms: function() {
-      this.$router.push("/classrooms");
+      this.$router.push({name: 'classrooms'});
     },
     notifications: function() {
-      this.$router.push("/notifications");
+      this.$router.push({name: 'notifications'});
     }
   }
 };

@@ -169,7 +169,7 @@ export default {
                     },
                     failure:(message)=>{
                         // alert("خطا به هنگام ایجاد تکلیف جدید")
-                        alrt(message)
+                        alert(message)
                         this.waiting = false
                     }
                 })
@@ -277,57 +277,6 @@ input[type="text"] {
     }
   }
 }
-input[type="phonenumber"] {
-  &:valid {
-    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
-    background-size: 20px;
-    background-repeat: no-repeat;
-    background-position: 20px 20px;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:not(:focus):not(:placeholder-shown) {
-    background: pink;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:focus:not(:placeholder-shown) {
-    & ~ .requirements {
-      max-height: 200px;
-      padding: 0 30px 20px 50px;
-    }
-  }
-}
-input[type="email"] {
-  &:valid {
-    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
-    background-size: 20px;
-    background-repeat: no-repeat;
-    background-position: 20px 20px;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:not(:focus):not(:placeholder-shown) {
-    background: pink;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:focus:not(:placeholder-shown) {
-    & ~ .requirements {
-      max-height: 200px;
-      padding: 0 30px 20px 50px;
-    }
-  }
-}
-
 .requirements {
   padding: 0 30px 0 50px;
   color: #999;

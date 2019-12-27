@@ -62,11 +62,11 @@ export default {
     },
     methods:{
       editProfile: function(){
-        this.$router.push({path: '/editProfile'})
+        this.$router.push({name: 'editProfile'})
       },
       logout: function(){
         this.$store.dispatch('logout')
-        this.$router.push({path: '/account'})
+        this.$router.push({name: 'account'})
       },
       getBirthdayRight: function(date){
 

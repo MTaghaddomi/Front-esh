@@ -28,10 +28,10 @@ export default {
   },
   methods: {
     navigateToLogin: function() {
-      this.$router.push("/Login");
+      this.$router.push({name: 'login'});
     },
     navigateToRegister: function() {
-      this.$router.push("/Register");
+      this.$router.push({name: 'register'});
     }
   }
 };

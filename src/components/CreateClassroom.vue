@@ -35,52 +35,6 @@
     
 
           </div>
-          <!-- <div style="width:45% ; float: left;">
-            <h1>
-               اطلاعات مدرس 
-            </h1>
-
-            <div>
-                <input
-                    v-model="firstName"
-                    type="text"
-                    pattern="[a-z A-Z]*"
-                    required
-                    placeholder="نام"
-                />
-                <div class="requirements">
-                .نام شما باید فقط شامل حروف و فاصله باشد
-                </div>
-            </div>
-
-            <div>
-                <input
-                    v-model="lastName"
-                    type="text"
-                    pattern="[a-z A-Z]*"
-                    required
-                    placeholder="نام خانوادگی"
-                />
-                <div class="requirements">
-                   .نام خانوادگی شما باید فقط شامل حروف و فاصله باشد
-                </div>
-            </div>
-
-            <div>
-                <input
-                    v-model="email"
-                    type="text"
-                    pattern="[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*"
-                    required
-                    placeholder="پست الکترونیک"
-                />
-                <div class="requirements">
-                    .پست الکترونیک شما باید معتبر باشد
-                </div>
-            </div>
-
-            
-          </div> -->
         </div>
         <div>
           <div>
@@ -142,9 +96,6 @@ export default {
             className: "",
             lessonName: "",
             description: "",
-           /* firstName: "",
-            lastName: "",
-            email: "",*/
             waiting : false
         }
         
@@ -180,40 +131,8 @@ export default {
                 return false;
             }
         },
-       /* checkFirstName: function(){
-            var nametest =/^[a-zA-Z\s.]*$/
-            if(nametest.test(this.firstname)){
-                console.log("firstname is fine")
-                return true;
-            }else{
-                console.log("firstname is wrong")
-                return false;
-            }
-        },
-        checkLastName: function(){
-            var nametest = /^[a-zA-Z\s.]*$/ 
-            if(nametest.test(this.lastname)){
-                console.log("lastname is fine")
-                return true;
-            }else{
-                console.log("lastname is wrong")
-                return false;
-            }
-        },
-        checkEmail: function(){
-            var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/
-            if(emailtest.test(this.email) || this.email == null){
-                console.log("email is fine")
-                return true;
-            }else{
-                console.log("email is wrong")
-                return false;
-            }
-            
-        },*/
         checkAll(){
             return this.checkClassName() && this.checkLessonName () && this.checkDescription()
-               // && this.checkFirstName() &&this.checkLastName() && this.checkEmail()
         },
         submitClass(){
             this.waiting = true
@@ -223,9 +142,6 @@ export default {
                     lesson: {name: this.lessonName},
                     description: this.description,
                     name: this.className,
-                    // firstName: this.firstName,
-                    // lastName: this.lastName,
-                    // email: this.email
                 }
                 console.log(classData)
                 this.$store.dispatch('submitClass',{
@@ -332,57 +248,6 @@ input[type="text"] {
     }
   }
 }
-input[type="phonenumber"] {
-  &:valid {
-    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
-    background-size: 20px;
-    background-repeat: no-repeat;
-    background-position: 20px 20px;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:not(:focus):not(:placeholder-shown) {
-    background: pink;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:focus:not(:placeholder-shown) {
-    & ~ .requirements {
-      max-height: 200px;
-      padding: 0 30px 20px 50px;
-    }
-  }
-}
-input[type="email"] {
-  &:valid {
-    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
-    background-size: 20px;
-    background-repeat: no-repeat;
-    background-position: 20px 20px;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:not(:focus):not(:placeholder-shown) {
-    background: pink;
-    & + label {
-      opacity: 0;
-    }
-  }
-
-  &:invalid:focus:not(:placeholder-shown) {
-    & ~ .requirements {
-      max-height: 200px;
-      padding: 0 30px 20px 50px;
-    }
-  }
-}
-
 .requirements {
   padding: 0 30px 0 50px;
   color: #999;
