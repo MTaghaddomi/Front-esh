@@ -7,7 +7,7 @@
             </h1>
 
             <smallClass v-for="enrolled in enrolledList"
-                :classroom="enrolled" :key="enrolled.className"/>
+                :classroom="enrolled" :key="enrolled.name"/>
         </div>
 
         <div v-else id="main">
@@ -58,7 +58,7 @@ export default {
     mounted: function(){
       store.dispatch('getEnrolledClassrooms',{
             success:(data)=>{
-                this.enrolledList = data.classrooms  //TODO: check this line
+                this.enrolledList = data  //TODO: check this line
                 if(this.enrolledList == null){
                     this.noClass = true;
                 }else{
@@ -69,7 +69,7 @@ export default {
             failure:(message)=>{
                 this.noClass = true;
                 // alert("خطا به هنگام دریافت کلاس های شما")
-                alrt(message)
+                alert(message)
             }
         })
     },

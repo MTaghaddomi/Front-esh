@@ -1,6 +1,6 @@
 <template>
-    <div @click="selected" >
-        {{classroom.className}}, {{classroom.lessonName}}, {{classroom.lastName}}
+    <div @click="selected">
+        {{classroom.name}}, {{classroom.lesson}}, {{classroom.teacher}}
     </div>
 </template>
 
@@ -10,7 +10,7 @@ export default {
     ,
     methods:{
         selected(){
-            this.$router.push({name:"classroom" , params:{className: this.classroom.className}})
+            this.$router.push({name:"classroom" , params:{className: this.classroom.name}})
         }
     }
 }
