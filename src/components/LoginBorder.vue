@@ -1,10 +1,5 @@
 <template>
   <div class="wrapper animated bounce">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-
     <h1>ورود</h1>
     <form>
       <div>
@@ -39,7 +34,7 @@
         <div id="circle"></div>
         <a href="#">بزن بریم</a>
       </div>
-      
+
       <div style="width: 100%">
         <loading v-if="waiting"></loading>
       </div>
@@ -115,10 +110,6 @@ export default {
 </script>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css?family=Open+Sans";
-@import "https://fonts.googleapis.com/css?family=Galada";
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
 input {
   padding: 20px 20px 20px 50px;
   width: 100%;

@@ -20,7 +20,7 @@ export default {
 
 <style>
 #app {
-  font-family: "Baloo Bhaijaan", cursive;
+  font-family: "Almarai", sans-serif;
   -webkit-font-smoothing: antialiased;
   text-align: center;
   margin-top: 60px;
@@ -32,7 +32,7 @@ html {
 body {
   width: 100%;
   height: 100%;
-  font-family: "Baloo Bhaijaan", cursive;
+  font-family: "Almarai", sans-serif;
   background-attachment: fixed;
   background: #d3cce3; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -58,7 +58,7 @@ body {
   -webkit-border-radius: 5px;
 }
 .wrapper h1 {
-  font-family: "Galada", cursive;
+  font-family: "Almarai", sans-serif;
   color: #f4f4f4;
   letter-spacing: 0px;
   text-align: center;

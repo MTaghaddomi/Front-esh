@@ -16,7 +16,6 @@ export default {
 
 <style scoped>
 #app {
-  font-family: "Baloo Bhaijaan", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
