@@ -89,20 +89,29 @@ export default {
         };
         this.waiting = true;
 
-        this.$store.dispatch("login", {
-          loginRequest: loginRequest,
-          success: () => {
-            this.waiting = false;
-            this.$router.push({ path: "/profile" });
-          },
-          failure: () => {
-            this.waiting = false;
-            console.log("failed to login");
-            alert("خطا به هنگام ورود");
-          }
-        });
-      } else {
-        alert("اطلاعات وارد شده صحیح نیست، لطفا موارد قرمز را برطرف کنید");
+        if (this.checkAll()) {
+          const loginRequest = {
+            username: this.username,
+            password: this.password
+          };
+          this.waiting = true;
+
+          this.$store.dispatch("login", {
+            loginRequest: loginRequest,
+            success: () => {
+              this.waiting = false;
+              this.$router.push({ path: "/profile" });
+            },
+            failure: message => {
+              this.waiting = false;
+              console.log("failed to login");
+              //  alert("خطا به هنگام ورود")
+              alert(message);
+            }
+          });
+        } else {
+          alert("اطلاعات وارد شده صحیح نیست، لطفا موارد قرمز را برطرف کنید");
+        }
       }
     }
   }

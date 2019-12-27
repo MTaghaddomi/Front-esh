@@ -103,15 +103,16 @@ export default {
                 this.waiting = false;
                 this.$router.push({ path: "/profile" });
               },
-              failure: () => {
+              failure: (message) => {
                 this.waiting = false;
-                alert("خطا به هنگام دریافت اطلاعات حساب");
+                // alert("خطا به هنگام دریافت اطلاعات حساب") 
+                alert(message)
               }
             });
           },
-          failure: () => {
+          failure: (message) => {
             this.waiting = false;
-            alert("خطا به هنگام دریافت ثبت نام");
+            alert(message) 
           }
         });
       } else {

@@ -167,8 +167,9 @@ export default {
                         this.waiting = false
                         this.$router.push({name: 'classroom', params:{className: this.$route.params.className}})
                     },
-                    failure:()=>{
-                        alert("خطا به هنگام ایجاد تکلیف جدید")
+                    failure:(message)=>{
+                        // alert("خطا به هنگام ایجاد تکلیف جدید")
+                        alrt(message)
                         this.waiting = false
                     }
                 })

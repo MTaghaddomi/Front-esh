@@ -64,14 +64,14 @@ export default {
       succes: data => {
         this.subject = data.subject;
         this.description = data.description;
-
         this.deadline = data.deadline; //TODO: convert these to normal strings
         this.lateDeadline = data.lateDeadline;
         this.accessLevel = data.accessLevel;
       },
-      failure: () => {
+      failure: message => {
         console.log("failed to loadd the assignment");
-        alert("خطا به هنگام دریافت اطلاعات مربوط به تکلیف");
+        // alert("خطا به هنگام دریافت اطلاعات مربوط به تکلیف")
+        alert(message);
         // this.$router.push({name: 'notFound'})
       }
     });

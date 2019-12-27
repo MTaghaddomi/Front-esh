@@ -34,7 +34,7 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  : کلاس 
+                  : کلاس
                 </h4>
               </div>
               <div class="panel-body">
@@ -170,7 +170,6 @@
 
     </div>-->
 </template>
-
 <script>
 import SmallAssignment from "./SmallAssignment";
 import store from "../store.js";
@@ -190,7 +189,7 @@ export default {
       assignments: []
     };
   },
-  /*mounted: function() {
+  mounted: function() {
     store.dispatch("getClassroomDetails", {
       className: this.$route.params.className,
       success: data => {
@@ -223,12 +222,13 @@ export default {
         });
         console.log("success on loading all your classrooms");
       },
-      failure: () => {
-        alert("خطا به هنگام گرفتن اطلاعات مربوط به کلاس");
+      failure: message => {
+        // alert("خطا به هنگام گرفتن اطلاعات مربوط به کلاس")
+        alert(message);
         this.$router.push("/notFound");
       }
     });
-  },*/
+  },
   methods: {
     addHomework() {
       this.$router.push({

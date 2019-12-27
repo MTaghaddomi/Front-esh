@@ -167,43 +167,11 @@
   </div>
 </template>
 <script>
-import store from "../store.js";
-import loading from "../../public/loading.vue";
-export default {
-  components: {
-    loading: loading
-  },
-  beforeRouteEnter: (to, from, next) => {
-    if (store.getters.loggedin) {
-      console.log("you are loggedin!, loading your profile edit page");
-      next();
-    } else {
-      alert(" .ابتدا وارد حساب کاربری خود شوید");
-      console.log(
-        "you are not loggedin yet, re-directing you to Authentication page"
-      );
-     // next("/account");
-     next();
-    }
-  },
-  data: function() {
-    return {
-      firstname: store.getters.firstName,
-      lastname: store.getters.lastName,
-      email: store.getters.email,
-      phonenumber: store.getters.phoneNumber,
-      dateofbirth: store.getters.birthdayDate,
-      waiting: false
-    };
-  },
-  methods: {
-    checkAll: function() {
-      return (
-        this.checkfirstname() &&
-        this.checklastname() &&
-        this.checknumber() &&
-        this.checkemail()
-      );
+import store from '../store.js'
+import loading from '../../public/loading.vue'
+export default{
+    components:{
+      'loading': loading
     },
     beforeRouteEnter : (to,from,next)=>{
           if(!localStorage.token){
@@ -215,80 +183,110 @@ export default {
               next()
           }
     },
-    checkemail: function() {
-      var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/;
-      if (
-        emailtest.test(this.email) ||
-        this.email == "" ||
-        this.email == null
-      ) {
-        console.log("email is fine");
-        return true;
-      } else {
-        console.log("email is wrong");
-        return false;
+    data: function(){
+      return {
+        firstname: store.getters.firstName,
+        lastname:store.getters.lastName,
+        email: store.getters.email,
+        phonenumber: store.getters.phoneNumber,
+        dateofbirth: store.getters.birthdayDate,
+        waiting: false
       }
     },
-    toTimestamp: function(strDate) {
-      var datum = Date.parse(strDate);
-      return datum / 1000;
-    },
-    updateProfile() {
-      this.waiting = true;
-      console.log("checking your submission");
-
-      if (this.checkAll()) {
-        const updatedProfile = {
-          firstName: this.firstname,
-          lastName: this.lastname,
-          email: this.email,
-          phoneNumber: this.phonenumber,
-          birthday: this.toTimestamp(
-            this.dateofbirth.month +
-              "/" +
-              this.dateofbirth.day +
-              "/" +
-              this.dateofbirth.year
-          )
-        };
-        console.log("new profile is being submitted");
-        this.$store.dispatch("editProfile", {
-          updatedProfile: updatedProfile,
-          success: () => {
-            this.waiting = false;
-            this.$router.push({ path: "/profile" });
-          },
-          failure: () => {
-            alert("خطا به هنگام بروزرسانی حساب کاربری");
-            this.waiting = false;
-            console.log("failed to upddate your profile");
+    methods:{
+       checkAll: function(){
+         return this.checkfirstname() && this.checklastname()
+                && this.checknumber() && this.checkemail()
+       },
+       checkfirstname: function(){
+            var nametest =/^[a-zA-Z\s.]*$/
+            if(nametest.test(this.firstname) || this.firstname == "" || this.firstname == null){
+                console.log("firstname is fine")
+                return true;
+            }else{
+                console.log("firstname is wrong")
+                return false;
+            }
+        },
+        checklastname: function(){
+            var nametest = /^[a-zA-Z\s.]*$/ 
+            if(nametest.test(this.lastname) || this.lastname == "" || this.lastname== null){
+                console.log("lastname is fine")
+                return true;
+            }else{
+                console.log("lastname is wrong")
+                return false;
+            }
+        },
+        checknumber: function(){
+            var numbertest = /^09[0-9]{9}$/
+            if(numbertest.test(this.phonenumber) || this.phonenumber == ""|| this.phonenumber == null ){
+                console.log("phonenumber is fine")
+                return true;
+            }else{
+                console.log("phonenumber is wrong")
+                return false;
+            }
+        },
+        checkemail: function(){
+            var emailtest = /^[a-zA-Z0-9.!#$%’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/
+            if(emailtest.test(this.email) || this.email == "" || this.email == null){
+                console.log("email is fine")
+                return true;
+            }else{
+                console.log("email is wrong")
+                return false;
+            }
+            
+        },
+        toTimestamp: function(strDate){
+          var datum = Date.parse(strDate);
+          return datum/1000;
+        },
+        updateProfile(){
+          this.waiting = true;
+          console.log("checking your submission")
+          
+          if(this.checkAll()){
+            const updatedProfile = {     
+              firstName: this.firstname,
+              lastName: this.lastname,
+              email: this.email,
+              phoneNumber: this.phonenumber,
+              birthday: this.toTimestamp(this.dateofbirth.month+"/"+this.dateofbirth.day+"/"+this.dateofbirth.year)
+            }
+            console.log("new profile is being submitted")
+            this.$store.dispatch('editProfile',{
+              updatedProfile:updatedProfile,
+              success:()=>{
+                this.waiting = false;
+                this.$router.push({path: '/profile'}) 
+              },
+              failure:(message)=>{
+                // alert("خطا به هنگام بروزرسانی حساب کاربری");
+                alert(message)
+                this.waiting = false;
+                console.log("failed to upddate your profile");
+                
+              },
+            });
+          }else{
+            alert(".اطلاعات وارد شده صحیح نیست! موارد قرمز را برطرف کنید")
+            this.waiting = false
           }
-        });
-      } else {
-        alert(".اطلاعات وارد شده صحیح نیست! موارد قرمز را برطرف کنید");
-        this.waiting = false;
-      }
-    },
-    range: function(min, max) {
-      var array = [],
-        j = 0;
-      for (var i = min; i <= max; i++) {
-        array[j] = i;
-        j++;
-      }
-    },
-
-    range: function(min, max) {
-      var array = [],
-        j = 0;
-      for (var i = min; i <= max; i++) {
-        array[j] = i;
-        j++;
-      }
-      return array;
+          
+        },
+        range: function(min,max){
+          var array = [],
+          j = 0;
+          for(var i = min; i <= max; i++){
+            array[j] = i;
+            j++;
+          }
+          return array;
+        }
     }
-  }
-};
+  };
 </script>
 <style scoped>
 body {
